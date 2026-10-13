@@ -1,0 +1,57 @@
+{
+ "reduzido": {
+  "armados": 0,
+  "valores": "1,1,1"
+ },
+ "trilha_1440_classes_no_fim": "trilha",
+ "trilha_390_classes_no_fim": "trilha",
+ "abaOculta": {
+  "aoOcultar": "trilha armada desenhando pausada",
+  "depoisDe1500ms": "trilha armada desenhando pausada",
+  "aoVoltar": "trilha"
+ },
+ "teclado": [
+  "A #conteudo \"Pular para o conteúdo\" contorno=solid 3px",
+  "A #topo \"\" contorno=solid 3px",
+  "A #cadastro \"Quero fazer parte da Liga\" contorno=solid 3px",
+  "A #cadastro \"Quero fazer parte da Liga\" contorno=solid 3px",
+  "A #cadastro \"Quero fazer parte da Liga\" contorno=solid 3px",
+  "A https://fordoctor.com.br/abertura-de-empresa/ \"abertura de empresa para médic\" contorno=solid 3px",
+  "A #cadastro \"Quero fazer parte da Liga\" contorno=solid 3px",
+  "SUMMARY  \"Todo médico recém-formado prec\" contorno=solid 3px",
+  "SUMMARY  \"É possível abrir uma PJ antes \" contorno=solid 3px",
+  "SUMMARY  \"Vale a pena abrir uma PJ para \" contorno=solid 3px",
+  "SUMMARY  \"Quanto um médico paga de impos\" contorno=solid 3px",
+  "SUMMARY  \"É melhor trabalhar como pessoa\" contorno=solid 3px",
+  "SUMMARY  \"Preciso contratar um contador \" contorno=solid 3px",
+  "SUMMARY  \"Posso trocar de contador depoi\" contorno=solid 3px",
+  "INPUT form-field-first_namae \"Nome\" contorno=solid 3px",
+  "INPUT form-field-last_name \"Sobrenome\" contorno=solid 3px",
+  "INPUT form-field-email \"E-mail\" contorno=solid 3px",
+  "INPUT form-field-field_f2695ae \"WhatsApp com DDD\" contorno=solid 3px",
+  "SELECT form-field-periodo \"Período na faculdade\" contorno=solid 3px",
+  "BUTTON  \"Enviar meu cadastro\" contorno=solid 3px",
+  "A https://fordoctor.com.br/privacidade/ \"política de privacidade\" contorno=solid 3px",
+  "A https://fordoctor.com.br/privacidade/ \"Política de privacidade\" contorno=solid 3px",
+  "BODY  \"Pré-visualização v0.1.0 para r\" contorno=none 3px"
+ ],
+ "erros": [
+  "Escreva seu nome.",
+  "Escreva seu sobrenome.",
+  "Escreva seu e-mail.",
+  "Escreva seu WhatsApp com DDD.",
+  "Escolha o seu período.",
+  "status: Confira os campos destacados para enviar seu cadastro.",
+  "foco em: form-field-first_namae"
+ ],
+ "mascara": "(31) 99999-8888",
+ "enviando": "Enviando… | desabilitado=true",
+ "enviado": "Cadastro recebido ✓",
+ "sucesso": {
+  "painelVisivel": true,
+  "focoEm": "sucesso"
+ },
+ "utm": "teste-qa / preview / liga",
+ "erroEnvio": "Não foi possível enviar seu cadastro agora. Tente de novo em alguns instantes ou fale com a ForDoctor pelo WhatsApp (31) 99712-5537. | botão: Enviar meu cadastro",
+ "fonteViaArquivo": "Dosis (web)"
+}

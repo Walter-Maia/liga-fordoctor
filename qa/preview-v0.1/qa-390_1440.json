@@ -1,0 +1,96 @@
+[
+ {
+  "W": 390,
+  "H": 844,
+  "scrollW": 390,
+  "docH": 11323,
+  "estouro": [],
+  "alvos": [
+   {
+    "t": "ForDoctor, voltar ao topo",
+    "w": 132,
+    "h": 36,
+    "inline": false
+   },
+   {
+    "t": "Política de privacidade",
+    "w": 145,
+    "h": 25,
+    "inline": false
+   }
+  ],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 468,
+  "formTelas": 11.6,
+  "maxLinha": 52,
+  "campos": [
+   "17px"
+  ],
+  "h1": "33.34px",
+  "requisicoes": 9,
+  "kb": 198,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1440,
+  "H": 900,
+  "scrollW": 1440,
+  "docH": 7803,
+  "estouro": [],
+  "alvos": [
+   {
+    "t": "Política de privacidade",
+    "w": 145,
+    "h": 25,
+    "inline": false
+   }
+  ],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 7.6,
+  "maxLinha": 89,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ }
+]

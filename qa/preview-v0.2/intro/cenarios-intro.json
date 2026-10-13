@@ -1,0 +1,89 @@
+{
+ "primeira_e_segunda_visita": {
+  "durante": {
+   "overlay": true,
+   "tocando": true,
+   "classes": "js intro-ativa",
+   "cabecalho": "0",
+   "hash": "",
+   "sessao": null
+  },
+  "overlayRemovidoEmMs": 4018,
+  "depois": {
+   "overlay": false,
+   "tocando": false,
+   "classes": "js",
+   "cabecalho": "1",
+   "hash": "",
+   "sessao": "1"
+  },
+  "segunda": {
+   "overlay": false,
+   "tocando": false,
+   "classes": "js",
+   "cabecalho": "1",
+   "hash": "",
+   "sessao": "1"
+  }
+ },
+ "esc_no_meio": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "",
+  "sessao": "1"
+ },
+ "clique_no_meio": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "",
+  "sessao": "1",
+  "scrollY": 0
+ },
+ "com_ancora": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "#cadastro",
+  "sessao": null
+ },
+ "movimento_reduzido": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "",
+  "sessao": null
+ },
+ "intro_js_bloqueado": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "0.975246",
+  "hash": "",
+  "sessao": null
+ },
+ "aba_oculta": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "",
+  "sessao": "1"
+ },
+ "cpu_4x_mobile": {
+  "overlay": false,
+  "tocando": false,
+  "classes": "js",
+  "cabecalho": "1",
+  "hash": "",
+  "sessao": "1",
+  "tocou": true,
+  "liberadoEmMs": 5516
+ },
+ "sem_js": "ver captura sem-js-1280.jpg"
+}

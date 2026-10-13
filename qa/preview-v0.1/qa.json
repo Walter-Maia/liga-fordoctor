@@ -1,0 +1,403 @@
+[
+ {
+  "W": 320,
+  "H": 568,
+  "scrollW": 320,
+  "docH": 12196,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 520,
+  "formTelas": 18.6,
+  "maxLinha": 41,
+  "campos": [
+   "17px"
+  ],
+  "h1": "32px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 360,
+  "H": 780,
+  "scrollW": 360,
+  "docH": 11574,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 499,
+  "formTelas": 12.8,
+  "maxLinha": 48,
+  "campos": [
+   "17px"
+  ],
+  "h1": "32.56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 390,
+  "H": 844,
+  "scrollW": 390,
+  "docH": 11343,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 468,
+  "formTelas": 11.6,
+  "maxLinha": 52,
+  "campos": [
+   "17px"
+  ],
+  "h1": "33.34px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 414,
+  "H": 896,
+  "scrollW": 414,
+  "docH": 11086,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [],
+  "ctaNaDobra": true,
+  "ctaBottom": 470,
+  "formTelas": 10.7,
+  "maxLinha": 55,
+  "campos": [
+   "17px"
+  ],
+  "h1": "33.964px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 768,
+  "H": 1024,
+  "scrollW": 768,
+  "docH": 9098,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [],
+  "ctaNaDobra": true,
+  "ctaBottom": 486,
+  "formTelas": 7.7,
+  "maxLinha": 101,
+  "campos": [
+   "17px"
+  ],
+  "h1": "43.168px",
+  "requisicoes": 8,
+  "kb": 203,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "14KB liga-estudante-888.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 820,
+  "H": 1180,
+  "scrollW": 820,
+  "docH": 9010,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [],
+  "ctaNaDobra": true,
+  "ctaBottom": 491,
+  "formTelas": 6.6,
+  "maxLinha": 111,
+  "campos": [
+   "17px"
+  ],
+  "h1": "44.52px",
+  "requisicoes": 8,
+  "kb": 203,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "14KB liga-estudante-888.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1024,
+  "H": 768,
+  "scrollW": 1024,
+  "docH": 8526,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 690,
+  "formTelas": 9.9,
+  "maxLinha": 78,
+  "campos": [
+   "17px"
+  ],
+  "h1": "49.824px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1280,
+  "H": 800,
+  "scrollW": 1280,
+  "docH": 7944,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 8.8,
+  "maxLinha": 85,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1366,
+  "H": 768,
+  "scrollW": 1366,
+  "docH": 7916,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 9.1,
+  "maxLinha": 85,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1440,
+  "H": 900,
+  "scrollW": 1440,
+  "docH": 7916,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 7.8,
+  "maxLinha": 85,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ },
+ {
+  "W": 1920,
+  "H": 1080,
+  "scrollW": 1920,
+  "docH": 7916,
+  "estouro": [],
+  "alvos": [],
+  "viuvas": [
+   "PJ médica para recém-formados → recém-formados"
+  ],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 6.5,
+  "maxLinha": 85,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 8,
+  "kb": 196,
+  "erros404": [],
+  "imagens": [
+   "11KB liga-kit-480.avif",
+   "30KB logo-fordoctor.svg",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113"
+  ]
+ }
+]

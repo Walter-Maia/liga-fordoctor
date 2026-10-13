@@ -1,0 +1,8 @@
+# dependências e temporários
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+# perfis temporários do Edge criados pelos scripts de QA
+liga-qa-edge-*/
+edge-profile-*/

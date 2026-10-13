@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Template de intro vetorial</title>
+<!--
+  TEMPLATE DA SKILL efeito-de-intro — ponto de partida para qualquer intro.
+  Troque: (1) o SVG dentro de montarSVG(), (2) os keyframes/tempos do bloco "ROTEIRO", (3) as cores em :root,
+  (4) DURACAO no JS. Não remova a infraestrutura (head, cobertura, failsafes, pular, limpeza, movimento reduzido).
+  O símbolo (círculo) e a palavra (texto) daqui são genéricos: num projeto real use os PATHS OFICIAIS do logo.
+-->
+<style>
+  :root {
+    --intro-bg: #0d1b2a;      /* cor mais escura da marca */
+    --c1: #f2b134;            /* cores da animação (paleta da marca) */
+    --c2: #3cbcd5;
+    --c3: #ffffff;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: #f4f1ea; color: #0d1b2a; }
+
+  /* ---- hero de exemplo: entra quando a intro começa a dissolver (--rise-start) ---- */
+  .hero { min-height: 100vh; display: grid; place-content: center; text-align: center; padding: 24px; }
+  .hero h1 { font-size: clamp(36px, 6vw, 80px); margin: 0 0 12px; animation: rise .9s var(--ease) var(--rise-start, 0s) both; }
+  .hero p { animation: rise .9s var(--ease) calc(var(--rise-start, 0s) + .12s) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+  html.intro-active, html.intro-leaving { --rise-start: 2.4s; }
+
+  /* ---- INFRAESTRUTURA: cobertura antes do JS + failsafe (some sozinha se o JS não vier) ---- */
+  html.intro-active::before {
+    content: ''; position: fixed; inset: 0; z-index: 900; background: var(--intro-bg);
+    animation: intro-failsafe .5s 4.6s both;
+  }
+  @keyframes intro-failsafe { to { opacity: 0; visibility: hidden; } }
+  .intro { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--intro-bg); }
+  .intro.is-leaving { animation: i-leave .45s ease forwards; }
+  .intro.is-leaving .intro-logo { animation: i-zoom .6s var(--ease) forwards; }
+  @keyframes i-leave { to { opacity: 0; } }
+  @keyframes i-zoom { to { transform: scale(1.04); } }
+  .intro-logo { width: min(78vw, 520px); height: auto; overflow: visible; }
+
+  /* ==========================================================================
+     ROTEIRO (t = 0 quando .is-playing entra) — manter esta tabela atualizada
+     0,00–0,95 contorno do símbolo se desenha ............ T1
+     0,30–1,80 faixa translúcida atravessa o símbolo ...... T5
+     0,35–1,85 fatias de cor giram dentro do símbolo ...... T4
+     0,90 + n·0,07 letras sobem uma a uma ................. T7
+     1,50–1,95 símbolo assenta na cor oficial ............. (settle)
+     1,55–1,95 contorno some
+     1,65–2,15 ponto estoura com overshoot ................ T8
+     1,85–2,30 slogan aparece
+     2,40      dissolução (0,45 s) ........................ T12
+     ========================================================================== */
+  .it-stroke { fill: none; stroke: var(--c3); stroke-width: .8; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .it-spin, .it-settle, .it-bands, .it-l, .it-dot, .it-slogan { opacity: 0; }
+  .it-spin { transform-box: view-box; transform-origin: 50px 50px; }
+  .it-l, .it-dot { transform-box: fill-box; transform-origin: center; }
+  .it-l { fill: var(--c3); font: 700 44px/1 system-ui, sans-serif; }
+  .it-slogan { fill: var(--c3); font: 500 9px/1 system-ui, sans-serif; letter-spacing: .02em; }
+
+  .intro.is-playing .it-stroke { animation: i-draw .95s cubic-bezier(.45, 0, .2, 1) forwards, i-out .4s ease 1.55s forwards; }
+  .intro.is-playing .it-bands  { animation: i-bands 1.5s ease .3s both; }
+  .intro.is-playing .it-band   { animation: i-slide 1.5s cubic-bezier(.3, 0, .2, 1) .3s both; }
+  .intro.is-playing .it-spin   { animation: i-spin 1.5s cubic-bezier(.2, .6, .2, 1) .35s both; }
+  .intro.is-playing .it-settle { animation: i-fade .45s ease 1.5s forwards; }
+  .intro.is-playing .it-l      { animation: i-letter .55s var(--ease) calc(.9s + var(--n) * .07s) forwards; }
+  .intro.is-playing .it-dot    { animation: i-pop .5s cubic-bezier(.34, 1.56, .64, 1) 1.65s forwards; }
+  .intro.is-playing .it-slogan { animation: i-fade .45s ease 1.85s forwards; }
+
+  @keyframes i-draw { to { stroke-dashoffset: 0; } }
+  @keyframes i-out { to { opacity: 0; } }
+  @keyframes i-fade { to { opacity: 1; } }
+  @keyframes i-bands { 0% { opacity: 0; } 20%, 70% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes i-slide { from { transform: translateX(-40px); } to { transform: translateX(160px); } }
+  @keyframes i-spin { 0% { opacity: 0; transform: rotate(-40deg); } 18% { opacity: 1; } 100% { opacity: 1; transform: rotate(500deg); } }
+  @keyframes i-letter { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+  @keyframes i-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro, html.intro-active::before { display: none; }
+    *, *::before, *::after { animation: none !important; }
+  }
+</style>
+<!-- INFRAESTRUTURA: decide antes da primeira pintura se a intro roda -->
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{
+  if(location.hash||document.hidden||window.pageYOffset>4||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  if(sessionStorage.getItem("it-intro")==="1")return; /* remova esta linha para rodar em toda visita */
+  d.classList.add("intro-active")}catch(e){}})();</script>
+</head>
+<body>
+  <main class="hero">
+    <h1>Hero do site</h1>
+    <p>A intro dissolve e este conteúdo entra no mesmo instante.</p>
+  </main>
+
+<script>
+(function intro() {
+  var root = document.documentElement;
+  if (!root.classList.contains('intro-active')) return;
+
+  var DURACAO = 2400;           // fim da coreografia (ms), igual ao --rise-start
+  var LIBERA_HERO = 1400;       // quanto depois da dissolução a hero termina de entrar
+  var overlay = null, done = false, timers = [];
+
+  function release() { root.classList.remove('intro-active', 'intro-leaving'); root.style.removeProperty('--rise-start'); }
+  function cleanup() {
+    timers.forEach(clearTimeout);
+    document.removeEventListener('keydown', onKey, true);
+    document.removeEventListener('visibilitychange', onHidden);
+    document.removeEventListener('wheel', onGesture, true);
+    document.removeEventListener('touchstart', onGesture, true);
+    document.removeEventListener('pointerdown', onGesture, true);
+    window.removeEventListener('scroll', onGesture);
+  }
+  function finish(natural) {
+    if (done) return;
+    done = true;
+    cleanup();
+    try { sessionStorage.setItem('it-intro', '1'); } catch (e) {}
+    if (natural) { root.classList.add('intro-leaving'); root.classList.remove('intro-active'); } else release();
+    if (!overlay) return;
+    overlay.classList.add('is-leaving'); // segue capturando cliques até sair do DOM
+    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, natural ? 480 : 320);
+    if (natural) setTimeout(release, LIBERA_HERO);
+  }
+  var ROLAGEM = { ' ': 1, PageDown: 1, PageUp: 1, ArrowDown: 1, ArrowUp: 1, End: 1, Home: 1 };
+  function onKey(e) {
+    if (ROLAGEM[e.key]) { e.preventDefault(); finish(false); }
+    else if (e.key === 'Escape' || e.key === 'Tab') finish(false);
+  }
+  function onHidden() { if (document.hidden) finish(false); }
+  function onGesture(e) {
+    if (e.type === 'pointerdown' && e.pointerType === 'touch') return;
+    if (e.cancelable && (e.type === 'wheel' || e.type === 'touchstart')) e.preventDefault();
+    finish(false);
+  }
+
+  // ---- SVG: troque por paths oficiais. Símbolo = círculo (50,50) r 40; palavra à direita; ponto; slogan ----
+  function montarSVG() {
+    var PALAVRA = 'marca';
+    var sectors = [ // 3 fatias de 120° com raio 90 (maior que o símbolo), centro 50,50
+      ['var(--c1)', 0, 120], ['var(--c2)', 120, 240], ['var(--c3)', 240, 360]
+    ].map(function (s) {
+      var p = function (a) { a = a * Math.PI / 180; return (50 + 90 * Math.cos(a)).toFixed(2) + ',' + (50 + 90 * Math.sin(a)).toFixed(2); };
+      return '<path style="fill:' + s[0] + '" d="M50,50L' + p(s[1]) + 'A90,90 0 0,1 ' + p(s[2]) + 'Z"/>';
+    }).join('');
+    return '<svg class="intro-logo" viewBox="-8 -8 336 132" aria-hidden="true" focusable="false">' +
+      '<defs>' +
+        '<clipPath id="it-clip"><circle cx="50" cy="50" r="40"/></clipPath>' +
+        '<mask id="it-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><circle cx="50" cy="50" r="40" fill="#fff"/></mask>' +
+      '</defs>' +
+      '<g class="it-bands" clip-path="url(#it-clip)"><rect class="it-band" x="-30" y="0" width="26" height="100" style="fill:var(--c1)" opacity=".3"/></g>' +
+      '<circle class="it-stroke" pathLength="1" cx="50" cy="50" r="40"/>' +
+      '<g mask="url(#it-mask)"><g class="it-spin">' + sectors + '</g>' +
+        '<rect class="it-settle" x="0" y="0" width="100" height="100" style="fill:var(--c3)"/></g>' +
+      '<g class="it-word">' + PALAVRA.split('').map(function (ch, n) {
+        return '<text class="it-l" style="--n:' + n + '" x="0" y="66">' + ch + '</text>';
+      }).join('') + '</g>' +
+      '<circle class="it-dot" cx="0" cy="62" r="4.5" style="fill:var(--c2)"/>' +
+      '<text class="it-slogan" x="112" y="92">Sua frase de assinatura aqui.</text>' +
+    '</svg>';
+  }
+  // posiciona as letras lado a lado pela largura real (só no template; com paths oficiais não é preciso)
+  function posicionarLetras() {
+    var x = 112, letras = overlay.querySelectorAll('.it-l');
+    for (var i = 0; i < letras.length; i++) { letras[i].setAttribute('x', x); x += letras[i].getComputedTextLength() + 1; }
+    overlay.querySelector('.it-dot').setAttribute('cx', x + 6);
+  }
+
+  try {
+    if (performance.now() > 3000 || window.pageYOffset > 0) throw new Error('tarde');
+    overlay = document.createElement('div');
+    overlay.className = 'intro';
+    overlay.innerHTML = montarSVG();
+    document.body.appendChild(overlay);
+    posicionarLetras();
+
+    document.addEventListener('keydown', onKey, true);
+    document.addEventListener('visibilitychange', onHidden);
+    document.addEventListener('wheel', onGesture, { capture: true, passive: false });
+    document.addEventListener('touchstart', onGesture, { capture: true, passive: false });
+    document.addEventListener('pointerdown', onGesture, true);
+    window.addEventListener('scroll', onGesture, { passive: true });
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (done) return;
+        overlay.classList.add('is-playing');
+        timers.push(setTimeout(function () { finish(true); }, DURACAO));
+      });
+    });
+    timers.push(setTimeout(function () { if (!overlay.classList.contains('is-playing')) finish(false); }, 1500));
+    timers.push(setTimeout(function () { finish(false); }, DURACAO + 2000));
+  } catch (err) {
+    finish(false);
+  }
+})();
+</script>
+</body>
+</html>

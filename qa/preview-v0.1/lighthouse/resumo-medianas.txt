@@ -1,0 +1,24 @@
+
+### desktop (3 execuções)
+desktop-1.json: perf 100 a11y 100 bp 100 seo 66 | FCP 247 LCP 331 TBT 14 CLS 0.000 SI 304 TTFB 6 | req 8 99 KB
+desktop-2.json: perf 100 a11y 100 bp 100 seo 66 | FCP 245 LCP 325 TBT 3 CLS 0.000 SI 279 TTFB 7 | req 8 99 KB
+desktop-3.json: perf 100 a11y 100 bp 100 seo 66 | FCP 244 LCP 324 TBT 0 CLS 0.000 SI 264 TTFB 3 | req 8 99 KB
+MEDIANA: perf 100 a11y 100 bp 100 seo 66 | FCP 245 LCP 325 TBT 3 CLS 0.000 SI 279 TTFB 6 | req 8 99 KB
+por tipo (mediana n / KB): document 1/13 · stylesheet 0/0 · script 1/5 · image 3/24 · font 2/56 · other 1/1 · third-party 1/1 · total 8/99
+LCP el: <img src="http://localhost:4173/assets/img/liga-kit-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+LCP fases (1ª): [{"phase":"TTFB","timing":123.58795,"percent":"37%"},{"phase":"Atraso no carregamento","timing":0,"percent":"0%"},{"phase":"Tempo de carregamento","timing":0,"percent":"0%"},{"phase":"Atraso na renderização","timing":207.08795,"percent":"63%"}]
+config: {"rttMs":40,"throughputKbps":10240,"requestLatencyMs":0,"downloadThroughputKbps":0,"uploadThroughputKbps":0,"cpuSlowdownMultiplier":1} desktop 12.8.2
+
+### mobile (3 execuções)
+mobile-1.json: perf 99 a11y 100 bp 100 seo 66 | FCP 1087 LCP 1671 TBT 100 CLS 0.000 SI 1087 TTFB 11 | req 8 109 KB
+mobile-2.json: perf 99 a11y 100 bp 100 seo 66 | FCP 1307 LCP 1656 TBT 104 CLS 0.026 SI 2356 TTFB 4 | req 8 109 KB
+mobile-3.json: perf 99 a11y 100 bp 100 seo 66 | FCP 904 LCP 1429 TBT 146 CLS 0.026 SI 904 TTFB 4 | req 8 109 KB
+MEDIANA: perf 99 a11y 100 bp 100 seo 66 | FCP 1087 LCP 1656 TBT 104 CLS 0.026 SI 1087 TTFB 4 | req 8 109 KB
+por tipo (mediana n / KB): document 1/13 · stylesheet 0/0 · script 1/5 · image 3/34 · font 2/56 · other 1/1 · third-party 1/1 · total 8/109
+LCP el: <img src="http://localhost:4173/assets/img/liga-kit-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: section.hero > figure.hero__foto > picture > img
+LCP fases (1ª): [{"phase":"TTFB","timing":460.6817,"percent":"28%"},{"phase":"Atraso no carregamento","timing":0,"percent":"0%"},{"phase":"Tempo de carregamento","timing":0,"percent":"0%"},{"phase":"Atraso na renderização","timing":1210.6817,"percent":"72%"}]
+config: {"rttMs":150,"throughputKbps":1638.4,"requestLatencyMs":562.5,"downloadThroughputKbps":1474.5600000000002,"uploadThroughputKbps":675,"cpuSlowdownMultiplier":4} mobile 12.8.2

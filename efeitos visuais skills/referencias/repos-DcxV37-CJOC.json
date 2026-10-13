@@ -1,0 +1,42 @@
+[
+  {
+    "repo": "pmndrs/react-three-fiber",
+    "url": "https://github.com/pmndrs/react-three-fiber",
+    "checkedAt": "2026-09-20T14:39:00.713Z",
+    "branch": "master",
+    "commit": "ff3899dbf43d2a88895fecf53c147192abfd7431",
+    "commitDate": "2026-08-25T00:24:42Z",
+    "archived": false,
+    "githubLicense": "MIT"
+  },
+  {
+    "repo": "dashersw/liquid-glass-js",
+    "url": "https://github.com/dashersw/liquid-glass-js",
+    "checkedAt": "2026-09-20T14:39:01.373Z",
+    "branch": "main",
+    "commit": "78cb6ccb0b9987bb60a88b14ccbd13a9e6e8ab2a",
+    "commitDate": "2025-06-12T00:27:53Z",
+    "archived": false,
+    "githubLicense": "MIT"
+  },
+  {
+    "repo": "ruucm/shadergradient",
+    "url": "https://github.com/ruucm/shadergradient",
+    "checkedAt": "2026-09-20T14:39:01.914Z",
+    "branch": "main",
+    "commit": "974a230b1e6c3ec375fbe17a8ea1c89edbc48019",
+    "commitDate": "2026-06-11T17:14:12Z",
+    "archived": false,
+    "githubLicense": null
+  },
+  {
+    "repo": "paper-design/liquid-logo",
+    "url": "https://github.com/paper-design/liquid-logo",
+    "checkedAt": "2026-09-20T14:39:02.503Z",
+    "branch": "main",
+    "commit": "689bb38a1e0d5a6a8baf2d34847635eefde19994",
+    "commitDate": "2026-04-20T01:52:35Z",
+    "archived": false,
+    "githubLicense": "NOASSERTION"
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design de landing pages e WordPress"
+  short_description: "Design, intros estilosas, parallax e entrega (WordPress, servidor, Pages)"
+  default_prompt: "Use $landing-design-wordpress para criar uma intro própria para esta marca, refinar a landing, testar as animações e preparar a publicação."

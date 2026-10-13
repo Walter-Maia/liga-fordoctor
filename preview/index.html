@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="pt-BR" data-preview>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liga ForDoctor: PJ Médica Grátis para Formandos 2026</title>
+<meta name="description" content="Formandos de Medicina: abra sua PJ médica gratuitamente e garanta benefícios exclusivos para você e sua turma na Liga ForDoctor. Cadastre-se agora!">
+<link rel="canonical" href="https://fordoctor.com.br/liga-fordoctor/">
+<meta name="theme-color" content="#091D3E">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ForDoctor">
+<meta property="og:title" content="Liga ForDoctor: PJ Médica Grátis para Formandos 2026">
+<meta property="og:description" content="Formandos de Medicina: abra sua PJ médica gratuitamente e garanta benefícios exclusivos para você e sua turma na Liga ForDoctor. Cadastre-se agora!">
+<meta property="og:url" content="https://fordoctor.com.br/liga-fordoctor/">
+<meta property="og:image" content="https://fordoctor.com.br/liga-fordoctor/assets/img/og-liga-fordoctor.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor, ao lado do logo da ForDoctor">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/dosis-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="https://fordoctor.com.br/wp-content/uploads/2023/06/cropped-FORDOCTOR_LOGOTIPO_VERSOES-03-1-2048x564-1-32x32.png" sizes="32x32">
+<style>
+/* Liga ForDoctor: estilos da LP (mobile-first). Tokens documentados em DIRECAO-DESIGN.md. */
+
+@font-face {
+  font-family: "Dosis";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("assets/fonts/dosis-latin-var.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("assets/fonts/jost-latin-var.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Reservas com largura ajustada (medida no Edge): a troca para a fonte da marca não empurra o layout */
+@font-face { font-family: "Dosis Reserva"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"), local("Roboto"); size-adjust: 85%; }
+@font-face { font-family: "Jost Reserva"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"), local("Roboto"); size-adjust: 96%; }
+
+:root {
+  /* cor */
+  --navy: #091D3E;
+  --navy-claro: #13294F;
+  --ouro: #C19B52;          /* filetes, pontos, botão */
+  --ouro-escuro: #B28B46;   /* hover do botão */
+  --ouro-texto: #7A5C24;    /* dourado para texto sobre fundo claro (5,7:1 no papel) */
+  --texto: #565872;
+  --tinta: #091D3E;
+  --papel: #F7F5EF;
+  --branco: #FFFFFF;
+  --linha: #E3DDCF;
+  --linha-forte: #C9C1AE;
+  --navy-escuro: #061430;   /* rodapé, separa do cadastro */
+  --sobre-navy: rgba(255, 255, 255, 0.82);
+  --sobre-navy-suave: rgba(255, 255, 255, 0.7);
+  --linha-navy: rgba(255, 255, 255, 0.16);
+  --anel: rgba(167, 196, 240, 0.17); /* círculos azuis sobre o navy */
+  --erro: #B42318;
+  --ok: #2F6B4A;
+
+  /* tipografia */
+  --fonte-titulo: "Dosis", "Dosis Reserva", "Trebuchet MS", sans-serif;
+  --fonte-texto: "Jost", "Jost Reserva", "Segoe UI", Roboto, Arial, sans-serif;
+  --t-corpo: 1.0625rem;
+  --t-pequeno: 0.9375rem;
+  --t-h3: 1.25rem;
+  --t-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.625rem);
+  --t-h1: clamp(2rem, 1.45rem + 2.6vw, 3.5rem);
+
+  /* espaço (múltiplos de 4/8) */
+  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px; --e8: 64px; --e9: 96px;
+  --lateral: 16px;
+  --largura: 1200px;
+  --medida: 60ch;
+  --altura-topo: 56px;
+
+  /* forma */
+  --raio-1: 4px;
+  --raio-2: 8px;
+  --sombra-flutuante: 0 -6px 20px rgba(9, 29, 62, 0.12);
+
+  /* movimento */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-draw: cubic-bezier(.45, 0, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --d-micro: 180ms;
+  --d-entrada: 420ms;
+}
+@media (min-width: 600px) { :root { --lateral: 32px; } }
+@media (min-width: 960px) { :root { --lateral: 48px; --altura-topo: 72px; --t-corpo: 1.125rem; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--altura-topo) + var(--e4)); }
+body { margin: 0; background: var(--papel); color: var(--texto); font-family: var(--fonte-texto); font-size: var(--t-corpo); line-height: 1.65; font-kerning: normal; }
+img, svg { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--fonte-titulo); color: var(--tinta); margin: 0; text-wrap: balance; }
+h2 { font-size: var(--t-h2); font-weight: 700; line-height: 1.14; letter-spacing: -0.005em; }
+h3 { font-size: var(--t-h3); font-weight: 600; line-height: 1.25; }
+p { margin: 0 0 var(--e4); text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--ouro-texto); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--tinta); }
+strong { color: var(--tinta); font-weight: 600; }
+:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
+.so-leitor { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.ancora-topo { position: absolute; top: 0; }
+
+.pular { position: absolute; left: var(--e4); top: -100px; z-index: 100; background: var(--navy); color: var(--branco); padding: var(--e3) var(--e4); border-radius: var(--raio-1); }
+.pular:focus { top: var(--e3); }
+
+/* Botão: um rótulo para a mesma ação em toda a página */
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--e2);
+  min-height: 48px; padding: var(--e3) var(--e5);
+  background: var(--ouro); color: var(--navy);
+  font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.0625rem; letter-spacing: 0.01em; line-height: 1.2;
+  text-decoration: none; text-align: center; border: 0; border-radius: var(--raio-1); cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--d-micro) var(--ease-out), transform var(--d-micro) var(--ease-spring);
+}
+.botao:hover { background: var(--ouro-escuro); color: var(--navy); }
+.botao:active { transform: scale(0.97); transition-duration: 90ms; }
+.botao[disabled] { cursor: progress; }
+
+/* Cabeçalho: só o fundo muda depois da rolagem */
+.topo { position: fixed; inset: 0 0 auto 0; z-index: 50; background: var(--branco); border-bottom: 1px solid transparent; padding-top: env(safe-area-inset-top, 0px); transition: background-color 240ms var(--ease-out), border-color 240ms var(--ease-out); }
+.topo--rolado { background: rgba(255, 255, 255, 0.92); border-bottom-color: var(--linha); }
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .topo--rolado { background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+}
+.topo__barra { max-width: var(--largura); margin: 0 auto; padding-inline: var(--lateral); height: var(--altura-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--e4); }
+.topo__marca { display: block; padding-block: 4px; border-radius: var(--raio-1); }
+.topo__marca img { width: 132px; height: auto; }
+.botao--topo { display: none; }
+@media (min-width: 768px) {
+  .topo__marca img { width: 171px; }
+  .botao--topo { display: inline-flex; min-height: 44px; padding: var(--e2) var(--e5); font-size: 1rem; }
+}
+/* Entrega do cabeçalho (conceito F): logo e botão descem quando a intro começa a dissolver (--rise-start) */
+html.intro-ativa, html.intro-saindo { --rise-start: 3.1s; }
+.topo__marca, .botao--topo { animation: topo-entra var(--d-entrada) var(--ease-out) backwards; animation-delay: var(--rise-start, 0s); }
+.botao--topo { animation-delay: calc(var(--rise-start, 0s) + 90ms); }
+@keyframes topo-entra { from { opacity: 0; transform: translateY(-12px); } }
+
+main { display: block; padding-top: var(--altura-topo); }
+main:focus { outline: none; }
+
+/* Anéis concêntricos: a identidade de círculos da Liga, em SVG (1 px em qualquer tamanho) */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.aneis { position: absolute; max-width: none; pointer-events: none; color: var(--anel); }
+.secao--aneis { position: relative; overflow: hidden; isolation: isolate; }
+.secao--aneis > .aneis { z-index: -1; max-width: none; }
+
+/* Hero: azul da marca; texto, oferta e ressalva visíveis na primeira pintura */
+.hero { position: relative; background: var(--navy); color: var(--sobre-navy); overflow: hidden; isolation: isolate; }
+.hero__grade { max-width: var(--largura); margin: 0 auto; padding: var(--e6) var(--lateral) var(--e8); display: grid; gap: var(--e7); }
+.hero__texto { max-width: 36rem; }
+.hero h1 { font-weight: 700; color: var(--branco); }
+.h1__marca { display: block; font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); font-weight: 600; color: var(--ouro); letter-spacing: 0.01em; margin-bottom: var(--e2); }
+.h1__frase { display: block; font-size: var(--t-h1); line-height: 1.06; letter-spacing: -0.01em; }
+.hero__oferta { margin-top: var(--e5); font-size: clamp(1.1875rem, 1.05rem + 0.6vw, 1.4375rem); line-height: 1.4; color: var(--branco); font-weight: 500; }
+.hero__ressalva { font-size: var(--t-pequeno); line-height: 1.55; padding-left: var(--e4); border-left: 2px solid var(--ouro); max-width: 30rem; }
+.hero__acao { margin-top: var(--e5); display: flex; flex-wrap: wrap; align-items: center; gap: var(--e3) var(--e5); }
+.hero__publico { margin: 0; font-size: var(--t-pequeno); color: var(--sobre-navy-suave); }
+.hero :focus-visible { outline-color: var(--ouro); }
+.hero__foto { position: relative; margin: 0; justify-self: center; width: min(100%, 320px); aspect-ratio: 991 / 1010; }
+.hero__foto picture { position: relative; display: block; width: 100%; height: 100%; clip-path: circle(44.97% at 47.93% 46.14%); }
+/* as duas ficam dentro do círculo: recorte logo dentro do anel da foto (centro 475,466; raio 450 no original 991×1010) e anel dourado completo por cima */
+.hero__foto::after { content: ""; position: absolute; left: 2.42%; top: 1.49%; width: 91.02%; height: 89.31%; border: 2px solid var(--ouro); border-radius: 50%; pointer-events: none; }
+.hero__foto img { width: 100%; height: 100%; object-fit: contain; }
+/* Anéis do hero em ondas: 6 anéis (HTML, animação no compositor) centrados na foto; a escala de pico (--s) dá o mesmo
+   deslocamento a todos os anéis, e o atraso de 0,5 s entre um e outro faz a onda correr para fora. Ciclo de 6 s,
+   o mesmo ritmo do loop de conexões aprovado na ForDoctor Indica. */
+.ondas { position: absolute; left: 50%; top: 46%; width: 260%; aspect-ratio: 1; translate: -50% -50%; z-index: -1; pointer-events: none; -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 100%); mask-image: radial-gradient(closest-side, #000 52%, transparent 100%); }
+.ondas span { --s: calc(1 + 16 / var(--r)); position: absolute; left: 50%; top: 50%; width: calc(var(--r) / 4 * 1%); aspect-ratio: 1; translate: -50% -50%; border: 1px solid rgba(167, 196, 240, 0.32); border-radius: 50%; opacity: 0.4; animation: onda 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; animation-delay: calc(var(--i) * 0.5s - 6s); }
+@keyframes onda { 0%, 100% { scale: 1; opacity: 0.4; } 50% { scale: var(--s); opacity: 1; } }
+.ondas.pausada span, html.intro-ativa .ondas span { animation-play-state: paused; }
+@media (min-width: 600px) { .hero__foto { width: 400px; } }
+@media (min-width: 960px) {
+  .hero__grade { grid-template-columns: minmax(0, 1fr) 460px; align-items: start; gap: var(--e8); padding-top: var(--e8); padding-bottom: var(--e9); }
+  .hero__foto { width: 460px; }
+}
+/* foto do hero entra quando ela mesma termina de carregar (o JS arma só se ainda não carregou);
+   com a intro ativa, espera a dissolução (--rise-start) */
+.hero__foto.aguardando img { opacity: 0; transform: scale(1.035); clip-path: inset(0 0 10% 0); }
+.hero__foto.entrando img { animation: foto-entra 640ms var(--ease-out) var(--rise-start, 0s) both; }
+@keyframes foto-entra { from { opacity: 0; transform: scale(1.035); clip-path: inset(0 0 10% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
+
+/* Seções */
+.secao { padding: var(--e8) var(--lateral); }
+.secao--branca { background: var(--branco); }
+.secao > * { max-width: var(--largura); margin-inline: auto; }
+@media (min-width: 960px) { .secao { padding-block: var(--e9); } }
+section[id] { scroll-margin-top: var(--altura-topo); }
+
+/* Bloco editorial: título à esquerda, texto à direita no desktop */
+.editorial { display: grid; gap: var(--e5); }
+.editorial + .editorial { margin-top: var(--e8); padding-top: var(--e8); border-top: 1px solid var(--linha); }
+.editorial__corpo { max-width: var(--medida); }
+@media (min-width: 960px) {
+  .editorial { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--e8); align-items: start; }
+  .editorial + .editorial { margin-top: var(--e9); padding-top: var(--e9); }
+}
+
+/* Lista editorial de perguntas: tipografia, sem cards e sem ícones */
+.perguntas { list-style: none; margin: var(--e6) auto 0; padding: 0; display: grid; border-top: 1px solid var(--linha); }
+.perguntas li { font-family: var(--fonte-titulo); font-weight: 500; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; color: var(--tinta); padding: var(--e4) 0; border-bottom: 1px solid var(--linha); }
+@media (min-width: 700px) { .perguntas { grid-template-columns: 1fr 1fr; column-gap: var(--e7); } }
+.editorial--fecho { margin-top: var(--e6); }
+.editorial__vazio { display: none; }
+.secao__fecho { max-width: var(--medida); }
+@media (min-width: 960px) { .editorial__vazio { display: block; } }
+
+/* Fatores: lista com filete dourado curto */
+.fatores { list-style: none; margin: var(--e5) 0 0; padding: 0; display: grid; gap: var(--e2) var(--e6); }
+.fatores li { position: relative; padding-left: var(--e5); line-height: 1.45; }
+.fatores li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 12px; height: 2px; background: var(--ouro); }
+@media (min-width: 600px) { .fatores { grid-template-columns: 1fr 1fr; } }
+.editorial__corpo h3 { margin-top: var(--e7); }
+
+/* O que é a Liga: a composição oficial (estudante, gradiente azul e círculos) vira o fundo da seção.
+   A cor da seção é a mesma da borda da imagem, então não há emenda. Celular: imagem própria, texto sobre a parte azul. */
+.secao--liga { position: relative; overflow: hidden; isolation: isolate; background: #152239; color: var(--sobre-navy); padding-bottom: calc(100vw * 1188 / 668 * 0.52); }
+.secao--liga h2 { color: var(--branco); }
+.secao--liga :focus-visible { outline-color: var(--ouro); }
+.secao--liga > .liga__fundo { position: absolute; left: 0; right: 0; bottom: 0; z-index: -1; max-width: none; margin: 0; }
+.liga__fundo picture, .liga__fundo img { display: block; width: 100%; height: auto; }
+.liga__texto { max-width: 34rem; }
+.liga__texto h2 { margin-bottom: var(--e5); }
+.liga__texto .botao { margin-top: var(--e3); }
+@media (min-width: 900px) {
+  .secao--liga { display: flex; align-items: center; min-height: clamp(560px, 52vw, 780px); padding-block: var(--e9); background: linear-gradient(#223357, #1d336d 50%, #183475); }
+  .secao--liga > .liga { width: 100%; }
+  .secao--liga > .liga__fundo { top: 0; }
+  .liga__fundo picture, .liga__fundo img { height: 100%; object-fit: cover; object-position: 80% center; }
+  .liga__texto { max-width: min(30rem, 44%); }
+}
+/* Telas acima de 1920 px: a foto fica no tamanho original, à direita, e a esquerda continua com o gradiente da borda da imagem */
+@media (min-width: 1921px) {
+  .secao--liga > .liga__fundo { left: auto; width: 1920px; -webkit-mask-image: linear-gradient(to right, transparent, #000 220px); mask-image: linear-gradient(to right, transparent, #000 220px); }
+}
+/* revelação por máscara (armada só abaixo da dobra): a foto entra pelo lado da estudante */
+/* o recorte fica no <picture>: o <figure> continua visível para o IntersectionObserver */
+.liga__fundo.armada picture { clip-path: inset(100% 0 0 0); }
+.liga__fundo.armada img { transform: scale(1.04); }
+.liga__fundo.revelada picture { animation: mascara-sobe 1000ms var(--ease-out) both; }
+.liga__fundo.revelada img { animation: imagem-assenta 1200ms var(--ease-out) both; }
+@media (min-width: 900px) {
+  .liga__fundo.armada picture { clip-path: inset(0 0 0 100%); }
+  .liga__fundo.revelada picture { animation-name: mascara-abre-lado; }
+}
+@keyframes mascara-sobe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mascara-abre-lado { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes imagem-assenta { from { transform: scale(1.04); } to { transform: none; } }
+
+/* O que a Liga oferece: definição, não grade de cards */
+.oferta { margin: var(--e7) auto 0; display: grid; gap: 0; border-top: 1px solid var(--linha-forte); }
+.oferta > div { padding: var(--e5) 0; border-bottom: 1px solid var(--linha); display: grid; gap: var(--e1); }
+.oferta dt { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.25rem; color: var(--tinta); }
+.oferta dd { margin: 0; max-width: 42ch; }
+@media (min-width: 700px) { .oferta { grid-template-columns: 1fr 1fr; column-gap: var(--e7); } }
+@media (min-width: 1100px) { .oferta { grid-template-columns: repeat(4, 1fr); } .oferta > div { border-bottom: 0; padding-right: var(--e4); } }
+
+/* Recompensas: faixa navy com a trilha 5 → 10 → 20 */
+.secao--navy { background: var(--navy); color: var(--sobre-navy); }
+.secao--navy h2, .secao--navy h3, .secao--navy strong { color: var(--branco); }
+.secao--navy :focus-visible { outline-color: var(--ouro); }
+.recompensas { display: grid; gap: var(--e7); }
+.recompensas__intro { max-width: var(--medida); }
+.recompensas__intro h2 { margin-bottom: var(--e4); }
+.recompensas > .botao { justify-self: start; }
+
+.trilha { list-style: none; margin: 0; padding: 0 0 0 var(--e6); position: relative; display: grid; gap: var(--e6); }
+.degrau { position: relative; display: grid; gap: 2px; }
+.degrau::before { content: ""; position: absolute; left: calc(-1 * var(--e6) + 3px); top: 0.55em; width: 12px; height: 12px; border-radius: 50%; background: var(--ouro); }
+.degrau:not(:last-child)::after { content: ""; position: absolute; left: calc(-1 * var(--e6) + 8px); top: calc(0.55em + 12px); width: 2px; height: calc(100% + var(--e6) - 12px); background: var(--ouro); transform-origin: top; }
+.degrau__meta { font-weight: 500; color: var(--sobre-navy); }
+.degrau__valor { font-family: var(--fonte-titulo); font-weight: 700; font-size: clamp(2rem, 1.6rem + 1.8vw, 3rem); line-height: 1.05; color: var(--branco); font-variant-numeric: tabular-nums lining-nums; }
+@media (min-width: 900px) {
+  /* escada: cada degrau sobe um patamar; piso (horizontal) e espelho (vertical) desenhados com transform */
+  .trilha { --espelho: 72px; padding: 0; grid-template-columns: repeat(3, 1fr); gap: 0; align-items: start; }
+  .degrau { padding: var(--e5) var(--e5) 0 var(--e5); border-top: 0; }
+  .degrau:nth-child(1) { margin-top: calc(var(--espelho) * 2); }
+  .degrau:nth-child(2) { margin-top: var(--espelho); }
+  .degrau::before { left: -6px; top: -6px; }
+  .degrau:not(:last-child)::after { content: none; }
+  .degrau__piso { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--ouro); transform-origin: left; }
+  .degrau__espelho { position: absolute; left: -1px; top: 0; width: 2px; height: var(--espelho); background: var(--ouro); transform-origin: bottom; }
+}
+@media (max-width: 899.98px) { .degrau__piso, .degrau__espelho { display: none; } }
+
+/* momento assinatura: só roda quando o JS arma a trilha abaixo da dobra */
+.trilha.armada .degrau::before { transform: scale(0); }
+.trilha.armada .degrau__meta, .trilha.armada .degrau__valor { opacity: 0; transform: translateY(6px); }
+.trilha.armada .degrau__piso { transform: scaleX(0); }
+.trilha.armada .degrau__espelho { transform: scaleY(0); }
+.trilha.armada .degrau:not(:last-child)::after { transform: scaleY(0); }
+.trilha.desenhando .degrau::before { animation: ponto 340ms var(--ease-spring) both; }
+.trilha.desenhando .degrau__meta, .trilha.desenhando .degrau__valor { animation: valor-aparece 360ms var(--ease-out) both; }
+.trilha.desenhando .degrau__piso { animation: piso 300ms var(--ease-draw) both; }
+.trilha.desenhando .degrau__espelho { animation: espelho 140ms var(--ease-draw) both; }
+.trilha.desenhando .degrau:not(:last-child)::after { animation: espelho 340ms var(--ease-draw) both; }
+/* sequência (~1,2 s): ponto → piso → valor → espelho → próximo degrau */
+.trilha.desenhando .degrau:nth-child(1)::before { animation-delay: 0ms; }
+.trilha.desenhando .degrau:nth-child(1) .degrau__piso { animation-delay: 60ms; }
+.trilha.desenhando .degrau:nth-child(1) .degrau__meta, .trilha.desenhando .degrau:nth-child(1) .degrau__valor { animation-delay: 180ms; }
+.trilha.desenhando .degrau:nth-child(1)::after { animation-delay: 140ms; }
+.trilha.desenhando .degrau:nth-child(2) .degrau__espelho { animation-delay: 360ms; }
+.trilha.desenhando .degrau:nth-child(2)::before { animation-delay: 480ms; }
+.trilha.desenhando .degrau:nth-child(2) .degrau__piso { animation-delay: 500ms; }
+.trilha.desenhando .degrau:nth-child(2) .degrau__meta, .trilha.desenhando .degrau:nth-child(2) .degrau__valor { animation-delay: 560ms; }
+.trilha.desenhando .degrau:nth-child(2)::after { animation-delay: 580ms; }
+.trilha.desenhando .degrau:nth-child(3) .degrau__espelho { animation-delay: 800ms; }
+.trilha.desenhando .degrau:nth-child(3)::before { animation-delay: 920ms; }
+.trilha.desenhando .degrau:nth-child(3) .degrau__piso { animation-delay: 940ms; }
+.trilha.desenhando .degrau:nth-child(3) .degrau__meta, .trilha.desenhando .degrau:nth-child(3) .degrau__valor { animation-delay: 1000ms; }
+.trilha.pausada *, .trilha.pausada *::before, .trilha.pausada *::after { animation-play-state: paused !important; }
+@keyframes ponto { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes valor-aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes piso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes espelho { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.regras { display: grid; gap: var(--e6); padding-top: var(--e6); border-top: 1px solid var(--linha-navy); font-size: var(--t-pequeno); }
+.regras h3 { font-size: 1.0625rem; margin-bottom: var(--e3); }
+.regras ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--e2); }
+.regras li::marker { color: var(--ouro); }
+@media (min-width: 900px) { .regras { grid-template-columns: 1fr 1fr; gap: var(--e8); } }
+
+/* Indicação: sequência real, no estilo da ForDoctor Indica (nó navy com número dourado e linha que liga as etapas) */
+.passos { --no: 48px; --vao: var(--e6); list-style: none; margin: var(--e7) auto 0; padding: 0; display: grid; gap: var(--vao); }
+.passo { position: relative; display: grid; grid-template-columns: var(--no) minmax(0, 1fr); column-gap: var(--e4); align-content: start; line-height: 1.55; }
+.passo__no { grid-row: 1 / span 2; position: relative; z-index: 1; width: var(--no); height: var(--no); display: grid; place-items: center; border-radius: 50%; background: var(--navy); color: var(--ouro); font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 6px var(--papel); transition: transform 240ms var(--ease-out); }
+.passo--credito .passo__no { background: var(--ouro); color: var(--navy); }
+.passo__titulo { font-size: 1.25rem; font-weight: 700; margin: 10px 0 var(--e2); }
+.passo p { margin: 0; }
+/* linha: trilho fantasma fixo (::after) + linha dourada que se desenha (.passo__linha) */
+.passo:not(:last-child)::after, .passo__linha { content: ""; position: absolute; left: calc(var(--no) / 2 - 1px); top: calc(var(--no) + 8px); bottom: calc(-1 * var(--vao) + 8px); width: 2px; background: var(--ouro); }
+.passo:not(:last-child)::after { opacity: 0.25; }
+.passo__linha { transform-origin: top; }
+@media (min-width: 900px) {
+  .passos { --vao: var(--e6); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .passo { grid-template-columns: minmax(0, 1fr); }
+  .passo__no { grid-row: auto; }
+  .passo__titulo { margin-top: var(--e5); }
+  .passo:not(:last-child)::after, .passo__linha { left: calc(var(--no) + 8px); right: calc(-1 * var(--vao) + 8px); top: calc(var(--no) / 2 - 1px); bottom: auto; width: auto; height: 2px; }
+  .passo__linha { transform-origin: left; }
+}
+@media (hover: hover) and (pointer: fine) { .passo:hover .passo__no { transform: translateY(-2px); } }
+
+/* sequência: nó → título e texto → linha até o próximo nó; o nó do crédito pulsa uma vez */
+.passos.armada .passo__no { opacity: 0; transform: scale(0.6); }
+.passos.armada .passo__titulo, .passos.armada .passo p { opacity: 0; transform: translateY(8px); }
+.passos.armada .passo__linha { transform: scaleY(0); }
+@media (min-width: 900px) { .passos.armada .passo__linha { transform: scaleX(0); } }
+.passos.desenhando .passo__no { animation: no-entra 420ms var(--ease-spring) both; }
+.passos.desenhando .passo__titulo, .passos.desenhando .passo p { animation: valor-aparece 380ms var(--ease-out) both; }
+.passos.desenhando .passo__linha { animation: espelho 320ms var(--ease-draw) both; }
+@media (min-width: 900px) { .passos.desenhando .passo__linha { animation-name: piso; } }
+.passos.desenhando .passo:nth-child(2) .passo__no { animation-delay: 440ms; }
+.passos.desenhando .passo:nth-child(3) .passo__no { animation-delay: 880ms; }
+.passos.desenhando .passo:nth-child(4) .passo__no { animation-delay: 1320ms; }
+.passos.desenhando .passo:nth-child(1) .passo__titulo, .passos.desenhando .passo:nth-child(1) p { animation-delay: 100ms; }
+.passos.desenhando .passo:nth-child(2) .passo__titulo, .passos.desenhando .passo:nth-child(2) p { animation-delay: 540ms; }
+.passos.desenhando .passo:nth-child(3) .passo__titulo, .passos.desenhando .passo:nth-child(3) p { animation-delay: 980ms; }
+.passos.desenhando .passo:nth-child(4) .passo__titulo, .passos.desenhando .passo:nth-child(4) p { animation-delay: 1420ms; }
+.passos.desenhando .passo:nth-child(1) .passo__linha { animation-delay: 180ms; }
+.passos.desenhando .passo:nth-child(2) .passo__linha { animation-delay: 620ms; }
+.passos.desenhando .passo:nth-child(3) .passo__linha { animation-delay: 1060ms; }
+.passo--credito .passo__no::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--ouro); opacity: 0; pointer-events: none; }
+.passos.desenhando .passo--credito .passo__no::after { animation: pulso 700ms var(--ease-out) 1700ms both; }
+.passos.pausada *, .passos.pausada *::before, .passos.pausada *::after { animation-play-state: paused !important; }
+@keyframes no-entra { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes pulso { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.7); } }
+
+/* FAQ: details/summary nativo; a resposta entra com opacidade e deslocamento curto */
+.faq { border-top: 1px solid var(--linha-forte); }
+.faq details { border-bottom: 1px solid var(--linha); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--e4); padding: var(--e5) 0; font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; color: var(--tinta); min-height: 48px; touch-action: manipulation; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: 0 0 14px; height: 14px; background: linear-gradient(var(--ouro-texto), var(--ouro-texto)) center / 14px 2px no-repeat, linear-gradient(var(--ouro-texto), var(--ouro-texto)) center / 2px 14px no-repeat; transition: transform var(--d-micro) var(--ease-out); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq__resposta { padding: 0 var(--e7) var(--e5) 0; max-width: var(--medida); }
+.faq details[open] .faq__resposta { animation: resposta-entra 260ms var(--ease-out); }
+@keyframes resposta-entra { from { opacity: 0; transform: translateY(-6px); } }
+
+/* Cadastro */
+.cadastro { display: grid; gap: var(--e7); }
+.cadastro__texto { max-width: 34rem; }
+.cadastro__texto h2 { margin-bottom: var(--e5); }
+.cadastro__oferta { margin-top: var(--e5); padding-left: var(--e4); border-left: 2px solid var(--ouro); font-size: var(--t-pequeno); }
+.cadastro__painel { background: var(--branco); color: var(--texto); border-radius: var(--raio-2); padding: var(--e5); }
+.cadastro__painel h3, .cadastro__painel strong { color: var(--tinta); }
+.cadastro__painel :focus-visible { outline-color: var(--navy); }
+.secao--navy .cadastro__oferta strong { color: var(--branco); }
+.aneis--recompensas { width: min(1100px, 180vw); aspect-ratio: 1; right: 0; top: 0; transform: translate(42%, -46%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
+.aneis--oferece { color: rgba(36, 84, 168, 0.3); width: min(1100px, 180vw); aspect-ratio: 1; right: 0; bottom: 0; transform: translate(42%, 54%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
+.aneis--cadastro { width: min(1000px, 170vw); aspect-ratio: 1; left: 0; bottom: 0; transform: translate(-46%, 48%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
+@media (min-width: 600px) { .cadastro__painel { padding: var(--e6); } }
+@media (min-width: 960px) {
+  .cadastro { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--e9); align-items: start; }
+  .cadastro__texto { position: sticky; top: calc(var(--altura-topo) + var(--e6)); }
+}
+
+.campos { display: grid; gap: var(--e4); }
+@media (min-width: 600px) { .campos { grid-template-columns: 1fr 1fr; } .campo--inteiro { grid-column: 1 / -1; } }
+.campo { display: grid; gap: 6px; }
+.campo label { font-weight: 500; font-size: 1rem; color: var(--tinta); }
+.campo input, .campo select {
+  width: 100%; min-height: 50px; padding: 12px 14px;
+  font: inherit; font-size: 1.0625rem; color: var(--tinta);
+  background: var(--branco); border: 1px solid var(--linha-forte); border-radius: var(--raio-1);
+  transition: border-color var(--d-micro) var(--ease-out);
+}
+.campo input::placeholder { color: #8A8C9E; }
+.campo input:hover, .campo select:hover { border-color: #A79E89; }
+.campo input:focus-visible, .campo select:focus-visible { outline: 3px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+.campo [aria-invalid="true"] { border-color: var(--erro); }
+.campo__erro { margin: 0; font-size: var(--t-pequeno); line-height: 1.4; color: var(--erro); min-height: 0; }
+.campo__erro:empty { display: none; }
+.seletor { position: relative; }
+.seletor select { appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer; }
+.seletor select:invalid { color: #6E7083; }
+.seletor__seta { position: absolute; right: 14px; top: 50%; width: 16px; height: 16px; margin-top: -8px; color: var(--tinta); pointer-events: none; }
+.botao--enviar { width: 100%; margin-top: var(--e5); min-height: 52px; font-size: 1.125rem; }
+.formulario__privacidade { margin: var(--e4) 0 0; font-size: 0.875rem; line-height: 1.5; }
+.formulario__status { margin: var(--e3) 0 0; font-size: var(--t-pequeno); }
+.formulario__status:empty { display: none; }
+.formulario__status.erro { color: var(--erro); }
+.botao .marca-ok { width: 18px; height: 18px; }
+.sucesso { text-align: left; }
+.sucesso:focus { outline: none; }
+.sucesso__icone { width: 40px; height: 40px; color: var(--ok); border: 2px solid currentColor; border-radius: 50%; padding: 7px; margin-bottom: var(--e4); }
+.sucesso h3 { font-size: 1.5rem; margin-bottom: var(--e2); }
+.sucesso:not([hidden]) { animation: valor-aparece 320ms var(--ease-out) both; }
+
+/* Telas muito estreitas (celular dobrável fechado, ~280 px): mais espaço útil para o texto do botão de envio */
+@media (max-width: 340px) {
+  .cadastro__painel { padding: var(--e4); }
+  .botao { padding-inline: var(--e4); }
+}
+
+/* Rodapé */
+.rodape { background: var(--navy-escuro); color: var(--sobre-navy); padding: var(--e7) var(--lateral) calc(var(--e7) + 72px + env(safe-area-inset-bottom, 0px)); font-size: var(--t-pequeno); }
+.rodape__barra { max-width: var(--largura); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--e4) var(--e6); }
+.rodape__barra img { width: 140px; }
+.rodape__barra p { margin: 0; }
+.rodape a { color: var(--branco); display: inline-block; padding-block: 10px; }
+.rodape a:hover { color: var(--ouro); }
+.rodape :focus-visible { outline-color: var(--ouro); }
+@media (min-width: 768px) { .rodape { padding-bottom: var(--e7); } .rodape__barra p { margin-right: auto; } }
+
+/* CTA fixo no celular: aparece depois do hero e some quando o formulário está na tela */
+.cta-fixo { display: none; }
+@media (max-width: 767.98px) {
+  .js .cta-fixo {
+    display: block; position: fixed; inset: auto 0 0 0; z-index: 40;
+    padding: var(--e3) var(--lateral) calc(var(--e3) + env(safe-area-inset-bottom, 0px));
+    background: var(--branco); border-top: 1px solid var(--linha); box-shadow: var(--sombra-flutuante);
+    transform: translateY(110%); visibility: hidden;
+    transition: transform 280ms var(--ease-out), visibility 0s linear 280ms;
+  }
+  .js .cta-fixo .botao { width: 100%; }
+  .js .cta-fixo.visivel { transform: none; visibility: visible; transition: transform 280ms var(--ease-out), visibility 0s; }
+}
+
+/* Título revelado por linha (o JS divide e arma só abaixo da dobra) */
+.linha-mascara { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.linha-conteudo { display: block; }
+.revela-armado .linha-conteudo { transform: translateY(110%); }
+.revela-ativo .linha-conteudo { animation: linha-sobe 560ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+@keyframes linha-sobe { from { transform: translateY(110%); } to { transform: none; } }
+
+/* ==========================================================================
+   Intro "a turma se liga" (uma vez por sessão; controle em assets/intro.js)
+   Conceito: os círculos da Liga se abrem a partir do símbolo; seis colegas (pontos dourados)
+   surgem nos anéis e se ligam ao símbolo; o símbolo oficial se desenha e o nome ForDoctor aparece.
+   ROTEIRO (t = 0 quando .li-tocando entra)
+   0,00 + i·0,05  10 anéis concêntricos se abrem (opacidade, escala ,94 → 1, 0,45 s) ........ T3
+   0,18 + i·0,07  6 colegas surgem sobre os anéis (mola, 0,32 s) ............................. T8
+   0,45 + i·0,06  6 conexões curvas vão de cada colega até o símbolo (0,5 s) ................. T1
+   0,90           contorno oficial do símbolo se desenha (0,8 s) ............................. T1
+   1,10 + i·0,03  conexões escoam para dentro do símbolo; colegas somem (0,4 s) .............. T2
+   1,55           preenchimento oficial do símbolo (0,3 s); contorno some 1,70–1,95 .......... T9
+   0,00–1,55      câmera se aproxima devagar (escala 1,24 → 1,16) ............................ T6
+   1,55–2,30      câmera desliza: o símbolo sai do centro para a posição do logo ............. T6
+   1,60–2,30      anéis se abrem (escala 1 → 1,12) e esmaecem
+   1,70–2,45      logo oficial claro revela o nome por máscara, da esquerda para a direita ... T11
+   2,35 / 2,45    filete dourado se desenha / legenda "Liga ForDoctor" sobe .................. T1 / T7
+   2,80–3,10      marca parada
+   3,10           dissolução (0,5 s); cabeçalho entra em partes (--rise-start) ............... T12 + F
+   ========================================================================== */
+html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900; background: var(--navy); animation: intro-failsafe 0.5s 4.6s both; }
+@keyframes intro-failsafe { to { opacity: 0; visibility: hidden; } }
+.li-intro { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; overflow: hidden; background: var(--navy); --li-w: min(80vw, 520px); }
+/* campo de anéis: 1 unidade = 1 unidade do logo × 1,24 (escala inicial da câmera), centrado na tela */
+.li-campo { position: absolute; max-width: none; left: 50%; top: 50%; width: calc(var(--li-w) * 500 / 341.01 * 1.24); aspect-ratio: 1; transform: translate(-50%, -50%); overflow: visible; }
+.li-intro > .li-palco { position: relative; }
+.li-palco { display: grid; justify-items: center; }
+.li-cam { position: relative; width: var(--li-w); aspect-ratio: 341.01 / 93.48; transform-origin: 13.69% 49.82%; transform: translateX(36.31%) scale(1.24); }
+.li-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.li-logo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; clip-path: inset(0 72.6% 0 0); }
+.li-aneis { transform-box: view-box; transform-origin: 0 0; }
+.li-anel { fill: none; stroke: #A7C4F0; stroke-width: 0.5; opacity: 0; transform-box: view-box; transform-origin: 0 0; }
+.li-no { fill: var(--ouro); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.li-con { fill: none; stroke: var(--ouro); stroke-width: 0.8; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.li-contorno { fill: none; stroke: var(--ouro); stroke-width: 0.7; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.li-preenche { fill: #B28B46; opacity: 0; }
+.li-legenda { margin: 28px 0 0; display: flex; align-items: center; gap: 12px; font-family: var(--fonte-titulo); font-weight: 600; font-size: clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem); letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.88); }
+.li-filete { width: 28px; height: 2px; background: var(--ouro); transform: scaleX(0); transform-origin: left; }
+.li-nome { opacity: 0; transform: translateY(8px); }
+@media (max-width: 600px) {
+  .li-anel { stroke-width: 0.9; }
+  .li-con { stroke-width: 1.4; }
+  .li-contorno { stroke-width: 1.2; }
+}
+
+.li-tocando .li-cam { animation: li-camera 2.3s linear both; }
+.li-tocando .li-anel { animation: li-anel 0.45s var(--ease-out) calc(var(--i) * 0.05s) both; }
+.li-tocando .li-aneis { animation: li-aneis-abrem 0.7s var(--ease-out) 1.6s both; }
+.li-tocando .li-no { animation: li-pop 0.32s var(--ease-spring) calc(0.18s + var(--i) * 0.07s) both, li-some 0.4s var(--ease-out) calc(1.1s + var(--i) * 0.03s) forwards; }
+.li-tocando .li-con { animation: li-traco 0.5s var(--ease-draw) calc(0.45s + var(--i) * 0.06s) both, li-escoa 0.4s var(--ease-draw) calc(1.1s + var(--i) * 0.03s) forwards; }
+.li-tocando .li-contorno { animation: li-traco 0.8s var(--ease-draw) 0.9s both, li-apaga 0.25s ease 1.7s forwards; }
+.li-tocando .li-preenche { animation: li-acende 0.3s ease 1.55s both; }
+.li-tocando .li-logo { animation: li-nome 0.75s var(--ease-out) 1.7s both; }
+.li-tocando .li-filete { animation: li-filete 0.3s var(--ease-draw) 2.35s both; }
+.li-tocando .li-nome { animation: valor-aparece 0.35s var(--ease-out) 2.45s both; }
+.li-saindo { animation: li-sai 0.5s ease forwards; }
+.li-saindo .li-palco { animation: li-afasta 0.6s var(--ease-out) forwards; }
+
+@keyframes li-camera {
+  0% { transform: translateX(36.31%) scale(1.24); }
+  67.4% { transform: translateX(36.31%) scale(1.16); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  100% { transform: none; }
+}
+@keyframes li-anel { from { opacity: 0; transform: scale(0.94); } to { opacity: var(--o); transform: none; } }
+@keyframes li-aneis-abrem { from { opacity: 1; transform: none; } to { opacity: 0.7; transform: scale(1.14); } }
+@keyframes li-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+@keyframes li-some { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.4); } }
+@keyframes li-traco { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes li-escoa { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1; } }
+@keyframes li-apaga { to { opacity: 0; } }
+@keyframes li-acende { to { opacity: 1; } }
+@keyframes li-nome { 0% { opacity: 0; clip-path: inset(0 72.6% 0 0); } 15% { opacity: 1; } 100% { opacity: 1; clip-path: inset(0 0 0 0); } }
+@keyframes li-filete { to { transform: none; } }
+@keyframes li-sai { to { opacity: 0; } }
+@keyframes li-afasta { to { transform: scale(1.03); } }
+
+/* Aviso da pré-visualização (inserido só pelo build de preview, acima do rodapé) */
+.aviso-preview { margin: 0; padding: var(--e3) var(--lateral); background: #F3E6C4; color: var(--tinta); font-size: 0.875rem; line-height: 1.45; text-align: center; }
+
+/* Movimento reduzido: estado final, sem deslocamentos */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .li-intro, html.intro-ativa::before { display: none !important; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  .ondas span { animation: none !important; }
+  .hero__foto.aguardando img, .liga__fundo.armada picture, .liga__fundo.armada img, .revela-armado .linha-conteudo { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  .trilha.armada .degrau::before, .trilha.armada .degrau__meta, .trilha.armada .degrau__valor, .trilha.armada .degrau__piso, .trilha.armada .degrau__espelho, .trilha.armada .degrau::after { opacity: 1 !important; transform: none !important; }
+  .passos.armada .passo__no, .passos.armada .passo__titulo, .passos.armada .passo p, .passos.armada .passo__linha { opacity: 1 !important; transform: none !important; }
+  .passo--credito .passo__no::after { display: none; }
+  .botao:active { transform: none; }
+}
+
+@media print {
+  .topo, .cta-fixo, .aviso-preview, .li-intro { display: none !important; }
+  main { padding-top: 0; }
+}
+</style>
+<!-- Intro: decidida antes da primeira pintura. Não roda com #âncora, aba oculta, página já rolada,
+     movimento reduzido ou se já foi vista nesta sessão. ?intro=1 força (revisão) e ?intro=0 desliga. -->
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{var q=location.search;if(/[?&]intro=0\b/.test(q)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(!/[?&]intro=1\b/.test(q)&&(location.hash||document.hidden||window.pageYOffset>4||sessionStorage.getItem("liga-intro")==="1"))return;d.classList.add("intro-ativa")}catch(e){}})();</script>
+<script src="assets/intro.js?v=0.4.0" defer onerror="document.documentElement.classList.remove('intro-ativa')"></script>
+<script src="assets/liga.js?v=0.4.0" defer></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="aneis" viewBox="-400 -400 800 800">
+    <circle r="60" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="100" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="140" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="180" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="220" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="260" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="300" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="340" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+    <circle r="380" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+  </symbol>
+</svg>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo" data-topo>
+  <div class="topo__barra">
+    <a class="topo__marca" href="#topo" aria-label="ForDoctor, voltar ao topo">
+      <img src="assets/img/logo-fordoctor.svg" width="171" height="47" alt="ForDoctor">
+    </a>
+    <a class="botao botao--topo" href="#cadastro">Quero fazer parte da Liga</a>
+  </div>
+</header>
+
+<main id="conteudo" tabindex="-1">
+  <span id="topo" class="ancora-topo"></span>
+
+  <section class="hero" aria-labelledby="titulo">
+   <div class="hero__grade">
+    <div class="hero__texto">
+      <h1 id="titulo"><span class="h1__marca">Liga ForDoctor<span class="so-leitor">:</span></span> <span class="h1__frase">Benefícios exclusivos para turmas de Medicina que irão se formar em 2026</span></h1>
+      <p class="hero__oferta">Abertura de PJ médica gratuita e mais benefícios para sua turma.</p>
+      <p class="hero__ressalva">A ForDoctor não cobra honorários para a abertura da sua empresa. Você paga apenas as taxas obrigatórias dos órgãos públicos.</p>
+      <div class="hero__acao">
+        <a class="botao" href="#cadastro" data-cta-hero>Quero fazer parte da Liga</a>
+        <p class="hero__publico">Para estudantes do 11º e do 12º período de Medicina.</p>
+      </div>
+    </div>
+    <figure class="hero__foto" data-foto-hero>
+      <!-- Anéis em ondas: cada anel cresce e volta com um pequeno atraso em relação ao anterior, então a onda corre para fora -->
+      <div class="ondas" aria-hidden="true" data-ondas>
+        <span style="--i:0;--r:160"></span><span style="--i:1;--r:200"></span><span style="--i:2;--r:240"></span>
+        <span style="--i:3;--r:280"></span><span style="--i:4;--r:320"></span><span style="--i:5;--r:360"></span>
+      </div>
+      <picture>
+        <source type="image/avif" srcset="assets/img/liga-kit-alfa-480.avif 480w, assets/img/liga-kit-alfa-720.avif 720w, assets/img/liga-kit-alfa-991.avif 991w" sizes="(min-width: 960px) 460px, (min-width: 600px) 400px, 320px">
+        <source type="image/webp" srcset="assets/img/liga-kit-alfa-480.webp 480w, assets/img/liga-kit-alfa-720.webp 720w, assets/img/liga-kit-alfa-991.webp 991w" sizes="(min-width: 960px) 460px, (min-width: 600px) 400px, 320px">
+        <img src="assets/img/liga-kit-alfa-720.webp" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async">
+      </picture>
+    </figure>
+   </div>
+  </section>
+
+  <section class="secao secao--branca" id="formatura" aria-labelledby="h-formatura">
+    <div class="editorial">
+      <h2 id="h-formatura" data-revela>O que acontece quando você se forma em Medicina?</h2>
+      <div class="editorial__corpo">
+        <p>Você está perto de se formar e já pensa em plantões, residência, especialização, consultório e nas primeiras oportunidades de trabalho? Então também chegou a hora de entender como funciona a sua vida profissional e financeira como médico.</p>
+        <p>A graduação termina e uma nova etapa começa. Depois da faculdade, muitos médicos passam a lidar com situações que ainda não foram ensinadas na graduação:</p>
+      </div>
+    </div>
+    <ul class="perguntas">
+      <li>Como abrir uma empresa médica?</li>
+      <li>É melhor trabalhar como pessoa física ou pessoa jurídica?</li>
+      <li>Quanto um médico paga de imposto?</li>
+      <li>Preciso abrir uma PJ para fazer plantões?</li>
+      <li>Como emitir nota fiscal?</li>
+      <li>Preciso de contador?</li>
+      <li>Como funciona o pró-labore?</li>
+      <li>O que muda se eu começar uma residência?</li>
+      <li>Como organizar meus primeiros recebimentos?</li>
+      <li>Quando vale a pena abrir minha empresa?</li>
+    </ul>
+    <div class="editorial editorial--fecho"><span class="editorial__vazio"></span><p class="secao__fecho">Essas decisões podem ter impacto direto na organização financeira e tributária dos primeiros anos da carreira. Por isso, quanto antes você entender esse cenário, melhor.</p></div>
+  </section>
+
+  <section class="secao secao--liga" id="liga" aria-labelledby="h-liga">
+    <!-- Composição oficial da Liga (estudante + gradiente azul + círculos): fundo da seção, versão própria para celular -->
+    <figure class="liga__fundo" data-revela-imagem>
+      <picture>
+        <source media="(min-width: 900px)" type="image/avif" srcset="assets/img/liga-fundo-1280.avif 1280w, assets/img/liga-fundo-1920.avif 1920w" sizes="100vw">
+        <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/liga-fundo-1280.webp 1280w, assets/img/liga-fundo-1920.webp 1920w" sizes="100vw">
+        <source type="image/avif" srcset="assets/img/liga-fundo-mobile-480.avif 480w, assets/img/liga-fundo-mobile-668.avif 668w" sizes="100vw">
+        <img src="assets/img/liga-fundo-mobile-668.webp" srcset="assets/img/liga-fundo-mobile-480.webp 480w, assets/img/liga-fundo-mobile-668.webp 668w" sizes="100vw" width="668" height="1188" alt="Estudante fazendo anotações em um caderno numa biblioteca" loading="lazy" decoding="async">
+      </picture>
+    </figure>
+    <div class="liga">
+      <div class="liga__texto">
+        <h2 id="h-liga" data-revela>O que é a Liga ForDoctor?</h2>
+        <p>A Liga ForDoctor é uma iniciativa criada para estudantes de Medicina que estão perto da formatura e querem se preparar para os próximos passos da carreira.</p>
+        <p>A proposta é conectar futuros médicos a informação, orientação e benefícios para facilitar a transição entre a faculdade e a vida profissional, especialmente quando chega o momento de abrir uma PJ médica, organizar os primeiros recebimentos e entender a tributação para médicos.</p>
+        <a class="botao" href="#cadastro">Quero fazer parte da Liga</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao--branca" id="pj" aria-labelledby="h-pj">
+    <div class="editorial">
+      <h2 id="h-pj" data-revela>Por que um médico precisa entender de PJ?</h2>
+      <div class="editorial__corpo">
+        <p>A rotina profissional do médico pode envolver diferentes fontes de renda e diferentes formas de contratação. Plantões, clínicas, hospitais, cooperativas, consultórios e outros serviços podem ter necessidades distintas.</p>
+        <p>Por isso, entender como funciona uma empresa médica antes de começar a trabalhar pode evitar decisões precipitadas. A abertura de uma PJ pode fazer sentido para muitos médicos, mas não existe uma regra única para todos. É preciso avaliar fatores como:</p>
+        <ul class="fatores">
+          <li>previsão de faturamento</li>
+          <li>tipo de serviço prestado</li>
+          <li>forma de contratação</li>
+          <li>atuação como pessoa física</li>
+          <li>contribuição ao INSS</li>
+          <li>residência ou especialização</li>
+          <li>despesas profissionais</li>
+          <li>objetivos de curto e longo prazo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="editorial">
+      <h2 id="h-recem" data-revela>PJ médica para&nbsp;recém-formados</h2>
+      <div class="editorial__corpo">
+        <p>Para quem está se formando, uma das principais dúvidas é: “Preciso abrir uma empresa assim que me formar?” Não necessariamente. A decisão depende da sua realidade profissional e das oportunidades que você pretende assumir.</p>
+        <p>Em muitos casos, as oportunidades de trabalho podem exigir que o médico tenha uma pessoa jurídica. Conhecer antes o processo de abertura de uma PJ médica deixa você preparado quando surgir a primeira oportunidade. Veja como funciona a <a href="https://fordoctor.com.br/abertura-de-empresa/">abertura de empresa para médicos na ForDoctor</a>.</p>
+      </div>
+    </div>
+
+    <div class="editorial">
+      <h2 id="h-residencia" data-revela>E se eu for fazer residência médica?</h2>
+      <div class="editorial__corpo">
+        <p>A intenção de fazer residência não significa automaticamente que abrir uma PJ seja certo ou errado.</p>
+        <p>Antes de decidir, vale analisar o período entre a formatura e o início da residência, as oportunidades de plantão, a previsão de faturamento e a forma como os recebimentos serão feitos. Cada caso precisa ser analisado individualmente.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao--aneis" id="oferece" aria-labelledby="h-oferece">
+    <!-- Os mesmos anéis das recompensas, em azul, continuando para cima; parallax junto com a faixa de baixo -->
+    <svg class="aneis aneis--oferece" aria-hidden="true" focusable="false" data-parallax><use href="#aneis"/></svg>
+    <div class="editorial">
+      <h2 id="h-oferece" data-revela>O que a Liga oferece?</h2>
+      <div class="editorial__corpo">
+        <p>A Liga ForDoctor conecta estudantes de Medicina a uma iniciativa voltada para a transição entre a faculdade e a carreira médica.</p>
+      </div>
+    </div>
+    <dl class="oferta">
+      <div><dt>Informação</dt><dd>Conteúdos sobre PJ médica, impostos, contabilidade e organização financeira.</dd></div>
+      <div><dt>Orientação</dt><dd>Informações práticas sobre os próximos passos quando você começar a trabalhar.</dd></div>
+      <div><dt>Benefícios</dt><dd>Condições especiais e benefícios relacionados à indicação de colegas.</dd></div>
+      <div><dt>Conexão</dt><dd>A possibilidade de envolver a sua turma em uma iniciativa voltada ao início da carreira.</dd></div>
+    </dl>
+  </section>
+
+  <section class="secao secao--navy secao--aneis" id="recompensas" aria-labelledby="h-recompensas">
+    <svg class="aneis aneis--recompensas" aria-hidden="true" focusable="false" data-parallax><use href="#aneis"/></svg>
+    <div class="recompensas">
+      <div class="recompensas__intro">
+        <h2 id="h-recompensas" data-revela>Benefícios para quem movimenta a turma</h2>
+        <p>Saiba como funciona o modelo de recompensas da Liga ForDoctor. O representante de turma que marcar reuniões tem os benefícios abaixo:</p>
+      </div>
+      <ol class="trilha" data-trilha aria-label="Recompensas por número de reuniões">
+        <li class="degrau"><span class="degrau__piso" aria-hidden="true"></span><span class="degrau__meta">5 reuniões</span> <span class="degrau__valor">R$ 250</span></li>
+        <li class="degrau"><span class="degrau__espelho" aria-hidden="true"></span><span class="degrau__piso" aria-hidden="true"></span><span class="degrau__meta">10 reuniões</span> <span class="degrau__valor">R$ 750</span></li>
+        <li class="degrau"><span class="degrau__espelho" aria-hidden="true"></span><span class="degrau__piso" aria-hidden="true"></span><span class="degrau__meta">20 reuniões</span> <span class="degrau__valor">R$ 1.500</span></li>
+      </ol>
+      <div class="regras">
+        <div>
+          <h3>Regras</h3>
+          <ul>
+            <li>As reuniões agendadas devem ocorrer para contar como benefício.</li>
+            <li>A colação de grau será o prazo final para validação das reuniões, e o pagamento será realizado no mês seguinte.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>O valor será concedido por meio de</h3>
+          <ul>
+            <li>reembolso das taxas de abertura, mediante comprovação de pagamento;</li>
+            <li>pagamento das taxas pendentes; ou</li>
+            <li>crédito integral ou parcial da diferença.</li>
+          </ul>
+        </div>
+      </div>
+      <a class="botao" href="#cadastro">Quero fazer parte da Liga</a>
+    </div>
+  </section>
+
+  <section class="secao" id="indicacao" aria-labelledby="h-indicacao">
+    <div class="editorial">
+      <h2 id="h-indicacao" data-revela>E você também ganha quando um colega entra</h2>
+      <div class="editorial__corpo">
+        <p>Você indica colegas para conversar com o nosso time, ajuda sua turma a entender a importância da contabilidade especializada e ainda ganha sempre que alguém vira cliente.</p>
+      </div>
+    </div>
+    <ol class="passos" data-passos>
+      <li class="passo">
+        <span class="passo__no" aria-hidden="true">1</span><span class="passo__linha" aria-hidden="true"></span>
+        <h3 class="passo__titulo">Você indica</h3>
+        <p>Indique colegas para conversar com o time da ForDoctor.</p>
+      </li>
+      <li class="passo">
+        <span class="passo__no" aria-hidden="true">2</span><span class="passo__linha" aria-hidden="true"></span>
+        <h3 class="passo__titulo">O time conversa com seu colega</h3>
+        <p>A ForDoctor apresenta a contabilidade especializada em médicos.</p>
+      </li>
+      <li class="passo">
+        <span class="passo__no" aria-hidden="true">3</span><span class="passo__linha" aria-hidden="true"></span>
+        <h3 class="passo__titulo">Seu colega fecha contrato</h3>
+        <p>O benefício vale para cada indicado que fechar contrato.</p>
+      </li>
+      <li class="passo passo--credito">
+        <span class="passo__no" aria-hidden="true">4</span>
+        <h3 class="passo__titulo">O crédito é aplicado</h3>
+        <p>Seu colega recebe <strong>R$&nbsp;500 de crédito</strong>. O representante da turma recebe <strong>R$&nbsp;200 em crédito na mensalidade da ForDoctor</strong> por cada indicado que fechar contrato.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="secao secao--branca" id="contabilidade" aria-labelledby="h-contabilidade">
+    <div class="editorial">
+      <h2 id="h-contabilidade" data-revela>Por que contar com uma contabilidade especializada em médicos?</h2>
+      <div class="editorial__corpo">
+        <p>A contabilidade de um médico tem particularidades que podem não ser consideradas por uma contabilidade generalista. A rotina pode envolver PJ, pessoa física, plantões, várias fontes de renda, emissão de notas fiscais, impostos e diferentes formas de contratação.</p>
+        <p>Uma contabilidade especializada conhece essas particularidades e consegue estruturar o atendimento de acordo com a realidade da profissão médica.</p>
+        <h3>O que a ForDoctor pode ajudar a organizar</h3>
+        <ul class="fatores fatores--duas">
+          <li>Abertura de empresa médica</li>
+          <li>Emissão de notas fiscais</li>
+          <li>Planejamento tributário</li>
+          <li>Obrigações fiscais</li>
+          <li>Imposto de Renda</li>
+          <li>Gestão financeira</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="perguntas" aria-labelledby="h-perguntas">
+    <div class="editorial">
+      <h2 id="h-perguntas" data-revela>Perguntas frequentes sobre PJ médica</h2>
+      <div class="faq">
+        <details>
+          <summary>Todo médico recém-formado precisa abrir uma PJ?</summary>
+          <div class="faq__resposta"><p>Não. A necessidade depende da forma de atuação profissional e das oportunidades que o médico pretende assumir.</p></div>
+        </details>
+        <details>
+          <summary>É possível abrir uma PJ antes de terminar a residência?</summary>
+          <div class="faq__resposta"><p>Sim. Médicos formados podem abrir uma empresa antes de concluir uma residência ou especialização. É importante avaliar se isso faz sentido para o momento profissional.</p></div>
+        </details>
+        <details>
+          <summary>Vale a pena abrir uma PJ para fazer plantões?</summary>
+          <div class="faq__resposta"><p>Pode valer a pena, dependendo de como os plantões são contratados, do faturamento previsto e da situação tributária do profissional.</p></div>
+        </details>
+        <details>
+          <summary>Quanto um médico paga de imposto?</summary>
+          <div class="faq__resposta"><p>Não existe uma única resposta. A tributação depende de fatores como faturamento, regime tributário, tipo de atividade, despesas e estrutura da empresa.</p></div>
+        </details>
+        <details>
+          <summary>É melhor trabalhar como pessoa física ou pessoa jurídica?</summary>
+          <div class="faq__resposta"><p>Depende do cenário de cada médico. A comparação deve considerar faturamento, impostos, INSS, custos da empresa e forma de contratação.</p></div>
+        </details>
+        <details>
+          <summary>Preciso contratar um contador para minha PJ médica?</summary>
+          <div class="faq__resposta"><p>Uma empresa tem obrigações contábeis, fiscais e tributárias. Ter acompanhamento especializado ajuda a manter a empresa regular e a apoiar suas decisões.</p></div>
+        </details>
+        <details>
+          <summary>Posso trocar de contador depois de abrir minha empresa?</summary>
+          <div class="faq__resposta"><p>Sim. A migração de contabilidade pode ser feita depois.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao--navy secao--aneis" id="cadastro" aria-labelledby="h-cadastro">
+   <svg class="aneis aneis--cadastro" aria-hidden="true" focusable="false"><use href="#aneis"/></svg>
+   <div class="cadastro">
+    <div class="cadastro__texto">
+      <h2 id="h-cadastro" data-revela>Pronto para começar essa nova fase?</h2>
+      <p>Cadastre-se para receber orientações práticas sobre como abrir sua empresa médica da forma certa.</p>
+      <p>Entre para a Liga ForDoctor e prepare-se para a sua vida profissional como médico.</p>
+      <p class="cadastro__oferta"><strong>Abertura de PJ médica gratuita.</strong> A ForDoctor não cobra honorários para a abertura da sua empresa. Você paga apenas as taxas obrigatórias dos órgãos públicos.</p>
+    </div>
+
+    <div class="cadastro__painel">
+      <form class="formulario" method="post" name="Liga ForDoctor 1" data-formulario>
+        <input type="hidden" name="post_id" value="4839">
+        <input type="hidden" name="form_id" value="fbb441a">
+        <input type="hidden" name="referer_title" value="Liga ForDoctor: PJ Médica Grátis para Formandos 2026">
+        <input type="hidden" name="queried_id" value="4839">
+        <input type="hidden" name="form_fields[utm_source]" id="form-field-utm_source" value="">
+        <input type="hidden" name="form_fields[utm_medium]" id="form-field-utm_medium" value="">
+        <input type="hidden" name="form_fields[utm_campaign]" id="form-field-utm_campaign" value="">
+
+        <div class="campos">
+          <div class="campo">
+            <label for="form-field-first_namae">Nome</label>
+            <input type="text" name="form_fields[first_namae]" id="form-field-first_namae" autocomplete="given-name" required aria-describedby="erro-first_namae">
+            <p class="campo__erro" id="erro-first_namae" data-erro></p>
+          </div>
+          <div class="campo">
+            <label for="form-field-last_name">Sobrenome</label>
+            <input type="text" name="form_fields[last_name]" id="form-field-last_name" autocomplete="family-name" required aria-describedby="erro-last_name">
+            <p class="campo__erro" id="erro-last_name" data-erro></p>
+          </div>
+          <div class="campo campo--inteiro">
+            <label for="form-field-email">E-mail</label>
+            <input type="email" name="form_fields[email]" id="form-field-email" autocomplete="email" inputmode="email" spellcheck="false" required aria-describedby="erro-email">
+            <p class="campo__erro" id="erro-email" data-erro></p>
+          </div>
+          <div class="campo campo--inteiro">
+            <label for="form-field-field_f2695ae">WhatsApp com DDD</label>
+            <input type="tel" name="form_fields[field_f2695ae]" id="form-field-field_f2695ae" autocomplete="tel-national" inputmode="tel" placeholder="(31) 99999-9999" maxlength="16" required aria-describedby="erro-field_f2695ae" data-whatsapp>
+            <p class="campo__erro" id="erro-field_f2695ae" data-erro></p>
+          </div>
+          <div class="campo campo--inteiro">
+            <label for="form-field-periodo">Período na faculdade</label>
+            <div class="seletor">
+              <select name="form_fields[periodo]" id="form-field-periodo" required aria-describedby="erro-periodo">
+                <option value="" disabled selected>Escolha seu período</option>
+                <option value="Estou no 11º período de Medicina">Estou no 11º período de Medicina</option>
+                <!-- O valor mantém o texto que já chega ao destino do formulário hoje. Corrigir só depois de conferir o mapeamento da integração. -->
+                <option value="Estou no 12º período de Medidina">Estou no 12º período de Medicina</option>
+              </select>
+              <svg class="seletor__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="campo__erro" id="erro-periodo" data-erro></p>
+          </div>
+        </div>
+
+        <button class="botao botao--enviar" type="submit" data-enviar><span data-enviar-texto>Enviar meu cadastro</span></button>
+        <p class="formulario__privacidade">Seus dados serão utilizados conforme a <a href="https://fordoctor.com.br/privacidade/">política de privacidade</a> e as regras de comunicação da Liga ForDoctor.</p>
+        <p class="formulario__status" role="status" aria-live="polite" data-status></p>
+      </form>
+
+      <div class="sucesso" data-sucesso hidden tabindex="-1">
+        <svg class="sucesso__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Cadastro recebido</h3>
+        <p>Em breve um de nossos atendentes fará contato com você.</p>
+      </div>
+    </div>
+   </div>
+  </section>
+</main>
+
+<p class="aviso-preview" role="note">Pré-visualização v0.4.0 para revisão. O formulário não envia dados.</p>
+<footer class="rodape">
+  <div class="rodape__barra">
+    <img src="assets/img/logo-fordoctor-claro.svg" width="140" height="38" alt="ForDoctor" loading="lazy">
+    <p>© 2026 ForDoctor. Todos os direitos reservados.</p>
+    <a href="https://fordoctor.com.br/privacidade/">Política de privacidade</a>
+  </div>
+</footer>
+
+<div class="cta-fixo" data-cta-fixo>
+  <a class="botao" href="#cadastro">Quero fazer parte da Liga</a>
+</div>
+</body>
+</html>

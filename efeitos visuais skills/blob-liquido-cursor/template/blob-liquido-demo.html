@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blob líquido que revela o código — demo</title>
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --papel:#f3f0ff;        /* fundo da camada normal */
+    --tinta:#1b1a4b;        /* texto da camada normal e cor do blob */
+    --marca:#ffb347;        /* marca-texto da palavra rotativa */
+    --codigo-fundo:#1b1a4b; /* fundo da camada código (igual ao blob) */
+    --codigo-tinta:#ffe9c2;
+    --codigo-chave:#ff8fa3;
+    --raio:120px;           /* raio base do blob no desktop */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:"Inter",system-ui,sans-serif;background:var(--papel);color:var(--tinta)}
+
+  /* ---------- hero com duas camadas ---------- */
+  .hero{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;touch-action:pan-y}
+  .camada{position:absolute;inset:0;display:grid;place-content:center;padding:clamp(24px,6vw,96px);gap:1rem}
+  .camada h1{font-size:clamp(2.2rem,7vw,6rem);line-height:1.02;letter-spacing:-.03em;margin:0;max-width:12ch}
+  .camada p{font-size:clamp(1rem,1.6vw,1.25rem);max-width:48ch;margin:0;opacity:.8}
+  .cta{display:inline-flex;gap:.5rem;align-items:center;padding:.85rem 1.4rem;border-radius:999px;border:2px solid currentColor;background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer}
+  .cta:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
+
+  /* palavra rotativa: só a cópia visível troca; leitores de tela ouvem a frase fixa */
+  .palavra{position:relative;display:inline-block;padding:0 .12em;white-space:nowrap}
+  .palavra::before{content:"";position:absolute;inset:.08em -.05em .02em;background:var(--marca);z-index:-1;transform:skew(-6deg) scaleX(var(--marca-x,1));transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+  .palavra.trocando::before{--marca-x:0}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* camada normal (embaixo) */
+  .camada--normal{z-index:0}
+
+  /* camada goo: desenha blob + gotículas fundidos, na cor do blob */
+  .goo{position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%}
+  .goo circle,.goo path{fill:var(--tinta)}
+
+  /* camada código (em cima), recortada pela forma do blob principal + gotículas */
+  .camada--codigo{z-index:2;background:var(--codigo-fundo);color:var(--codigo-tinta);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;pointer-events:none;clip-path:path("M0 0Z");will-change:clip-path}
+  .camada--codigo h1{font-size:clamp(1.3rem,3.6vw,3rem);letter-spacing:0;line-height:1.35;max-width:none;font-weight:500}
+  .camada--codigo .k{color:var(--codigo-chave)}
+  .camada--codigo .c{opacity:.55}
+  .hero.mostra-codigo .camada--codigo{clip-path:none;pointer-events:auto}
+  .hero.mostra-codigo .goo{display:none}
+
+  .dica{position:absolute;left:50%;bottom:clamp(16px,4vh,40px);transform:translateX(-50%);font-size:.85rem;opacity:.65;z-index:3;margin:0}
+  .alternar{position:absolute;right:16px;top:16px;z-index:4}
+  @media (hover:hover) and (pointer:fine){.alternar{display:none}}
+
+  /* movimento reduzido: sem mola, sem gotículas, blob fixo; revelar por botão ou hover simples */
+  @media (prefers-reduced-motion:reduce){
+    .palavra::before{transition:none}
+    .alternar{display:inline-flex}
+  }
+</style>
+</head>
+<body>
+<section class="hero" id="hero">
+  <!-- camada normal -->
+  <div class="camada camada--normal">
+    <h1>I build software that feels
+      <span class="sr-only">good.</span>
+      <span class="palavra" aria-hidden="true" data-palavras="good|fast|alive">good</span><span aria-hidden="true">.</span>
+    </h1>
+    <p>Full-stack developer in the UK. I turn rough product ideas into fast web and mobile apps for fintech, health and e-commerce teams.</p>
+    <p><button class="cta" type="button">See my work</button></p>
+  </div>
+
+  <!-- camada goo (blob + gotículas fundidos) -->
+  <svg class="goo" aria-hidden="true">
+    <defs>
+      <filter id="goo-filtro" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+        <feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -12" result="goo"/>
+        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+      </filter>
+    </defs>
+    <g id="goo-formas" filter="url(#goo-filtro)"></g>
+  </svg>
+
+  <!-- camada código: mesmo conteúdo, "modo código" -->
+  <div class="camada camada--codigo" aria-hidden="true">
+    <h1><span class="k">&lt;h1</span> className=<span class="c">"hero"</span><span class="k">&gt;</span><br>
+      I build software that feels {<span class="c">"good"</span>}<br>
+      <span class="k">&lt;/h1&gt;</span></h1>
+    <p><span class="k">const</span> dev = { where: <span class="c">"UK"</span>, stack: [<span class="c">"web"</span>, <span class="c">"mobile"</span>], for: [<span class="c">"fintech"</span>, <span class="c">"health"</span>, <span class="c">"e-commerce"</span>] }</p>
+    <p><span class="k">&lt;Button&gt;</span>See my work<span class="k">&lt;/Button&gt;</span></p>
+  </div>
+
+  <p class="dica" aria-hidden="true">Move your cursor to see the code</p>
+  <button class="cta alternar" type="button" aria-pressed="false" aria-controls="hero">Ver o código</button>
+</section>
+
+<script>
+(() => {
+  const hero = document.getElementById('hero');
+  const codigo = hero.querySelector('.camada--codigo');
+  const goo = hero.querySelector('#goo-formas');
+  const alternar = hero.querySelector('.alternar');
+  const palavra = hero.querySelector('.palavra');
+
+  const reduzido = matchMedia('(prefers-reduced-motion: reduce)');
+  const ponteiroFino = matchMedia('(hover: hover) and (pointer: fine)');
+
+  /* ---------- parâmetros ---------- */
+  const P = {
+    raio: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--raio')) || 120,
+    rigidez: 0.085,       // força da mola (0.05 lento/flutuante · 0.12 seco)
+    amortecimento: 0.82,  // 0.75 muito elástico · 0.9 quase sem oscilação
+    esticaMax: 0.9,       // alongamento máximo relativo (0 = nunca vira gota)
+    velEstica: 28,        // px/quadro em que o alongamento satura
+    gotasMax: 4,
+    velGota: 22,          // velocidade mínima para soltar gotícula
+    gotaRaio: 0.22,       // fração do raio principal
+    gotaRigidez: 0.05,
+    gotaAmort: 0.86,
+    fundir: 0.55          // distância (× raio) em que a gotícula se funde e some
+  };
+
+  /* ---------- estado ---------- */
+  let alvo = { x: innerWidth * 0.62, y: innerHeight * 0.45 };
+  let pos = { ...alvo }, vel = { x: 0, y: 0 };
+  let gotas = [];
+  let ativo = true, visivel = true, rodando = false, ultimoT = 0, ultimaGota = 0;
+
+  /* ---------- geometria ---------- */
+  function caminhoGota(cx, cy, r, ang, s) {
+    // elipse assimétrica: traseira mais longa (cauda), frente mais curta
+    const N = 36, pts = [];
+    const cos = Math.cos(ang), sin = Math.sin(ang);
+    for (let i = 0; i < N; i++) {
+      const a = (i / N) * Math.PI * 2;
+      const ca = Math.cos(a), sa = Math.sin(a);
+      const rx = r * (1 + s * (ca < 0 ? 1.15 : 0.35));  // ca<0 = atrás do movimento
+      const ry = r * (1 - s * 0.28);
+      const x = ca * rx, y = sa * ry;
+      pts.push([cx + x * cos - y * sin, cy + x * sin + y * cos]);
+    }
+    return 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'Z';
+  }
+  function caminhoCirculo(cx, cy, r) {
+    return `M${(cx - r).toFixed(1)} ${cy.toFixed(1)}a${r} ${r} 0 1 0 ${r * 2} 0a${r} ${r} 0 1 0 ${-r * 2} 0Z`;
+  }
+
+  /* ---------- laço ---------- */
+  function quadro(t) {
+    if (!rodando) return;
+    const dt = Math.min(2, (t - ultimoT) / 16.7 || 1); ultimoT = t;
+
+    if (reduzido.matches) { pos = { ...alvo }; vel = { x: 0, y: 0 }; gotas = []; }
+    else {
+      vel.x += (alvo.x - pos.x) * P.rigidez * dt;
+      vel.y += (alvo.y - pos.y) * P.rigidez * dt;
+      vel.x *= Math.pow(P.amortecimento, dt); vel.y *= Math.pow(P.amortecimento, dt);
+      pos.x += vel.x * dt; pos.y += vel.y * dt;
+    }
+    const v = Math.hypot(vel.x, vel.y);
+    const s = Math.min(P.esticaMax, v / P.velEstica);
+    const ang = Math.atan2(vel.y, vel.x);
+    const r = P.raio;
+
+    // soltar gotícula na traseira quando rápido
+    if (!reduzido.matches && v > P.velGota && gotas.length < P.gotasMax && t - ultimaGota > 90) {
+      ultimaGota = t;
+      const rr = r * P.gotaRaio * (0.7 + Math.random() * 0.6);
+      gotas.push({ x: pos.x - Math.cos(ang) * r * 0.9, y: pos.y - Math.sin(ang) * r * 0.9,
+                   vx: -vel.x * 0.35, vy: -vel.y * 0.35, r: rr,
+                   ox: (Math.random() - 0.5) * r * 0.4, oy: (Math.random() - 0.5) * r * 0.4 });
+    }
+    // gotículas voltam por mola própria e se fundem
+    gotas = gotas.filter(g => {
+      g.vx += (pos.x + g.ox - g.x) * P.gotaRigidez * dt;
+      g.vy += (pos.y + g.oy - g.y) * P.gotaRigidez * dt;
+      g.vx *= Math.pow(P.gotaAmort, dt); g.vy *= Math.pow(P.gotaAmort, dt);
+      g.x += g.vx * dt; g.y += g.vy * dt;
+      return Math.hypot(g.x - pos.x, g.y - pos.y) > r * P.fundir;
+    });
+
+    // recorte da camada código = blob principal + gotículas (união)
+    let d = caminhoGota(pos.x, pos.y, r, ang, s);
+    for (const g of gotas) d += caminhoCirculo(g.x, g.y, g.r);
+    codigo.style.clipPath = `path("${d}")`;
+
+    // silhueta goo (mesmas formas): os "pescoços" entre gotas aparecem na cor do blob
+    let svg = `<path d="${caminhoGota(pos.x, pos.y, r * 1.02, ang, s)}"/>`;
+    for (const g of gotas) svg += `<circle cx="${g.x.toFixed(1)}" cy="${g.y.toFixed(1)}" r="${g.r.toFixed(1)}"/>`;
+    goo.innerHTML = svg;
+
+    const parado = v < 0.05 && Math.hypot(alvo.x - pos.x, alvo.y - pos.y) < 0.2 && gotas.length === 0;
+    if (parado && !hero.matches(':hover')) { rodando = false; return; } // dorme quando assentado
+    requestAnimationFrame(quadro);
+  }
+  function acordar() { if (!rodando && ativo && visivel && !hero.classList.contains('mostra-codigo')) { rodando = true; ultimoT = performance.now(); requestAnimationFrame(quadro); } }
+
+  /* ---------- entrada ---------- */
+  hero.addEventListener('pointermove', e => {
+    if (!ponteiroFino.matches) return;
+    const b = hero.getBoundingClientRect();
+    alvo = { x: e.clientX - b.left, y: e.clientY - b.top };
+    acordar();
+  });
+  // toque / sem hover: blob descansa perto do título e o botão mostra a camada inteira
+  alternar.addEventListener('click', () => {
+    const on = hero.classList.toggle('mostra-codigo');
+    alternar.setAttribute('aria-pressed', String(on));
+    alternar.textContent = on ? 'Ver o site' : 'Ver o código';
+    codigo.setAttribute('aria-hidden', String(!on));
+    if (!on) acordar();
+  });
+
+  /* ---------- pausas: aba oculta e fora da tela ---------- */
+  document.addEventListener('visibilitychange', () => { visivel = !document.hidden; if (visivel) acordar(); else rodando = false; });
+  new IntersectionObserver(([en]) => { ativo = en.isIntersecting; if (ativo) acordar(); else rodando = false; }, { threshold: 0.05 }).observe(hero);
+
+  /* ---------- palavra rotativa ---------- */
+  const lista = palavra.dataset.palavras.split('|'); let i = 0, rel;
+  function trocar() {
+    if (document.hidden || !ativo) { rel = setTimeout(trocar, 800); return; }
+    palavra.classList.add('trocando');
+    setTimeout(() => { i = (i + 1) % lista.length; palavra.textContent = lista[i]; palavra.classList.remove('trocando'); }, reduzido.matches ? 0 : 450);
+    rel = setTimeout(trocar, 2400);
+  }
+  rel = setTimeout(trocar, 2400);
+
+  acordar();
+})();
+</script>
+</body>
+</html>

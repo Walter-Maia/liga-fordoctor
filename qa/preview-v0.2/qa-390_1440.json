@@ -1,0 +1,92 @@
+[
+ {
+  "W": 390,
+  "H": 844,
+  "scrollW": 390,
+  "docH": 11468,
+  "estouro": [
+   "svg.aneis.aneis--recompensas R685",
+   "use. R667",
+   "svg.aneis.aneis--cadastro R358",
+   "use. R341"
+  ],
+  "alvos": [],
+  "viuvas": [],
+  "ctaNaDobra": true,
+  "ctaBottom": 468,
+  "formTelas": 11.7,
+  "maxLinha": 52,
+  "campos": [
+   "17px"
+  ],
+  "h1": "33.34px",
+  "requisicoes": 10,
+  "kb": 224,
+  "erros404": [],
+  "imagens": [
+   "30KB logo-fordoctor.svg",
+   "14KB liga-kit-alfa-480.avif",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113",
+   "log-error: Access to font at 'file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2' from origin 'null' has been blocked by CORS polic",
+   "log-error: Failed to load resource: net::ERR_FAILED",
+   "log-warning: A preload for 'file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2' is found, but is not used because the request credent",
+   "log-warning: The resource file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2 was preloaded using link preload but not used within a f",
+   "log-warning: The resource file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2 was preloaded using link preload but not used within a f"
+  ]
+ },
+ {
+  "W": 1440,
+  "H": 900,
+  "scrollW": 1440,
+  "docH": 7977,
+  "estouro": [
+   "svg.aneis.aneis--recompensas R1902",
+   "use. R1875",
+   "svg.aneis.aneis--cadastro R540",
+   "use. R515"
+  ],
+  "alvos": [],
+  "viuvas": [],
+  "ctaNaDobra": true,
+  "ctaBottom": 641,
+  "formTelas": 7.8,
+  "maxLinha": 85,
+  "campos": [
+   "17px"
+  ],
+  "h1": "56px",
+  "requisicoes": 9,
+  "kb": 223,
+  "erros404": [],
+  "imagens": [
+   "30KB logo-fordoctor.svg",
+   "14KB liga-kit-alfa-480.avif",
+   "7KB liga-estudante-480.avif",
+   "30KB logo-fordoctor-claro.svg"
+  ],
+  "fontes": {
+   ".h1__frase": "Dosis (web)",
+   ".hero__oferta": "Jost (web)",
+   "h2": "Dosis (web)",
+   ".campo label": "Jost (web)"
+  },
+  "console": [
+   "log-info: Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113",
+   "log-error: Access to font at 'file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2' from origin 'null' has been blocked by CORS polic",
+   "log-error: Failed to load resource: net::ERR_FAILED",
+   "log-warning: A preload for 'file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2' is found, but is not used because the request credent",
+   "log-warning: The resource file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2 was preloaded using link preload but not used within a f",
+   "log-warning: The resource file:///C:/Users/ODIN03/orca/projects/fordoctor/preview/assets/fonts/dosis-latin-var.woff2 was preloaded using link preload but not used within a f"
+  ]
+ }
+]

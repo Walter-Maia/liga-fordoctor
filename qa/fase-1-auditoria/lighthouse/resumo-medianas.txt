@@ -1,0 +1,27 @@
+
+### desktop (3 execuções)
+desktop-1.json: perf 83 a11y 88 bp 78 seo 100 | FCP 1235 LCP 1801 TBT 198 CLS 0.000 SI 1235 TTFB 147 | req 76 2233 KB
+desktop-2.json: perf 85 a11y 88 bp 78 seo 100 | FCP 1033 LCP 1607 TBT 225 CLS 0.000 SI 1033 TTFB 91 | req 75 2232 KB
+desktop-3.json: perf 89 a11y 88 bp 78 seo 100 | FCP 1101 LCP 1718 TBT 120 CLS 0.000 SI 1101 TTFB 141 | req 75 2234 KB
+MEDIANA: perf 85 a11y 88 bp 78 seo 100 | FCP 1101 LCP 1718 TBT 198 CLS 0.000 SI 1101 TTFB 141 | req 75 2233 KB
+por tipo (mediana n / KB): document 1/60 · stylesheet 36/154 · script 9/745 · image 12/1162 · font 1/106 · other 16/5 · third-party 30/746 · total 75/2233
+LCP el: <h1 class="elementor-heading-title elementor-size-default"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026. :: div.elementor-element > div.elementor-element > div.elementor-widget-container > h1.elementor-heading-title
+   <h1 class="elementor-heading-title elementor-size-default"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026. :: div.elementor-element > div.elementor-element > div.elementor-widget-container > h1.elementor-heading-title
+   <h1 class="elementor-heading-title elementor-size-default"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026. :: div.elementor-element > div.elementor-element > div.elementor-widget-container > h1.elementor-heading-title
+LCP fases (1ª): [{"phase":"TTFB","timing":195.40800000095368,"percent":"11%"},{"phase":"Atraso no carregamento","timing":0,"percent":"0%"},{"phase":"Tempo de carregamento","timing":0,"percent":"0%"},{"phase":"Atraso na renderização","timing":1605.6099999990465,"percent":"89%"}]
+config: {"rttMs":40,"throughputKbps":10240,"requestLatencyMs":0,"downloadThroughputKbps":0,"uploadThroughputKbps":0,"cpuSlowdownMultiplier":1} desktop 12.8.2
+
+### mobile (3 execuções)
+mobile-1.json: perf 42 a11y 88 bp 79 seo 100 | FCP 3039 LCP 11312 TBT 1539 CLS 0.026 SI 3846 TTFB 154 | req 74 1321 KB
+mobile-2.json: perf 45 a11y 88 bp 79 seo 100 | FCP 3980 LCP 5303 TBT 1579 CLS 0.026 SI 3980 TTFB 115 | req 74 1326 KB
+mobile-3.json: perf 44 a11y 88 bp 79 seo 100 | FCP 3933 LCP 5165 TBT 1979 CLS 0.026 SI 3933 TTFB 122 | req 74 1326 KB
+MEDIANA: perf 44 a11y 88 bp 79 seo 100 | FCP 3933 LCP 5303 TBT 1579 CLS 0.026 SI 3933 TTFB 122 | req 74 1326 KB
+por tipo (mediana n / KB): document 1/61 · stylesheet 36/154 · script 10/749 · image 10/250 · font 1/106 · other 16/5 · third-party 30/746 · total 74/1326
+LCP el: <div class="elementor-element elementor-element-d10ca2d e-flex e-con-boxed e-con e-par…" data-id="d10ca2d" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_bottom&quot;:&quot;split&quot;}" data-rocket-lazy-bg-e9687c11-4fd8-47b9-bb40-8949df086b8c="loaded" data-rocket-lazy-bg-42f268dc-31fa-4f98-8bbb-576145f4f093="loaded"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026.
+VOCÊ … :: body.wp-singular > div.elementor > div.elementor-element
+   <div class="elementor-element elementor-element-d10ca2d e-flex e-con-boxed e-con e-par…" data-id="d10ca2d" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_bottom&quot;:&quot;split&quot;}" data-rocket-lazy-bg-e9687c11-4fd8-47b9-bb40-8949df086b8c="loaded" data-rocket-lazy-bg-42f268dc-31fa-4f98-8bbb-576145f4f093="loaded"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026.
+VOCÊ … :: body.wp-singular > div.elementor > div.elementor-element
+   <div class="elementor-element elementor-element-d10ca2d e-flex e-con-boxed e-con e-par…" data-id="d10ca2d" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_bottom&quot;:&quot;split&quot;}" data-rocket-lazy-bg-e9687c11-4fd8-47b9-bb40-8949df086b8c="loaded" data-rocket-lazy-bg-42f268dc-31fa-4f98-8bbb-576145f4f093="loaded"> :: Benefícios exclusivos para turmas de medicina que irão se formar em 2026.
+VOCÊ … :: body.wp-singular > div.elementor > div.elementor-element
+LCP fases (1ª): [{"phase":"TTFB","timing":639.3075,"percent":"6%"},{"phase":"Atraso no carregamento","timing":2373.009575249532,"percent":"21%"},{"phase":"Tempo de carregamento","timing":420.3545958740742,"percent":"4%"},{"phase":"Atraso na renderização","timing":7879.024828876392,"percent":"70%"}]
+config: {"rttMs":150,"throughputKbps":1638.4,"requestLatencyMs":562.5,"downloadThroughputKbps":1474.5600000000002,"uploadThroughputKbps":675,"cpuSlowdownMultiplier":4} mobile 12.8.2

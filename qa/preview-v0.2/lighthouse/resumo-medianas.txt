@@ -1,0 +1,24 @@
+
+### desktop (3 execuções)
+desktop-1.json: perf 100 a11y 100 bp 100 seo 66 | FCP 346 LCP 524 TBT 78 CLS 0.000 SI 668 TTFB 10 | req 10 117 KB
+desktop-2.json: perf 100 a11y 100 bp 100 seo 66 | FCP 328 LCP 430 TBT 10 CLS 0.021 SI 470 TTFB 18 | req 10 117 KB
+desktop-3.json: perf 100 a11y 100 bp 100 seo 66 | FCP 326 LCP 415 TBT 15 CLS 0.000 SI 500 TTFB 7 | req 10 117 KB
+MEDIANA: perf 100 a11y 100 bp 100 seo 66 | FCP 328 LCP 430 TBT 15 CLS 0.000 SI 500 TTFB 10 | req 10 117 KB
+por tipo (mediana n / KB): document 1/16 · stylesheet 0/0 · script 2/9 · image 4/34 · font 2/56 · other 1/1 · third-party 1/1 · total 10/117
+LCP el: <img src="http://localhost:4173/assets/img/liga-kit-alfa-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-alfa-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-alfa-480.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+LCP fases (1ª): [{"phase":"TTFB","timing":125.662,"percent":"24%"},{"phase":"Atraso no carregamento","timing":0,"percent":"0%"},{"phase":"Tempo de carregamento","timing":0,"percent":"0%"},{"phase":"Atraso na renderização","timing":398.16200000000003,"percent":"76%"}]
+config: {"rttMs":40,"throughputKbps":10240,"requestLatencyMs":0,"downloadThroughputKbps":0,"uploadThroughputKbps":0,"cpuSlowdownMultiplier":1} desktop 12.8.2
+
+### mobile (3 execuções)
+mobile-1.json: perf 97 a11y 100 bp 100 seo 66 | FCP 1106 LCP 1829 TBT 188 CLS 0.002 SI 1230 TTFB 17 | req 10 129 KB
+mobile-2.json: perf 95 a11y 100 bp 100 seo 66 | FCP 1183 LCP 1730 TBT 259 CLS 0.000 SI 1365 TTFB 4 | req 10 129 KB
+mobile-3.json: perf 95 a11y 100 bp 100 seo 66 | FCP 1226 LCP 1731 TBT 235 CLS 0.000 SI 1448 TTFB 10 | req 10 129 KB
+MEDIANA: perf 95 a11y 100 bp 100 seo 66 | FCP 1183 LCP 1731 TBT 235 CLS 0.000 SI 1365 TTFB 10 | req 10 129 KB
+por tipo (mediana n / KB): document 1/16 · stylesheet 0/0 · script 2/9 · image 4/46 · font 2/56 · other 1/1 · third-party 1/1 · total 10/129
+LCP el: <img src="http://localhost:4173/assets/img/liga-kit-alfa-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-alfa-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+   <img src="http://localhost:4173/assets/img/liga-kit-alfa-720.avif" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async"> :: Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor :: div.hero__grade > figure.hero__foto > picture > img
+LCP fases (1ª): [{"phase":"TTFB","timing":464.4657,"percent":"25%"},{"phase":"Atraso no carregamento","timing":0,"percent":"0%"},{"phase":"Tempo de carregamento","timing":0,"percent":"0%"},{"phase":"Atraso na renderização","timing":1364.4657,"percent":"75%"}]
+config: {"rttMs":150,"throughputKbps":1638.4,"requestLatencyMs":562.5,"downloadThroughputKbps":1474.5600000000002,"uploadThroughputKbps":675,"cpuSlowdownMultiplier":4} mobile 12.8.2

@@ -1,0 +1,252 @@
+{
+ "semJS_390": {
+  "elementorInvisible": 13
+ },
+ "semJS_1440": {
+  "elementorInvisible": 13
+ },
+ "fonte_h1": [
+  {
+   "familyName": "Arial",
+   "postScriptName": "ArialMT",
+   "isCustomFont": false,
+   "glyphCount": 52
+  },
+  {
+   "familyName": "Arial",
+   "postScriptName": "Arial-ItalicMT",
+   "isCustomFont": false,
+   "glyphCount": 1
+  }
+ ],
+ "fonte_h2": [
+  {
+   "familyName": "Arial",
+   "postScriptName": "ArialMT",
+   "isCustomFont": false,
+   "glyphCount": 29
+  }
+ ],
+ "fonte_form input[type=email]": [
+  {
+   "familyName": "Arial",
+   "postScriptName": "ArialMT",
+   "isCustomFont": false,
+   "glyphCount": 5
+  }
+ ],
+ "fonte_a.elementor-button": [],
+ "fonte_footer p, .elementor-widget-text-editor p": [
+  {
+   "familyName": "Arial",
+   "postScriptName": "ArialMT",
+   "isCustomFont": false,
+   "glyphCount": 57
+  }
+ ],
+ "fontsCheck": {
+  "poppins": true,
+  "dosis": false,
+  "jost": true,
+  "dosisFace": [
+   "unloaded"
+  ]
+ },
+ "reducedMotion": [
+  {
+   "cls": "animated fadeIn",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "animated fadeInUp",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "animated fadeIn",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "animated fadeInUp",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "animated fadeInUp",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "elementor-invisible",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "elementor-invisible",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  },
+  {
+   "cls": "elementor-invisible",
+   "anim": "none",
+   "dur": "0s",
+   "op": "1"
+  }
+ ],
+ "lenisWithReducedMotion": "lenis",
+ "tabs": [
+  {
+   "tag": "A",
+   "name": "",
+   "text": "Pular para o conteúdo",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "rgba(0, 0, 0, 0.6) 0px 0px 2px 2px",
+   "inView": true,
+   "scrollY": 0
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "CADASTRE-SE",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 0
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "FAÇA PARTE DA LIGA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 1049
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "VENHA PARA A LIGA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 1826
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "FAÇA PARTE AGORA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 2577
+  },
+  {
+   "tag": "BODY",
+   "name": "",
+   "text": "Pular para o conteúdo\nBenefíci",
+   "outline": "none 3px rgb(9, 29, 62)",
+   "shadow": "none",
+   "inView": false,
+   "scrollY": 2595
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "Pular para o conteúdo",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "rgba(0, 0, 0, 0.6) 0px 0px 2px 2px",
+   "inView": false,
+   "scrollY": 580
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "CADASTRE-SE",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 1
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "FAÇA PARTE DA LIGA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 1049
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "VENHA PARA A LIGA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 1828
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "FAÇA PARTE AGORA",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 2570
+  },
+  {
+   "tag": "BODY",
+   "name": "",
+   "text": "Pular para o conteúdo\nBenefíci",
+   "outline": "none 3px rgb(9, 29, 62)",
+   "shadow": "none",
+   "inView": false,
+   "scrollY": 2595
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "Pular para o conteúdo",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "rgba(0, 0, 0, 0.6) 0px 0px 2px 2px",
+   "inView": false,
+   "scrollY": 580
+  },
+  {
+   "tag": "A",
+   "name": "",
+   "text": "CADASTRE-SE",
+   "outline": "auto 1px rgb(16, 16, 16)",
+   "shadow": "none",
+   "inView": true,
+   "scrollY": 24
+  }
+ ],
+ "anchor": {
+  "anchorExists": true,
+  "anchorTag": "DIV",
+  "scrollY": 3225,
+  "anchorTop": 68,
+  "formTop": 400,
+  "formBottom": 617,
+  "vh": 900,
+  "focus": "BODY "
+ },
+ "consoleLenisLogs": 306,
+ "consoleSample": [
+  "warning: [Meta Pixel] - Duplicate Pixel ID: 602800681656995.",
+  "warning: [Meta Pixel] - Duplicate Pixel ID: 602800681656995.",
+  "log: JQMIGRATE: Migrate is installed, version 3.4.1",
+  "log: L",
+  "log: L"
+ ]
+}
