@@ -8,7 +8,9 @@ Nova versão de https://fordoctor.com.br/liga-fordoctor/. Decisões, mapa de con
 npm run preview
 ```
 
-Abre um servidor em http://localhost:4173. Também dá para abrir `preview/index.html` direto no navegador. A pré-visualização tem `noindex` e o formulário não envia dados (para ver o estado de erro, acrescente `?erro=1` à URL).
+Online: **https://walter-maia.github.io/liga-fordoctor/** (GitHub Pages; o workflow `.github/workflows/pages.yml` gera e publica só a pasta `preview/` a cada push na `main`).
+
+No computador: abre um servidor em http://localhost:4173. Também dá para abrir `preview/index.html` direto no navegador. A pré-visualização tem `noindex` e o formulário não envia dados (para ver o estado de erro, acrescente `?erro=1` à URL).
 
 A intro toca uma vez por sessão do navegador. Para revê-la, use `?intro=1`; para pular, `?intro=0` (os parâmetros combinam: `?intro=0&erro=1`).
 
