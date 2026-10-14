@@ -20,9 +20,15 @@
 <meta property="og:image:alt" content="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor, ao lado do logo da ForDoctor">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/dosis-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="https://fordoctor.com.br/wp-content/uploads/2023/06/cropped-FORDOCTOR_LOGOTIPO_VERSOES-03-1-2048x564-1-32x32.png" sizes="32x32">
+<!-- Favicon da ForDoctor Indica (plugin fordoctor-indica 1.11.2, copiado da produção): o símbolo oficial em dourado -->
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
 <style>
-/* Liga ForDoctor: estilos da LP (mobile-first). Tokens documentados em DIRECAO-DESIGN.md. */
+/* Liga ForDoctor: estilos da LP (mobile-first). Tokens documentados em DIRECAO-DESIGN.md.
+   v0.5: menos fotos, mais símbolo. Caixas arredondadas sobre o papel (técnica do Siteflux, cores da ForDoctor),
+   constelação vetorial no hero, ícones próprios em traço, marcas-d'água com o contorno do símbolo oficial. */
 
 @font-face {
   font-family: "Dosis";
@@ -45,12 +51,19 @@
 @font-face { font-family: "Dosis Reserva"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"), local("Roboto"); size-adjust: 85%; }
 @font-face { font-family: "Jost Reserva"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"), local("Roboto"); size-adjust: 96%; }
 
+/* cores do logo inline: registradas para o cabeçalho trocar de tom com transição */
+@property --marca-letras { syntax: "<color>"; inherits: true; initial-value: #182a3f; }
+@property --marca-sub { syntax: "<color>"; inherits: true; initial-value: #b28b46; }
+/* cores do + do FAQ: registradas para o sinal mudar de cor com transição (gradiente não anima sozinho) */
+@property --mais { syntax: "<color>"; inherits: true; initial-value: #091D3E; }
+@property --aro { syntax: "<color>"; inherits: true; initial-value: #C9C1AE; }
+
 :root {
   /* cor */
   --navy: #091D3E;
   --navy-claro: #13294F;
-  --ouro: #C19B52;          /* filetes, pontos, botão */
-  --ouro-escuro: #B28B46;   /* hover do botão */
+  --ouro: #C19B52;          /* filetes, pontos, botão, caixa dourada */
+  --ouro-escuro: #B28B46;   /* hover do botão; dourado do logo */
   --ouro-texto: #7A5C24;    /* dourado para texto sobre fundo claro (5,7:1 no papel) */
   --texto: #565872;
   --tinta: #091D3E;
@@ -58,11 +71,11 @@
   --branco: #FFFFFF;
   --linha: #E3DDCF;
   --linha-forte: #C9C1AE;
-  --navy-escuro: #061430;   /* rodapé, separa do cadastro */
   --sobre-navy: rgba(255, 255, 255, 0.82);
   --sobre-navy-suave: rgba(255, 255, 255, 0.7);
   --linha-navy: rgba(255, 255, 255, 0.16);
   --anel: rgba(167, 196, 240, 0.17); /* círculos azuis sobre o navy */
+  --linha-ouro: rgba(9, 29, 62, 0.22); /* filetes navy sobre a caixa dourada */
   --erro: #B42318;
   --ok: #2F6B4A;
 
@@ -82,9 +95,12 @@
   --medida: 60ch;
   --altura-topo: 56px;
 
-  /* forma */
+  /* forma: caixas arredondadas com um respiro do papel em volta (Siteflux: --box-gap e --radius-xl) */
   --raio-1: 4px;
   --raio-2: 8px;
+  --caixa-margem: 6px;
+  --caixa-raio: 22px;
+  --sobe: clamp(56px, 8vw, 120px); /* quanto a caixa das recompensas sobe sobre a dourada */
   --sombra-flutuante: 0 -6px 20px rgba(9, 29, 62, 0.12);
 
   /* movimento */
@@ -94,11 +110,11 @@
   --d-micro: 180ms;
   --d-entrada: 420ms;
 }
-@media (min-width: 600px) { :root { --lateral: 32px; } }
-@media (min-width: 960px) { :root { --lateral: 48px; --altura-topo: 72px; --t-corpo: 1.125rem; } }
+@media (min-width: 600px) { :root { --lateral: 32px; --caixa-margem: 8px; --caixa-raio: 30px; } }
+@media (min-width: 960px) { :root { --lateral: 48px; --altura-topo: 72px; --t-corpo: 1.125rem; --caixa-margem: 12px; --caixa-raio: 40px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--altura-topo) + var(--e4)); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--altura-topo) + var(--caixa-margem) + var(--e4)); }
 body { margin: 0; background: var(--papel); color: var(--texto); font-family: var(--fonte-texto); font-size: var(--t-corpo); line-height: 1.65; font-kerning: normal; }
 img, svg { display: block; max-width: 100%; height: auto; }
 h1, h2, h3 { font-family: var(--fonte-titulo); color: var(--tinta); margin: 0; text-wrap: balance; }
@@ -130,38 +146,93 @@ strong { color: var(--tinta); font-weight: 600; }
 .botao:active { transform: scale(0.97); transition-duration: 90ms; }
 .botao[disabled] { cursor: progress; }
 
-/* Cabeçalho: só o fundo muda depois da rolagem */
-.topo { position: fixed; inset: 0 0 auto 0; z-index: 50; background: var(--branco); border-bottom: 1px solid transparent; padding-top: env(safe-area-inset-top, 0px); transition: background-color 240ms var(--ease-out), border-color 240ms var(--ease-out); }
-.topo--rolado { background: rgba(255, 255, 255, 0.92); border-bottom-color: var(--linha); }
-@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
-  .topo--rolado { background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+/* Logo inline (sprite gerado por build/gera-sprite.mjs a partir do vetor oficial). As cores vêm do contexto. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.marca { width: 132px; height: auto; overflow: visible; fill: var(--ouro-escuro); }
+
+/* Cabeçalho flutuante (Siteflux): transparente sobre o hero; depois da rolagem ganha fundo translúcido
+   no tom do que passa por baixo (o JS troca data-tom). Sem JS: barra clara e sólida. */
+.topo {
+  position: fixed; inset: 0 0 auto 0; z-index: 50; padding: calc(env(safe-area-inset-top, 0px) + var(--caixa-margem)) var(--caixa-margem) 0;
+  pointer-events: none; --marca-letras: #182a3f; --marca-sub: #b28b46;
+  transition: --marca-letras 240ms var(--ease-out), --marca-sub 240ms var(--ease-out);
 }
-.topo__barra { max-width: var(--largura); margin: 0 auto; padding-inline: var(--lateral); height: var(--altura-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--e4); }
+.js .topo[data-tom="escuro"] { --marca-letras: #ffffff; --marca-sub: var(--ouro); }
+.topo[data-tom="escuro"] :focus-visible { outline-color: var(--ouro); }
+/* a barra flutua alinhada às caixas; depois da rolagem ganha fundo translúcido e cantos arredondados */
+.topo__barra {
+  pointer-events: auto; max-width: var(--largura); margin: 0 auto; padding-inline: var(--lateral); height: var(--altura-topo);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e4);
+  border: 1px solid transparent; border-radius: calc(var(--caixa-raio) * 0.6);
+  transition: background-color 240ms var(--ease-out), border-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out);
+}
+html:not(.js) .topo__barra { background: var(--papel); border-color: var(--linha); }
+.js .topo--rolado .topo__barra { background: rgba(247, 245, 239, 0.92); border-color: var(--linha); box-shadow: 0 8px 24px rgba(9, 29, 62, 0.08); }
+.js .topo--rolado[data-tom="escuro"] .topo__barra { background: rgba(9, 29, 62, 0.9); border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); }
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .js .topo--rolado .topo__barra { background: rgba(247, 245, 239, 0.8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .js .topo--rolado[data-tom="escuro"] .topo__barra { background: rgba(9, 29, 62, 0.76); }
+}
 .topo__marca { display: block; padding-block: 4px; border-radius: var(--raio-1); }
-.topo__marca img { width: 132px; height: auto; }
 .botao--topo { display: none; }
 @media (min-width: 768px) {
-  .topo__marca img { width: 171px; }
+  .topo .marca { width: 171px; }
   .botao--topo { display: inline-flex; min-height: 44px; padding: var(--e2) var(--e5); font-size: 1rem; }
 }
-/* Entrega do cabeçalho (conceito F): logo e botão descem quando a intro começa a dissolver (--rise-start) */
+/* Entrada do cabeçalho em partes (Siteflux): o símbolo gira e assenta com mola, o nome vem da esquerda,
+   o botão desce. Começa quando a intro dissolve (--rise-start). O logo é inline para animar as partes. */
 html.intro-ativa, html.intro-saindo { --rise-start: 3.1s; }
-.topo__marca, .botao--topo { animation: topo-entra var(--d-entrada) var(--ease-out) backwards; animation-delay: var(--rise-start, 0s); }
-.botao--topo { animation-delay: calc(var(--rise-start, 0s) + 90ms); }
+.topo .marca__simbolo { transform-box: fill-box; transform-origin: 50% 50%; animation: simbolo-entra 760ms var(--ease-spring) backwards; animation-delay: calc(var(--rise-start, 0s) + 60ms); }
+.topo .marca__nome { animation: nome-entra 560ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 200ms); }
+.botao--topo { animation: topo-entra var(--d-entrada) var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 320ms); }
+@keyframes simbolo-entra { from { opacity: 0; transform: rotate(-120deg) scale(0.4); } }
+@keyframes nome-entra { from { opacity: 0; transform: translateX(-16px); } }
 @keyframes topo-entra { from { opacity: 0; transform: translateY(-12px); } }
 
-main { display: block; padding-top: var(--altura-topo); }
+main { display: block; }
 main:focus { outline: none; }
 
-/* Anéis concêntricos: a identidade de círculos da Liga, em SVG (1 px em qualquer tamanho) */
-.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-.aneis { position: absolute; max-width: none; pointer-events: none; color: var(--anel); }
-.secao--aneis { position: relative; overflow: hidden; isolation: isolate; }
-.secao--aneis > .aneis { z-index: -1; max-width: none; }
+/* Caixas: blocos arredondados com o papel em volta; a de baixo pode subir sobre a de cima */
+.caixa { position: relative; margin-inline: var(--caixa-margem); border-radius: var(--caixa-raio); overflow: hidden; overflow: clip; isolation: isolate; }
+.caixa--navy { background: var(--navy); color: var(--sobre-navy); }
+.caixa--navy h2, .caixa--navy h3, .caixa--navy strong { color: var(--branco); }
+.caixa--navy :focus-visible { outline-color: var(--ouro); }
+.caixa--branca { background: var(--branco); }
+.caixa--ouro { background: var(--ouro); color: var(--navy); }
+.caixa--ouro h2, .caixa--ouro h3, .caixa--ouro strong, .caixa--ouro a { color: var(--navy); }
+.caixa--ouro .botao { background: var(--navy); color: var(--branco); }
+.caixa--ouro .botao:hover { background: var(--navy-claro); }
+.caixa--sobe { margin-top: calc(-1 * var(--sobe)); z-index: 2; }
+.caixa--ouro.secao { padding-bottom: calc(var(--e8) + var(--sobe)); }
+@media (min-width: 960px) { .caixa--ouro.secao { padding-bottom: calc(var(--e9) + var(--sobe)); } }
 
-/* Hero: azul da marca; texto, oferta e ressalva visíveis na primeira pintura */
-.hero { position: relative; background: var(--navy); color: var(--sobre-navy); overflow: hidden; isolation: isolate; }
-.hero__grade { max-width: var(--largura); margin: 0 auto; padding: var(--e6) var(--lateral) var(--e8); display: grid; gap: var(--e7); }
+/* Anéis concêntricos: a identidade de círculos da Liga, em SVG (1 px em qualquer tamanho) */
+.aneis { position: absolute; max-width: none; pointer-events: none; color: var(--anel); }
+.secao--aneis > .aneis { z-index: -1; max-width: none; }
+.secao > .marca-dagua { max-width: none; margin: 0; }
+
+/* Índice da seção (Siteflux 2.34): número, fio e nome em caixa normal; decorativo, os leitores de tela leem o título */
+.indice { display: flex; align-items: center; gap: 12px; margin: 0 0 var(--e4); font-family: var(--fonte-titulo); font-weight: 600; font-size: 0.9375rem; line-height: 1.2; color: var(--ouro-texto); }
+.indice span { padding-right: 12px; border-right: 1.5px solid currentColor; border-right-color: color-mix(in srgb, currentColor 35%, transparent); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.caixa--navy .indice { color: var(--ouro); }
+.caixa--ouro .indice { color: var(--navy); }
+
+/* Marca-d'água: o contorno do símbolo oficial, grande e translúcido (Siteflux: o globo em linhas atrás das seções) */
+.marca-dagua { position: absolute; z-index: -1; max-width: none; height: auto; pointer-events: none; fill: none; stroke-linejoin: round; }
+.marca-dagua--formatura { width: clamp(440px, 64vw, 920px); right: -18%; top: 4%; stroke: rgba(193, 155, 82, 0.42); stroke-width: 0.2; }
+.marca-dagua--cadastro { width: clamp(560px, 92vw, 1280px); left: 50%; top: 50%; translate: -50% -50%; stroke: rgba(167, 196, 240, 0.2); stroke-width: 0.16; }
+@media (max-width: 599.98px) {
+  .marca-dagua--formatura { stroke-width: 0.32; right: -42%; top: 2%; }
+  .marca-dagua--cadastro { stroke-width: 0.26; top: 18%; }
+}
+/* desenha uma vez ao entrar na tela (o JS arma só abaixo da dobra) */
+.marca-dagua.armada, .liga__orbita.armada .orbita { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.marca-dagua.desenhando { stroke-dasharray: 1; animation: traco 2600ms var(--ease-draw) both; }
+@keyframes traco { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* Hero: caixa navy; o cabeçalho flutua por cima, então o texto começa abaixo dele */
+.hero { margin-top: var(--caixa-margem); }
+.hero__grade { max-width: var(--largura); margin: 0 auto; padding: calc(var(--altura-topo) + var(--e5)) var(--lateral) var(--e8); display: grid; gap: var(--e6); }
 .hero__texto { max-width: 36rem; }
 .hero h1 { font-weight: 700; color: var(--branco); }
 .h1__marca { display: block; font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); font-weight: 600; color: var(--ouro); letter-spacing: 0.01em; margin-bottom: var(--e2); }
@@ -170,36 +241,190 @@ main:focus { outline: none; }
 .hero__ressalva { font-size: var(--t-pequeno); line-height: 1.55; padding-left: var(--e4); border-left: 2px solid var(--ouro); max-width: 30rem; }
 .hero__acao { margin-top: var(--e5); display: flex; flex-wrap: wrap; align-items: center; gap: var(--e3) var(--e5); }
 .hero__publico { margin: 0; font-size: var(--t-pequeno); color: var(--sobre-navy-suave); }
-.hero :focus-visible { outline-color: var(--ouro); }
-.hero__foto { position: relative; margin: 0; justify-self: center; width: min(100%, 320px); aspect-ratio: 991 / 1010; }
-.hero__foto picture { position: relative; display: block; width: 100%; height: 100%; clip-path: circle(44.97% at 47.93% 46.14%); }
-/* as duas ficam dentro do círculo: recorte logo dentro do anel da foto (centro 475,466; raio 450 no original 991×1010) e anel dourado completo por cima */
-.hero__foto::after { content: ""; position: absolute; left: 2.42%; top: 1.49%; width: 91.02%; height: 89.31%; border: 2px solid var(--ouro); border-radius: 50%; pointer-events: none; }
-.hero__foto img { width: 100%; height: 100%; object-fit: contain; }
-/* Anéis do hero em ondas: 6 anéis (HTML, animação no compositor) centrados na foto; a escala de pico (--s) dá o mesmo
-   deslocamento a todos os anéis, e o atraso de 0,5 s entre um e outro faz a onda correr para fora. Ciclo de 6 s,
-   o mesmo ritmo do loop de conexões aprovado na ForDoctor Indica. */
-.ondas { position: absolute; left: 50%; top: 46%; width: 260%; aspect-ratio: 1; translate: -50% -50%; z-index: -1; pointer-events: none; -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 100%); mask-image: radial-gradient(closest-side, #000 52%, transparent 100%); }
-.ondas span { --s: calc(1 + 16 / var(--r)); position: absolute; left: 50%; top: 50%; width: calc(var(--r) / 4 * 1%); aspect-ratio: 1; translate: -50% -50%; border: 1px solid rgba(167, 196, 240, 0.32); border-radius: 50%; opacity: 0.4; animation: onda 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; animation-delay: calc(var(--i) * 0.5s - 6s); }
-@keyframes onda { 0%, 100% { scale: 1; opacity: 0.4; } 50% { scale: var(--s); opacity: 1; } }
-.ondas.pausada span, html.intro-ativa .ondas span { animation-play-state: paused; }
-@media (min-width: 600px) { .hero__foto { width: 400px; } }
 @media (min-width: 960px) {
-  .hero__grade { grid-template-columns: minmax(0, 1fr) 460px; align-items: start; gap: var(--e8); padding-top: var(--e8); padding-bottom: var(--e9); }
-  .hero__foto { width: 460px; }
+  .hero__grade { grid-template-columns: minmax(0, 1fr) minmax(0, min(540px, 44%)); align-items: center; gap: var(--e8); min-height: min(880px, calc(100svh - var(--caixa-margem))); padding-top: calc(var(--altura-topo) + var(--e7)); padding-bottom: var(--e9); }
 }
-/* foto do hero entra quando ela mesma termina de carregar (o JS arma só se ainda não carregou);
-   com a intro ativa, espera a dissolução (--rise-start) */
-.hero__foto.aguardando img { opacity: 0; transform: scale(1.035); clip-path: inset(0 0 10% 0); }
-.hero__foto.entrando img { animation: foto-entra 640ms var(--ease-out) var(--rise-start, 0s) both; }
-@keyframes foto-entra { from { opacity: 0; transform: scale(1.035); clip-path: inset(0 0 10% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
+
+/* ==========================================================================
+   Constelação do hero (v0.6): demonstração da indicação, em ciclo.
+   "Você" (à esquerda, sempre identificado) indica o colega da direita → o colega fecha contrato e a ForDoctor valida →
+   o crédito volta para você. Os outros quatro formandos são a rede: menores, com borda azul acinzentada.
+   O trajeto é um oval que contorna o símbolo (curvas como os laços do símbolo): indicação por baixo, validação e retorno
+   por cima, encostando no topo do símbolo. Fica atrás dos formandos e do símbolo e nunca cruza o desenho.
+   Base = composição estática (sem JavaScript ou com movimento reduzido): a história inteira de uma vez, com o sentido do
+   trajeto marcado pelas pontas em ângulo reto do símbolo. Com JS e movimento liberado, a arte fica em repouso e o JS liga
+   o ciclo (.em-ciclo) com o hero na tela; pausa com a aba oculta; fora da tela volta ao início.
+   Coordenadas do SVG: 600 × 600, centro no símbolo. Nas etiquetas (HTML): 1 unidade = 1/600 da largura = 0,1667cqw.
+   ROTEIRO (ciclo de 11 s; t = 0 quando .em-ciclo entra, depois da entrada)
+   0,2–0,7    anel dourado de "Você" acende, pulso de atenção, etiqueta "Você" fica dourada
+   1,0–2,45   a luz desce pela curva de baixo até o colega, deixando um rastro dourado
+   2,4–2,9    o colega cresce (0,8 → 1), ganha anel dourado e a etiqueta "Colega"; "Você" volta ao destaque discreto
+   3,0–3,4    "Fechou contrato" (a condição real do benefício)
+   3,1–3,95   a luz sobe do colega até o topo do símbolo (validação)
+   3,9–5,8    brilho suave no símbolo; ondas nascem junto dele (4,0 e 4,4 s), crescem e se apagam;
+              a 1ª onda passa pelos formandos em ~4,45–4,75 s: a borda da rede reage, o colega confirma
+   4,4–5,6    a luz volta por cima até você; 5,3–5,7 seu anel acende e confirma (pulso)
+   6,0–8,3    etiqueta "R$ 200 em crédito na mensalidade" junto de você (valor da seção Indicação, sem somar)
+   5,6–6,1    somem as etiquetas do colega; 6,2–7,4 ele volta ao tamanho da rede; 8,3–9,0 tudo volta ao repouso; 9,0–11,0 pausa
+   ========================================================================== */
+.constelacao { --ciclo: 11s; position: relative; justify-self: center; width: min(100%, 440px); aspect-ratio: 1; container-type: inline-size; }
+@media (min-width: 960px) { .constelacao { width: 100%; } }
+.constelacao__arte { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+/* estruturas secundárias em azul acinzentado; o dourado fica para quem está agindo */
+.anel { fill: none; stroke: rgba(167, 196, 240, 0.13); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rota { fill: none; stroke: rgba(167, 196, 240, 0.15); stroke-width: 1.4; }
+.rastro { --atras: 1; fill: none; stroke: var(--ouro); stroke-width: 2; stroke-linecap: round; opacity: 0.62; }
+.setas { fill: none; stroke: var(--ouro); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.luz { --atras: 0; fill: none; stroke-linecap: round; opacity: 0; }
+.luz--nucleo { stroke: #F6E6BE; stroke-width: 6; stroke-dasharray: 0.001 2; }
+.luz--halo { stroke: var(--ouro); stroke-width: 18; stroke-opacity: 0.3; stroke-dasharray: 0.001 2; }
+.luz--cauda { --atras: 0.07; stroke: var(--ouro); stroke-width: 3; stroke-opacity: 0.75; stroke-dasharray: 0.07 2; }
+.onda { --pico: 0.5; fill: none; stroke: var(--ouro); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.onda--2 { --pico: 0.32; stroke: #E3CB95; }
+.simbolo__brilho { --pico: 1; opacity: 0.8; }
+.constelacao__simbolo { fill: var(--ouro); stroke: var(--ouro); stroke-width: 1.5; stroke-linejoin: round; stroke-dasharray: 1; }
+.simbolo__luz { --pico: 0.36; fill: #EDD49C; opacity: 0; }
+
+/* formandos: o corpo escala (rede 0,78; colega 0,8 → 1) e o grupo de fora flutua; a borda vem do sprite por --aluno-aro */
+.pessoa { --aluno-aro: rgba(167, 196, 240, 0.45); }
+.pessoa--voce { --aluno-aro: var(--ouro); }
+.pessoa--rede { opacity: 0.9; }
+.pessoa__corpo { transform-box: fill-box; transform-origin: center; }
+.pessoa--rede .pessoa__corpo { scale: 0.78; }
+.aro { fill: none; }
+.aro__linha { stroke: var(--ouro); stroke-width: 3.2; }
+.aro__brilho { stroke: var(--ouro); stroke-width: 9; stroke-opacity: 0.2; }
+.aro--rede { stroke: #D5E3F8; stroke-width: 2.6; opacity: 0; }
+.pulso { fill: none; stroke: var(--ouro); stroke-width: 2.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
+
+/* etiquetas: presas ao centro de cada formando (âncora sem tamanho), sempre na horizontal */
+.ancora { position: absolute; left: calc((var(--x) + 300) * 100% / 600); top: 50%; width: 0; height: 0; }
+.etiqueta { position: absolute; top: 5cqw; display: grid; translate: -50% 0; font-family: var(--fonte-titulo); font-weight: 700; font-size: 0.875rem; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+.etiqueta > span { grid-area: 1 / 1; padding: 5px 11px 6px; border-radius: 999px; text-align: center; }
+.etiqueta__texto { background: var(--navy-claro); color: #F3E3BD; box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.75), 0 4px 10px rgba(0, 0, 0, 0.25); }
+.etiqueta__ativa { background: var(--ouro); color: var(--navy); }
+/* do lado de fora do formando, longe do ponto onde o trajeto sai */
+.etiqueta--voce { left: -3.667cqw; }
+.etiqueta--colega { left: 3.667cqw; }
+.beneficio, .contrato { position: absolute; top: calc(5cqw + 31px); white-space: nowrap; }
+.beneficio { left: -11.667cqw; display: grid; gap: 3px; padding: 8px 13px 9px; border-radius: 12px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.8), 0 10px 24px rgba(0, 0, 0, 0.3); }
+.beneficio strong { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.0625rem; line-height: 1.1; color: #F3E3BD; font-variant-numeric: lining-nums; }
+.beneficio span { font-size: 0.875rem; line-height: 1.2; color: var(--sobre-navy); }
+.contrato { right: -11.667cqw; display: flex; align-items: center; gap: 6px; padding: 6px 12px 7px 9px; border-radius: 999px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.6), 0 4px 10px rgba(0, 0, 0, 0.25); font-size: 0.875rem; font-weight: 500; line-height: 1.1; color: var(--branco); }
+.contrato svg { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--ouro); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+
+/* celular e colunas estreitas: menos peças decorativas (saem o anel de fora e os dois formandos de baixo, onde ficam as
+   etiquetas) e traços mais grossos, para continuarem visíveis na escala menor */
+@container (max-width: 439px) {
+  .anel--fora, .pessoa--se, .pessoa--sw { display: none; }
+  .rota { stroke-width: 2.2; }
+  .rastro { stroke-width: 3.2; }
+  .setas { stroke-width: 3.8; }
+  .luz--nucleo { stroke-width: 9; }
+  .luz--halo { stroke-width: 26; }
+  .luz--cauda { stroke-width: 4.6; }
+  .aro__linha { stroke-width: 4.4; }
+  .pulso { stroke-width: 3.4; }
+  .constelacao__simbolo { stroke-width: 2.2; }
+  .beneficio strong { font-size: 1rem; }
+}
+/* telas de 280–340 px: na composição estática o crédito e o "Fechou contrato" aparecem juntos e não cabem lado a lado;
+   o do colega desce uma linha (no ciclo os dois nunca aparecem ao mesmo tempo) */
+@container (max-width: 339px) {
+  html:not(.js) .contrato { top: calc(5cqw + 96px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  @container (max-width: 339px) { .contrato { top: calc(5cqw + 96px); } }
+}
+
+/* entrada: só CSS (existe sem JavaScript); com a intro, espera a dissolução */
+.aneis-turma { animation: aparece 900ms var(--ease-out) backwards; animation-delay: var(--rise-start, 0s); }
+/* o contorno do símbolo se desenha e depois acende no dourado oficial; os formandos estouram com mola; o trajeto aparece */
+.constelacao__simbolo { animation: traco 1400ms var(--ease-draw) backwards, acende 500ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 100ms), calc(var(--rise-start, 0s) + 1300ms); }
+.pessoa__corpo { animation: pop 520ms var(--ease-spring) backwards; animation-delay: calc(var(--rise-start, 0s) + 500ms + var(--i) * 110ms); }
+.rotas, .rastros, .setas { animation: aparece 700ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 900ms); }
+.etiqueta--voce { animation: aparece 400ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 1150ms); }
+@keyframes aparece { from { opacity: 0; } }
+@keyframes acende { from { fill-opacity: 0; } }
+@keyframes pop { from { opacity: 0; transform: scale(0); } }
+/* repetição: quando o hero sai da tela a entrada volta ao início e toca de novo na volta (o JS arma e desarma) */
+.constelacao.armada .aneis-turma, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo,
+.constelacao.armada .rotas, .constelacao.armada .etiqueta--voce { animation: none; opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* repouso (com JS): só "Você" em destaque; o resto espera a sua vez */
+  .js .rastro { stroke-dasharray: 1 2; stroke-dashoffset: 1; opacity: 0; }
+  .js .setas { display: none; }
+  .js .simbolo__brilho, .js .pessoa .aro, .js .etiqueta__ativa, .js .etiqueta--colega, .js .contrato, .js .beneficio { opacity: 0; }
+  .js .pessoa--colega .pessoa__corpo { scale: 0.8; }
+  .js .contrato svg { stroke-dashoffset: 1; }
+
+  /* flutuação lenta e desencontrada (≈ 2–4 px); as etiquetas flutuam junto com o formando delas */
+  .js .pessoa { --amp: 2.2px; animation: flutua var(--fd) ease-in-out var(--fa) infinite alternate; }
+  .js .ancora { --amp: 0.3667cqw; animation: flutua var(--fd) ease-in-out var(--fa) infinite alternate; }
+
+  /* o ciclo (roteiro acima): todos com a mesma duração, então ficam em sincronia e param juntos */
+  .em-ciclo .pessoa--voce .aro { animation: voce-destaque var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .etiqueta--voce .etiqueta__ativa { animation: voce-etiqueta var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .pessoa--voce .pulso { animation: voce-pulso var(--ciclo) cubic-bezier(.2, .6, .35, 1) infinite both; }
+  .em-ciclo .rastro--indica { animation: anda-indica var(--ciclo) linear infinite both, rastro-indica var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .luz--indica { animation: anda-indica var(--ciclo) linear infinite both, luz-indica var(--ciclo) linear infinite both; }
+  .em-ciclo .pessoa--colega .pessoa__corpo { animation: colega-corpo var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .pessoa--colega .aro { animation: colega-aro var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .pessoa--colega .pulso { animation: colega-pulso var(--ciclo) cubic-bezier(.2, .6, .35, 1) infinite both; }
+  .em-ciclo .etiqueta--colega { animation: colega-etiqueta var(--ciclo) var(--ease-out) infinite both; }
+  .em-ciclo .contrato { animation: contrato var(--ciclo) var(--ease-out) infinite both; }
+  .em-ciclo .contrato svg { animation: contrato-visto var(--ciclo) var(--ease-draw) infinite both; }
+  .em-ciclo .rastro--valida { animation: anda-valida var(--ciclo) linear infinite both, rastro-valida var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .luz--valida { animation: anda-valida var(--ciclo) linear infinite both, luz-valida var(--ciclo) linear infinite both; }
+  .em-ciclo .simbolo__brilho, .em-ciclo .simbolo__luz { animation: simbolo-brilho var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .onda { animation: onda var(--ciclo) var(--ease-out) infinite both; }
+  .em-ciclo .onda--2 { animation-delay: 0.4s; }
+  .em-ciclo .aro--rede { animation: rede-onda var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .rastro--volta { animation: anda-volta var(--ciclo) linear infinite both, rastro-volta var(--ciclo) ease-in-out infinite both; }
+  .em-ciclo .luz--volta { animation: anda-volta var(--ciclo) linear infinite both, luz-volta var(--ciclo) linear infinite both; }
+  .em-ciclo .beneficio { animation: beneficio var(--ciclo) var(--ease-out) infinite both; }
+
+  /* aba oculta: tudo para onde está e continua na volta */
+  .constelacao.pausada, .constelacao.pausada * { animation-play-state: paused !important; }
+}
+@keyframes flutua { from { translate: 0 calc(-1 * var(--amp)); } to { translate: 0 var(--amp); } }
+
+/* tempos em % de 11 s (t ÷ 11 × 100). A luz e o rastro andam juntos: deslocamento do traço = --atras − progresso
+   (núcleo e halo: o ponto no progresso; cauda: 0,07 atrás; rastro: tudo desde o início) */
+@keyframes anda-indica { 0%, 9.09% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 22.27%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
+@keyframes anda-valida { 0%, 28.18% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 35.91%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
+@keyframes anda-volta { 0%, 40% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 50.91%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
+@keyframes luz-indica { 0%, 9.09% { opacity: 0; } 9.55%, 21.82% { opacity: 1; } 22.73%, 100% { opacity: 0; } }
+@keyframes luz-valida { 0%, 28.18% { opacity: 0; } 28.64%, 35.91% { opacity: 1; } 38.18%, 100% { opacity: 0; } }
+@keyframes luz-volta { 0%, 39.55% { opacity: 0; } 40.45%, 50% { opacity: 1; } 51.36%, 100% { opacity: 0; } }
+@keyframes rastro-indica { 0%, 9.09% { opacity: 0; } 9.55%, 23.18% { opacity: 1; } 27.73%, 100% { opacity: 0; } }
+@keyframes rastro-valida { 0%, 28.18% { opacity: 0; } 28.64%, 39.55% { opacity: 1; } 45.45%, 100% { opacity: 0; } }
+@keyframes rastro-volta { 0%, 40% { opacity: 0; } 40.45%, 54.55% { opacity: 1; } 61.82%, 100% { opacity: 0; } }
+@keyframes voce-destaque { 0%, 1.82% { opacity: 0; } 6.36%, 23.64% { opacity: 1; } 29.09%, 48.18% { opacity: 0; } 51.82%, 74.55% { opacity: 1; } 81.82%, 100% { opacity: 0; } }
+/* a etiqueta troca de cor mais depressa que o anel: no meio da troca os dois textos se misturam */
+@keyframes voce-etiqueta { 0%, 1.82% { opacity: 0; } 4.09%, 23.64% { opacity: 1; } 25.91%, 48.18% { opacity: 0; } 50.45%, 74.55% { opacity: 1; } 77.27%, 100% { opacity: 0; } }
+@keyframes voce-pulso { 0% { opacity: 0; scale: 1; } 2.27% { opacity: 0.55; scale: 1; } 9.55% { opacity: 0; scale: 1.22; } 50.91% { opacity: 0; scale: 1; } 51.36% { opacity: 0.9; scale: 1; } 59.09%, 100% { opacity: 0; scale: 1.34; } }
+@keyframes colega-corpo { 0%, 21.82% { scale: 0.8; animation-timing-function: cubic-bezier(.34, 1.56, .64, 1); } 26.36%, 56.36% { scale: 1; } 67.27%, 100% { scale: 0.8; } }
+@keyframes colega-aro { 0%, 22.27% { opacity: 0; } 25.91%, 56.36% { opacity: 1; } 63.64%, 100% { opacity: 0; } }
+@keyframes colega-pulso { 0%, 22.73% { opacity: 0; scale: 1; } 23.18% { opacity: 0.5; scale: 1; } 29.09% { opacity: 0; scale: 1.2; } 41.36% { opacity: 0; scale: 1; } 41.82% { opacity: 0.85; scale: 1; } 49.09%, 100% { opacity: 0; scale: 1.34; } }
+@keyframes colega-etiqueta { 0%, 22.73% { opacity: 0; translate: -50% 4px; } 26.36%, 50.91% { opacity: 1; translate: -50% 0; } 55.45%, 100% { opacity: 0; translate: -50% 0; } }
+@keyframes contrato { 0%, 27.27% { opacity: 0; translate: 0 4px; } 30.91%, 50.91% { opacity: 1; translate: 0 0; } 55.45%, 100% { opacity: 0; translate: 0 0; } }
+@keyframes contrato-visto { 0%, 28.18% { stroke-dashoffset: 1; } 31.82%, 100% { stroke-dashoffset: 0; } }
+@keyframes simbolo-brilho { 0%, 35.45% { opacity: 0; } 39.55%, 43.64% { opacity: var(--pico); } 52.73%, 100% { opacity: 0; } }
+@keyframes onda { 0%, 36.36% { scale: 0.3; opacity: 0; animation-timing-function: cubic-bezier(.25, .55, .35, 1); } 37.73% { opacity: var(--pico); } 54.55%, 100% { scale: 1; opacity: 0; } }
+@keyframes rede-onda { 0%, 40.45% { opacity: 0; } 42.27% { opacity: 0.55; } 47.27%, 100% { opacity: 0; } }
+@keyframes beneficio { 0%, 54.55% { opacity: 0; translate: 0 6px; } 58.64%, 75.45% { opacity: 1; translate: 0 0; } 81.82%, 100% { opacity: 0; translate: 0 0; } }
 
 /* Seções */
 .secao { padding: var(--e8) var(--lateral); }
-.secao--branca { background: var(--branco); }
 .secao > * { max-width: var(--largura); margin-inline: auto; }
+.secao--aberta { position: relative; isolation: isolate; overflow: hidden; overflow: clip; padding-inline: calc(var(--lateral) + var(--caixa-margem)); }
 @media (min-width: 960px) { .secao { padding-block: var(--e9); } }
-section[id] { scroll-margin-top: var(--altura-topo); }
+section[id] { scroll-margin-top: calc(var(--altura-topo) + var(--caixa-margem)); }
+.caixa + .secao--aberta, .secao--aberta + .caixa { margin-top: 0; }
+.caixa.secao + .caixa.secao:not(.caixa--sobe) { margin-top: var(--caixa-margem); }
 
 /* Bloco editorial: título à esquerda, texto à direita no desktop */
 .editorial { display: grid; gap: var(--e5); }
@@ -210,9 +435,10 @@ section[id] { scroll-margin-top: var(--altura-topo); }
   .editorial + .editorial { margin-top: var(--e9); padding-top: var(--e9); }
 }
 
-/* Lista editorial de perguntas: tipografia, sem cards e sem ícones */
-.perguntas { list-style: none; margin: var(--e6) auto 0; padding: 0; display: grid; border-top: 1px solid var(--linha); }
-.perguntas li { font-family: var(--fonte-titulo); font-weight: 500; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; color: var(--tinta); padding: var(--e4) 0; border-bottom: 1px solid var(--linha); }
+/* Perguntas da formatura: lista numerada, tipografia e filetes (sem cards, sem ícones) */
+.perguntas { counter-reset: pergunta; list-style: none; margin: var(--e6) auto 0; padding: 0; display: grid; border-top: 1px solid var(--linha-forte); }
+.perguntas li { counter-increment: pergunta; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); align-items: baseline; font-family: var(--fonte-titulo); font-weight: 500; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; color: var(--tinta); padding: var(--e4) 0; border-bottom: 1px solid var(--linha); }
+.perguntas li::before { content: counter(pergunta, decimal-leading-zero); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; color: var(--ouro-texto); font-variant-numeric: tabular-nums; }
 @media (min-width: 700px) { .perguntas { grid-template-columns: 1fr 1fr; column-gap: var(--e7); } }
 .editorial--fecho { margin-top: var(--e6); }
 .editorial__vazio { display: none; }
@@ -224,55 +450,71 @@ section[id] { scroll-margin-top: var(--altura-topo); }
 .fatores li { position: relative; padding-left: var(--e5); line-height: 1.45; }
 .fatores li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 12px; height: 2px; background: var(--ouro); }
 @media (min-width: 600px) { .fatores { grid-template-columns: 1fr 1fr; } }
-.editorial__corpo h3 { margin-top: var(--e7); }
 
-/* O que é a Liga: a composição oficial (estudante, gradiente azul e círculos) vira o fundo da seção.
-   A cor da seção é a mesma da borda da imagem, então não há emenda. Celular: imagem própria, texto sobre a parte azul. */
-.secao--liga { position: relative; overflow: hidden; isolation: isolate; background: #152239; color: var(--sobre-navy); padding-bottom: calc(100vw * 1188 / 668 * 0.52); }
-.secao--liga h2 { color: var(--branco); }
-.secao--liga :focus-visible { outline-color: var(--ouro); }
-.secao--liga > .liga__fundo { position: absolute; left: 0; right: 0; bottom: 0; z-index: -1; max-width: none; margin: 0; }
-.liga__fundo picture, .liga__fundo img { display: block; width: 100%; height: auto; }
+/* O que é a Liga: caixa branca; a única foto da página sai do círculo, com órbita e selo do símbolo em vetor */
+.liga { display: grid; gap: var(--e8); align-items: center; }
 .liga__texto { max-width: 34rem; }
 .liga__texto h2 { margin-bottom: var(--e5); }
 .liga__texto .botao { margin-top: var(--e3); }
+.liga__foto { position: relative; margin: var(--e5) 0 var(--e4); justify-self: center; width: min(78%, 340px); aspect-ratio: 991 / 1010; isolation: isolate; }
+.liga__foto picture, .liga__foto img { display: block; width: 100%; height: 100%; }
+/* as duas ficam dentro do círculo: recorte logo dentro do anel da foto (centro 475,466; raio 450 no original 991 × 1010)
+   e anel dourado completo por cima */
+.liga__foto picture { clip-path: circle(44.97% at 47.93% 46.14%); }
+.liga__foto::before { content: ""; position: absolute; z-index: 1; left: 2.42%; top: 1.49%; width: 91.02%; height: 89.31%; border: 2px solid var(--ouro); border-radius: 50%; pointer-events: none; }
+/* órbita centrada no círculo da foto (centro 47,93% × 46,14%; caixa de 124% da largura) */
+.liga__orbita { position: absolute; z-index: -2; left: -14.07%; top: -14.69%; width: 124%; height: auto; max-width: none; overflow: visible; }
+.orbita { fill: none; stroke: rgba(9, 29, 62, 0.16); stroke-width: 1.5; }
+.orbita--fina { stroke: var(--ouro); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0 0.0125; }
+.orbita__no { fill: var(--ouro); }
+.orbita__no--navy { fill: var(--navy); }
+.liga__selo { position: absolute; z-index: 2; left: -2%; bottom: 10%; display: grid; place-items: center; width: 24%; aspect-ratio: 1; border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 6px var(--branco); }
+.liga__selo svg { width: 52%; fill: var(--ouro); }
+@media (min-width: 600px) { .liga__foto { width: 380px; } }
 @media (min-width: 900px) {
-  .secao--liga { display: flex; align-items: center; min-height: clamp(560px, 52vw, 780px); padding-block: var(--e9); background: linear-gradient(#223357, #1d336d 50%, #183475); }
-  .secao--liga > .liga { width: 100%; }
-  .secao--liga > .liga__fundo { top: 0; }
-  .liga__fundo picture, .liga__fundo img { height: 100%; object-fit: cover; object-position: 80% center; }
-  .liga__texto { max-width: min(30rem, 44%); }
+  .liga { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: var(--e9); }
+  .liga__foto { width: 420px; margin: var(--e7) 0; }
 }
-/* Telas acima de 1920 px: a foto fica no tamanho original, à direita, e a esquerda continua com o gradiente da borda da imagem */
-@media (min-width: 1921px) {
-  .secao--liga > .liga__fundo { left: auto; width: 1920px; -webkit-mask-image: linear-gradient(to right, transparent, #000 220px); mask-image: linear-gradient(to right, transparent, #000 220px); }
-}
-/* revelação por máscara (armada só abaixo da dobra): a foto entra pelo lado da estudante */
-/* o recorte fica no <picture>: o <figure> continua visível para o IntersectionObserver */
-.liga__fundo.armada picture { clip-path: inset(100% 0 0 0); }
-.liga__fundo.armada img { transform: scale(1.04); }
-.liga__fundo.revelada picture { animation: mascara-sobe 1000ms var(--ease-out) both; }
-.liga__fundo.revelada img { animation: imagem-assenta 1200ms var(--ease-out) both; }
-@media (min-width: 900px) {
-  .liga__fundo.armada picture { clip-path: inset(0 0 0 100%); }
-  .liga__fundo.revelada picture { animation-name: mascara-abre-lado; }
-}
-@keyframes mascara-sobe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes mascara-abre-lado { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
-@keyframes imagem-assenta { from { transform: scale(1.04); } to { transform: none; } }
+/* revelação: o círculo abre a partir do centro da foto; o selo estoura depois (repete a cada volta à tela) */
+.liga__foto.armada picture { clip-path: circle(0% at 47.93% 46.14%); }
+.liga__foto.armada .liga__selo { opacity: 0; transform: scale(0.4); }
+.liga__foto.armada::before { opacity: 0; transform: scale(0.9); }
+.liga__foto.revelada picture { animation: circulo-abre 1100ms var(--ease-out) both; }
+.liga__foto.revelada::before { animation: anel-assenta 900ms var(--ease-out) 150ms both; }
+.liga__foto.revelada .liga__selo { animation: pop 520ms var(--ease-spring) 700ms both; }
+.liga__orbita.desenhando .orbita { stroke-dasharray: 1; animation: traco 1600ms var(--ease-draw) both; }
+.liga__orbita.desenhando .orbita--fina { stroke-dasharray: 0 0.0125; animation: aparece 1200ms var(--ease-out) 400ms both; }
+.liga__orbita.armada .orbita--fina, .liga__orbita.armada .orbita__no { opacity: 0; }
+.liga__orbita.desenhando .orbita__no { transform-box: fill-box; transform-origin: center; animation: pop 420ms var(--ease-spring) both; }
+.liga__orbita.desenhando .orbita__no:nth-of-type(1) { animation-delay: 900ms; }
+.liga__orbita.desenhando .orbita__no:nth-of-type(2) { animation-delay: 1050ms; }
+.liga__orbita.desenhando .orbita__no:nth-of-type(3) { animation-delay: 1200ms; }
+@keyframes circulo-abre { from { clip-path: circle(0% at 47.93% 46.14%); } to { clip-path: circle(44.97% at 47.93% 46.14%); } }
+@keyframes anel-assenta { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: none; } }
 
-/* O que a Liga oferece: definição, não grade de cards */
-.oferta { margin: var(--e7) auto 0; display: grid; gap: 0; border-top: 1px solid var(--linha-forte); }
-.oferta > div { padding: var(--e5) 0; border-bottom: 1px solid var(--linha); display: grid; gap: var(--e1); }
-.oferta dt { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.25rem; color: var(--tinta); }
-.oferta dd { margin: 0; max-width: 42ch; }
+/* O que a Liga oferece: caixa dourada, quatro pilares numerados com ícone (Siteflux: "01 Cria") */
+.aneis--oferece { color: var(--linha-ouro); width: min(1100px, 180vw); aspect-ratio: 1; right: 0; bottom: 0; transform: translate(42%, 54%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
+.oferta { counter-reset: oferta; margin: var(--e7) auto 0; display: grid; border-top: 1.5px solid rgba(9, 29, 62, 0.4); }
+.oferta > div { counter-increment: oferta; position: relative; padding: var(--e5) 64px var(--e5) 0; border-bottom: 1px solid var(--linha-ouro); }
+.oferta > div::before { content: counter(oferta, decimal-leading-zero); display: block; margin-bottom: var(--e2); font-family: var(--fonte-titulo); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.oferta dt { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.375rem; line-height: 1.2; color: var(--navy); }
+.oferta dd { margin: var(--e2) 0 0; max-width: 42ch; color: var(--navy); }
+.oferta__icone { position: absolute; right: 0; top: var(--e5); width: 48px; height: 48px; padding: 11px; border-radius: 50%; background: var(--navy); color: var(--ouro); fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.oferta.armada .oferta__icone { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.oferta.desenhando .oferta__icone { stroke-dasharray: 1; animation: traco 900ms var(--ease-draw) both; }
+.oferta.desenhando > div:nth-child(2) .oferta__icone { animation-delay: 140ms; }
+.oferta.desenhando > div:nth-child(3) .oferta__icone { animation-delay: 280ms; }
+.oferta.desenhando > div:nth-child(4) .oferta__icone { animation-delay: 420ms; }
 @media (min-width: 700px) { .oferta { grid-template-columns: 1fr 1fr; column-gap: var(--e7); } }
-@media (min-width: 1100px) { .oferta { grid-template-columns: repeat(4, 1fr); } .oferta > div { border-bottom: 0; padding-right: var(--e4); } }
+@media (min-width: 1100px) {
+  .oferta { grid-template-columns: repeat(4, 1fr); column-gap: var(--e6); }
+  .oferta > div { border-bottom: 0; padding: var(--e5) 0 0; }
+  .oferta__icone { position: static; margin-bottom: var(--e5); }
+  .oferta > div::before { position: absolute; right: 0; top: calc(var(--e5) + 16px); }
+}
 
-/* Recompensas: faixa navy com a trilha 5 → 10 → 20 */
-.secao--navy { background: var(--navy); color: var(--sobre-navy); }
-.secao--navy h2, .secao--navy h3, .secao--navy strong { color: var(--branco); }
-.secao--navy :focus-visible { outline-color: var(--ouro); }
+/* Recompensas: caixa navy com a trilha 5 → 10 → 20; sobe sobre a dourada e os anéis continuam na divisa */
+.aneis--recompensas { width: min(1100px, 180vw); aspect-ratio: 1; right: 0; top: var(--sobe); transform: translate(42%, -46%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
 .recompensas { display: grid; gap: var(--e7); }
 .recompensas__intro { max-width: var(--medida); }
 .recompensas__intro h2 { margin-bottom: var(--e4); }
@@ -322,7 +564,6 @@ section[id] { scroll-margin-top: var(--altura-topo); }
 .trilha.desenhando .degrau:nth-child(3)::before { animation-delay: 920ms; }
 .trilha.desenhando .degrau:nth-child(3) .degrau__piso { animation-delay: 940ms; }
 .trilha.desenhando .degrau:nth-child(3) .degrau__meta, .trilha.desenhando .degrau:nth-child(3) .degrau__valor { animation-delay: 1000ms; }
-.trilha.pausada *, .trilha.pausada *::before, .trilha.pausada *::after { animation-play-state: paused !important; }
 @keyframes ponto { from { transform: scale(0); } to { transform: scale(1); } }
 @keyframes valor-aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes piso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
@@ -376,37 +617,68 @@ section[id] { scroll-margin-top: var(--altura-topo); }
 .passos.desenhando .passo:nth-child(3) .passo__linha { animation-delay: 1060ms; }
 .passo--credito .passo__no::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--ouro); opacity: 0; pointer-events: none; }
 .passos.desenhando .passo--credito .passo__no::after { animation: pulso 700ms var(--ease-out) 1700ms both; }
-.passos.pausada *, .passos.pausada *::before, .passos.pausada *::after { animation-play-state: paused !important; }
 @keyframes no-entra { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
 @keyframes pulso { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.7); } }
 
-/* FAQ: details/summary nativo; a resposta entra com opacidade e deslocamento curto */
-.faq { border-top: 1px solid var(--linha-forte); }
-.faq details { border-bottom: 1px solid var(--linha); }
-.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--e4); padding: var(--e5) 0; font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; color: var(--tinta); min-height: 48px; touch-action: manipulation; }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: ""; flex: 0 0 14px; height: 14px; background: linear-gradient(var(--ouro-texto), var(--ouro-texto)) center / 14px 2px no-repeat, linear-gradient(var(--ouro-texto), var(--ouro-texto)) center / 2px 14px no-repeat; transition: transform var(--d-micro) var(--ease-out); }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq__resposta { padding: 0 var(--e7) var(--e5) 0; max-width: var(--medida); }
-.faq details[open] .faq__resposta { animation: resposta-entra 260ms var(--ease-out); }
-@keyframes resposta-entra { from { opacity: 0; transform: translateY(-6px); } }
+/* Contabilidade: os seis serviços com ícones próprios em traço, desenhados um a um ao entrar na tela */
+.servicos-bloco { margin-top: var(--e8); }
+.servicos-bloco h3 { margin-bottom: var(--e5); }
+.servicos { list-style: none; margin: 0; padding: 0; display: grid; column-gap: var(--e7); border-top: 1px solid var(--linha-forte); }
+.servicos li { display: flex; align-items: center; gap: var(--e4); padding: var(--e4) 0; border-bottom: 1px solid var(--linha); font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; color: var(--tinta); }
+.servicos__icone { flex: none; width: 52px; height: 52px; padding: 12px; border-radius: 50%; background: var(--papel); color: var(--navy); fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; box-shadow: inset 0 0 0 1px var(--linha-forte); }
+@media (min-width: 600px) { .servicos { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .servicos { grid-template-columns: repeat(3, 1fr); } .servicos li { padding-block: var(--e5); } }
+.servicos.armada .servicos__icone { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.servicos.desenhando .servicos__icone { stroke-dasharray: 1; animation: traco 900ms var(--ease-draw) both; }
+.servicos.desenhando li:nth-child(2) .servicos__icone { animation-delay: 110ms; }
+.servicos.desenhando li:nth-child(3) .servicos__icone { animation-delay: 220ms; }
+.servicos.desenhando li:nth-child(4) .servicos__icone { animation-delay: 330ms; }
+.servicos.desenhando li:nth-child(5) .servicos__icone { animation-delay: 440ms; }
+.servicos.desenhando li:nth-child(6) .servicos__icone { animation-delay: 550ms; }
 
-/* Cadastro */
+/* FAQ: details/summary nativo. Tudo com a mesma duração e a mesma curva, sem sombra e sem mola:
+   hover = fundo branco suave, filete some, pergunta e aro do + ficam dourados e o + gira 90°;
+   aberta = cartão navy, texto claro, + dourado completa o giro até virar ×; a resposta entra com opacidade. */
+.faq { --faq-t: 320ms; --faq-ease: cubic-bezier(0.22, 1, 0.36, 1); display: grid; border-top: 1px solid var(--linha-forte); }
+.faq details { --mais: var(--tinta); --aro: var(--linha-forte); position: relative; border-radius: 14px; transition: background-color var(--faq-t) var(--faq-ease), --mais var(--faq-t) var(--faq-ease), --aro var(--faq-t) var(--faq-ease); }
+/* filete entre as perguntas: some quando a pergunta acende ou abre */
+.faq details::after { content: ""; position: absolute; left: var(--e4); right: var(--e4); bottom: 0; height: 1px; background: var(--linha); pointer-events: none; transition: opacity var(--faq-t) var(--faq-ease); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--e4); padding: var(--e5) var(--e4); border-radius: 14px; font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; color: var(--tinta); min-height: 48px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: color var(--faq-t) var(--faq-ease); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: 0 0 34px; height: 34px; border-radius: 50%; background: linear-gradient(var(--mais), var(--mais)) center / 12px 1.5px no-repeat, linear-gradient(var(--mais), var(--mais)) center / 1.5px 12px no-repeat; background-color: transparent; box-shadow: inset 0 0 0 1px var(--aro); transition: transform var(--faq-t) var(--faq-ease), background-color var(--faq-t) var(--faq-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .faq details:not([open]):hover { --mais: var(--ouro-texto); --aro: var(--ouro); background-color: rgba(255, 255, 255, 0.85); }
+  .faq details:not([open]):hover::after, .faq details:has(+ details:not([open]):hover)::after { opacity: 0; }
+  .faq details:not([open]):hover summary { color: var(--ouro-texto); }
+  .faq details:not([open]):hover summary::after { transform: rotate(90deg); }
+}
+.faq details[open] { --mais: var(--navy); --aro: var(--ouro); background-color: var(--navy); }
+.faq details[open]::after, .faq details:has(+ details[open])::after { opacity: 0; }
+.faq details[open] summary { color: var(--branco); }
+.faq details[open] summary::after { background-color: var(--ouro); transform: rotate(135deg); }
+.faq details[open] summary:focus-visible { outline-color: var(--ouro); }
+.faq summary:focus-visible { outline-offset: -3px; }
+.faq details[open] .faq__resposta { color: var(--sobre-navy); }
+.faq__resposta { padding: 0 var(--e4) var(--e5); max-width: var(--medida); }
+@media (min-width: 600px) { .faq summary { padding-inline: var(--e5); } .faq details::after { left: var(--e5); right: var(--e5); } .faq__resposta { padding-inline: var(--e5) calc(var(--e5) + 34px); } }
+.faq details[open] .faq__resposta { animation: resposta-entra var(--faq-t) var(--faq-ease) 60ms both; }
+@keyframes resposta-entra { from { opacity: 0; transform: translateY(-4px); } }
+
+/* Cadastro: caixa navy com o símbolo em linhas atrás (Siteflux: o globo atrás do último chamado) */
 .cadastro { display: grid; gap: var(--e7); }
 .cadastro__texto { max-width: 34rem; }
 .cadastro__texto h2 { margin-bottom: var(--e5); }
 .cadastro__oferta { margin-top: var(--e5); padding-left: var(--e4); border-left: 2px solid var(--ouro); font-size: var(--t-pequeno); }
-.cadastro__painel { background: var(--branco); color: var(--texto); border-radius: var(--raio-2); padding: var(--e5); }
+.cadastro__painel { background: var(--branco); color: var(--texto); border-radius: calc(var(--caixa-raio) - 8px); padding: var(--e5); }
 .cadastro__painel h3, .cadastro__painel strong { color: var(--tinta); }
 .cadastro__painel :focus-visible { outline-color: var(--navy); }
-.secao--navy .cadastro__oferta strong { color: var(--branco); }
-.aneis--recompensas { width: min(1100px, 180vw); aspect-ratio: 1; right: 0; top: 0; transform: translate(42%, -46%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
-.aneis--oferece { color: rgba(36, 84, 168, 0.3); width: min(1100px, 180vw); aspect-ratio: 1; right: 0; bottom: 0; transform: translate(42%, 54%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
-.aneis--cadastro { width: min(1000px, 170vw); aspect-ratio: 1; left: 0; bottom: 0; transform: translate(-46%, 48%); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); mask-image: radial-gradient(closest-side, #000 40%, transparent 100%); }
+.caixa--navy .cadastro__oferta strong { color: var(--branco); }
+#cadastro { margin-top: var(--caixa-margem); }
 @media (min-width: 600px) { .cadastro__painel { padding: var(--e6); } }
 @media (min-width: 960px) {
   .cadastro { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--e9); align-items: start; }
-  .cadastro__texto { position: sticky; top: calc(var(--altura-topo) + var(--e6)); }
+  .cadastro__texto { position: sticky; top: calc(var(--altura-topo) + var(--caixa-margem) + var(--e6)); }
+  .cadastro__painel { padding: var(--e7); }
 }
 
 .campos { display: grid; gap: var(--e4); }
@@ -447,14 +719,13 @@ section[id] { scroll-margin-top: var(--altura-topo); }
   .botao { padding-inline: var(--e4); }
 }
 
-/* Rodapé */
-.rodape { background: var(--navy-escuro); color: var(--sobre-navy); padding: var(--e7) var(--lateral) calc(var(--e7) + 72px + env(safe-area-inset-bottom, 0px)); font-size: var(--t-pequeno); }
+/* Rodapé: direto no papel, com o logo oficial */
+.rodape { color: var(--texto); padding: var(--e7) calc(var(--lateral) + var(--caixa-margem)) calc(var(--e7) + 72px + env(safe-area-inset-bottom, 0px)); font-size: var(--t-pequeno); }
 .rodape__barra { max-width: var(--largura); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--e4) var(--e6); }
-.rodape__barra img { width: 140px; }
+.marca--rodape { width: 140px; }
 .rodape__barra p { margin: 0; }
-.rodape a { color: var(--branco); display: inline-block; padding-block: 10px; }
-.rodape a:hover { color: var(--ouro); }
-.rodape :focus-visible { outline-color: var(--ouro); }
+.rodape a { color: var(--tinta); display: inline-block; padding-block: 10px; }
+.rodape a:hover { color: var(--ouro-texto); }
 @media (min-width: 768px) { .rodape { padding-bottom: var(--e7); } .rodape__barra p { margin-right: auto; } }
 
 /* CTA fixo no celular: aparece depois do hero e some quando o formulário está na tela */
@@ -471,22 +742,26 @@ section[id] { scroll-margin-top: var(--altura-topo); }
   .js .cta-fixo.visivel { transform: none; visibility: visible; transition: transform 280ms var(--ease-out), visibility 0s; }
 }
 
-/* Título revelado por linha (o JS divide e arma só abaixo da dobra) */
+/* Título revelado por linha (Siteflux: cada linha sobe de dentro da própria máscara, 90 ms entre linhas) */
+.titulo-linhas { display: block; }
 .linha-mascara { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
 .linha-conteudo { display: block; }
-.revela-armado .linha-conteudo { transform: translateY(110%); }
-.revela-ativo .linha-conteudo { animation: linha-sobe 560ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
-@keyframes linha-sobe { from { transform: translateY(110%); } to { transform: none; } }
+.revela-armado .linha-conteudo { transform: translateY(112%); }
+.revela-ativo .linha-conteudo { animation: linha-sobe 900ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes linha-sobe { from { transform: translateY(112%); } to { transform: none; } }
 
 /* ==========================================================================
    Intro "a turma se liga" (uma vez por sessão; controle em assets/intro.js)
    Conceito: os círculos da Liga se abrem a partir do símbolo; seis colegas (pontos dourados)
-   surgem nos anéis e se ligam ao símbolo; o símbolo oficial se desenha e o nome ForDoctor aparece.
+   surgem nos anéis e se ligam ao símbolo; as conexões escoam para dentro dele e acendem luz
+   dentro do desenho (cores girando sob a máscara do símbolo, técnica do Siteflux); o símbolo
+   assenta no dourado oficial e o nome ForDoctor aparece.
    ROTEIRO (t = 0 quando .li-tocando entra)
    0,00 + i·0,05  10 anéis concêntricos se abrem (opacidade, escala ,94 → 1, 0,45 s) ........ T3
    0,18 + i·0,07  6 colegas surgem sobre os anéis (mola, 0,32 s) ............................. T8
    0,45 + i·0,06  6 conexões curvas vão de cada colega até o símbolo (0,5 s) ................. T1
    0,90           contorno oficial do símbolo se desenha (0,8 s) ............................. T1
+   1,05–1,85      luz dentro do símbolo: três setores giram −40° → 320° sob a máscara ........ T4
    1,10 + i·0,03  conexões escoam para dentro do símbolo; colegas somem (0,4 s) .............. T2
    1,55           preenchimento oficial do símbolo (0,3 s); contorno some 1,70–1,95 .......... T9
    0,00–1,55      câmera se aproxima devagar (escala 1,24 → 1,16) ............................ T6
@@ -503,7 +778,8 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 /* campo de anéis: 1 unidade = 1 unidade do logo × 1,24 (escala inicial da câmera), centrado na tela */
 .li-campo { position: absolute; max-width: none; left: 50%; top: 50%; width: calc(var(--li-w) * 500 / 341.01 * 1.24); aspect-ratio: 1; transform: translate(-50%, -50%); overflow: visible; }
 .li-intro > .li-palco { position: relative; }
-.li-palco { display: grid; justify-items: center; }
+/* só o logo conta na centralização: o símbolo fica no centro exato dos anéis e a legenda fica pendurada abaixo */
+.li-palco { position: relative; display: grid; justify-items: center; }
 .li-cam { position: relative; width: var(--li-w); aspect-ratio: 341.01 / 93.48; transform-origin: 13.69% 49.82%; transform: translateX(36.31%) scale(1.24); }
 .li-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .li-logo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; clip-path: inset(0 72.6% 0 0); }
@@ -512,8 +788,9 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 .li-no { fill: var(--ouro); opacity: 0; transform-box: fill-box; transform-origin: center; }
 .li-con { fill: none; stroke: var(--ouro); stroke-width: 0.8; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .li-contorno { fill: none; stroke: var(--ouro); stroke-width: 0.7; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.li-luz { opacity: 0; transform-box: view-box; transform-origin: 46.68px 46.57px; }
 .li-preenche { fill: #B28B46; opacity: 0; }
-.li-legenda { margin: 28px 0 0; display: flex; align-items: center; gap: 12px; font-family: var(--fonte-titulo); font-weight: 600; font-size: clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem); letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.88); }
+.li-legenda { position: absolute; top: 100%; left: 0; right: 0; margin: 28px 0 0; display: flex; justify-content: center; align-items: center; gap: 12px; font-family: var(--fonte-titulo); font-weight: 600; font-size: clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem); letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.88); }
 .li-filete { width: 28px; height: 2px; background: var(--ouro); transform: scaleX(0); transform-origin: left; }
 .li-nome { opacity: 0; transform: translateY(8px); }
 @media (max-width: 600px) {
@@ -528,6 +805,7 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 .li-tocando .li-no { animation: li-pop 0.32s var(--ease-spring) calc(0.18s + var(--i) * 0.07s) both, li-some 0.4s var(--ease-out) calc(1.1s + var(--i) * 0.03s) forwards; }
 .li-tocando .li-con { animation: li-traco 0.5s var(--ease-draw) calc(0.45s + var(--i) * 0.06s) both, li-escoa 0.4s var(--ease-draw) calc(1.1s + var(--i) * 0.03s) forwards; }
 .li-tocando .li-contorno { animation: li-traco 0.8s var(--ease-draw) 0.9s both, li-apaga 0.25s ease 1.7s forwards; }
+.li-tocando .li-luz { animation: li-luz 0.8s cubic-bezier(0.3, 0, 0.3, 1) 1.05s both; }
 .li-tocando .li-preenche { animation: li-acende 0.3s ease 1.55s both; }
 .li-tocando .li-logo { animation: li-nome 0.75s var(--ease-out) 1.7s both; }
 .li-tocando .li-filete { animation: li-filete 0.3s var(--ease-draw) 2.35s both; }
@@ -546,6 +824,7 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 @keyframes li-some { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.4); } }
 @keyframes li-traco { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes li-escoa { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1; } }
+@keyframes li-luz { 0% { opacity: 0; transform: rotate(-40deg); } 18% { opacity: 1; } 100% { opacity: 1; transform: rotate(320deg); } }
 @keyframes li-apaga { to { opacity: 0; } }
 @keyframes li-acende { to { opacity: 1; } }
 @keyframes li-nome { 0% { opacity: 0; clip-path: inset(0 72.6% 0 0); } 15% { opacity: 1; } 100% { opacity: 1; clip-path: inset(0 0 0 0); } }
@@ -554,15 +833,19 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 @keyframes li-afasta { to { transform: scale(1.03); } }
 
 /* Aviso da pré-visualização (inserido só pelo build de preview, acima do rodapé) */
-.aviso-preview { margin: 0; padding: var(--e3) var(--lateral); background: #F3E6C4; color: var(--tinta); font-size: 0.875rem; line-height: 1.45; text-align: center; }
+.aviso-preview { margin: var(--caixa-margem) var(--caixa-margem) 0; padding: var(--e3) var(--lateral); border-radius: var(--raio-2); background: #F3E6C4; color: var(--tinta); font-size: 0.875rem; line-height: 1.45; text-align: center; }
 
 /* Movimento reduzido: estado final, sem deslocamentos */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .li-intro, html.intro-ativa::before { display: none !important; }
   *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
-  .ondas span { animation: none !important; }
-  .hero__foto.aguardando img, .liga__fundo.armada picture, .liga__fundo.armada img, .revela-armado .linha-conteudo { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  .revela-armado .linha-conteudo { opacity: 1 !important; transform: none !important; }
+  .liga__foto.armada picture { clip-path: circle(44.97% at 47.93% 46.14%) !important; }
+  .constelacao.armada .aneis-turma, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo, .constelacao.armada .rotas, .constelacao.armada .etiqueta--voce { opacity: 1 !important; }
+  .liga__foto.armada .liga__selo, .liga__foto.armada::before, .liga__orbita.armada .orbita--fina, .liga__orbita.armada .orbita__no { opacity: 1 !important; transform: none !important; }
+  .marca-dagua.armada, .liga__orbita.armada .orbita, .servicos.armada .servicos__icone, .oferta.armada .oferta__icone { stroke-dashoffset: 0 !important; }
+  .faq summary::after { transition: none; }
   .trilha.armada .degrau::before, .trilha.armada .degrau__meta, .trilha.armada .degrau__valor, .trilha.armada .degrau__piso, .trilha.armada .degrau__espelho, .trilha.armada .degrau::after { opacity: 1 !important; transform: none !important; }
   .passos.armada .passo__no, .passos.armada .passo__titulo, .passos.armada .passo p, .passos.armada .passo__linha { opacity: 1 !important; transform: none !important; }
   .passo--credito .passo__no::after { display: none; }
@@ -570,18 +853,22 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 }
 
 @media print {
-  .topo, .cta-fixo, .aviso-preview, .li-intro { display: none !important; }
-  main { padding-top: 0; }
+  .topo, .cta-fixo, .aviso-preview, .li-intro, .constelacao, .marca-dagua { display: none !important; }
+  .caixa { margin: 0; border-radius: 0; }
 }
 </style>
 <!-- Intro: decidida antes da primeira pintura. Não roda com #âncora, aba oculta, página já rolada,
      movimento reduzido ou se já foi vista nesta sessão. ?intro=1 força (revisão) e ?intro=0 desliga. -->
 <script>(function(){var d=document.documentElement;d.classList.add("js");try{var q=location.search;if(/[?&]intro=0\b/.test(q)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(!/[?&]intro=1\b/.test(q)&&(location.hash||document.hidden||window.pageYOffset>4||sessionStorage.getItem("liga-intro")==="1"))return;d.classList.add("intro-ativa")}catch(e){}})();</script>
-<script src="assets/intro.js?v=0.4.0" defer onerror="document.documentElement.classList.remove('intro-ativa')"></script>
-<script src="assets/liga.js?v=0.4.0" defer></script>
+<script src="assets/intro.js?v=0.6.0" defer onerror="document.documentElement.classList.remove('intro-ativa')"></script>
+<script src="assets/liga.js?v=0.6.0" defer></script>
 </head>
 <body>
 <svg class="sprite" aria-hidden="true" focusable="false">
+  <!-- sprite-marca:inicio (gerado por build/gera-sprite.mjs) -->
+  <symbol id="simbolo" viewBox="0 0 93.36 93.15"><path pathLength="1" d="m92.66,23.55c-.65.76-1.37,1.47-2.06,2.16l-.47.46c-3.35,3.35-6.7,6.7-10.06,10.05l-1.65,1.65c-.88.87-1.93.9-2.75.11-.4-.38-.61-.83-.61-1.32,0-.36.11-.91.66-1.46,3.24-3.24,6.48-6.48,9.72-9.72.34-.33.68-.67,1.01-1.01.86-.87,1.74-1.76,2.66-2.61-2.1-2.1-4.19-4.2-6.29-6.31l-3.78-3.8c-1.91-1.91-3.86-3.86-5.96-5.95-.5-.49-1.03-1.01-1.67-1.62-2.15,2.13-4.35,4.32-6.15,6.13l-3.96,3.94c-2.8,2.8-5.6,5.6-8.4,8.39-.45.45-.97.68-1.5.68-.85,0-1.56-.6-1.84-1.57-.1-.34-.19-.68-.29-1.01l-.02-.08c-.49-1.73-1-3.53-1.88-5.09-2.3-4.09-5.59-7.04-9.78-8.76-2.49-1.03-5.1-1.55-7.76-1.55-7.68,0-14.51,4.33-17.84,11.29-3.47,7.27-2.68,14.34,2.33,21.01,2.39,3.18,5.64,5.44,9.66,6.69,1.98.62,4.22.91,7.04.91.45,0,.93,0,1.45-.02l4.99-.14c2.12-.06,4.21-.12,6.3-.17l3.69-.1c3.56-.1,7.19-.21,10.77-.28l1.09-.02c1.03-.03,2.1-.05,3.16-.05,1.17,0,2.19.03,3.13.09,5.37.37,10.17,2.52,14.26,6.39,3.59,3.4,5.93,7.52,6.93,12.25,2.46,11.52-4.05,23.24-15.14,27.25-2.66.96-5.42,1.45-8.2,1.45-7.63,0-14.62-3.62-19.17-9.94-1.45-2.01-2.57-4.22-3.32-6.57-4.54,4.57-9.5,9.57-15.55,15.64-.37.37-.78.75-1.32,1.23-.78.68-1.45.98-2.16.98s-1.38-.31-2.12-.98c-.87-.8-1.7-1.63-2.5-2.44-.25-.26-.51-.52-.77-.78l-4.68-4.68c-2.51-2.5-5.09-5.09-7.64-7.62-.55-.55-1.14-1.1-1.71-1.62-.4-.37-.77-.71-1.14-1.06-.27-.26-.48-.55-.66-.79-.92-1.26-.95-2.34-.09-3.59.44-.63.96-1.18,1.41-1.63,3.57-3.53,7.14-7.05,10.71-10.58l3.3-3.26c.09-.1.17-.18.26-.26.82-.73,1.95-.71,2.68.04.78.8.76,1.88-.04,2.69-1.04,1.05-2.09,2.09-3.14,3.14l-3.62,3.62c-2.2,2.2-4.41,4.4-6.6,6.6-.46.46-.9.93-1.29,1.37l.34.34c3.1,3.12,6.31,6.36,9.49,9.51,1.4,1.39,2.84,2.79,4.23,4.14l.08.07c.95.93,1.9,1.85,2.85,2.78.22.22.41.45.59.67.02.01.03.03.04.04,1.64-1.6,3.38-3.29,5.11-5.02,3.71-3.69,7.46-7.45,11.09-11.09l2.24-2.23c.28-.29.82-.82,1.64-.82.18,0,.37.03.56.08,1.07.32,1.26,1.25,1.36,1.76v.05c1.2,5.73,4.22,10.18,8.98,13.22,5.56,3.56,11.47,4.24,17.32,2.01,7.76-2.96,12.2-8.64,13.19-16.86,1.06-8.81-4.59-17.7-13.15-20.69-2.25-.78-4.69-1.14-7.69-1.14-.35,0-.72,0-1.09.01-2.1.06-4.19.12-6.28.18l-7.4.18c-3.12.07-6.24.15-9.37.21-.93.02-1.87.05-2.79.08-1.53.05-3.11.11-4.68.11-.73,0-1.41-.02-2.07-.04-6.69-.24-12.4-3.01-16.97-8.24-2.74-3.13-4.53-6.8-5.34-10.9-1.88-9.57,2.4-19.44,10.65-24.55C23.66,1.19,30.62.36,37.6,2.76c7.11,2.45,11.96,7.25,14.44,14.29l.13.37c.06.14.11.29.16.44.95-.95,1.89-1.89,2.84-2.84l.34-.34c.64-.63,1.27-1.26,1.9-1.9l10.85-10.88c.32-.33.66-.64.89-.84,1.6-1.45,3.11-1.41,4.64.1,1.09,1.08,2.17,2.16,3.25,3.24l.21.21c1.18,1.18,2.39,2.39,3.6,3.58,1.77,1.76,3.55,3.51,5.33,5.26l.38.37c1.61,1.58,3.21,3.15,4.81,4.73.45.45.9.96,1.32,1.51.9,1.17.89,2.41-.03,3.49Z"/></symbol>
+  <symbol id="marca-nome" viewBox="0 0 341.01 93.48"><g style="fill:var(--marca-letras,#182a3f)"><path d="m341.01,37.07v.45c0,.72-.53,1.31-1.24,1.39-2.37.27-4.26,1.22-5.61,2.83-1.62,1.92-2.44,4.74-2.44,8.35v12.71c0,.8-.65,1.45-1.44,1.45h-.22c-.8,0-1.45-.65-1.45-1.45v-12.71c0-4.53,1.12-8.11,3.32-10.65,1.9-2.2,4.38-3.42,7.56-3.74.04-.01.09-.01.14-.01.34,0,.67.13.93.36.29.26.45.63.45,1.02Z"/><path d="m215.13,44.33c0,3.07-.45,5.86-1.32,8.29-.88,2.43-2.15,4.54-3.78,6.26-1.63,1.72-3.64,3.07-5.96,3.98-2.33.92-4.99,1.39-7.91,1.39h-9.14c-.42,0-.78-.16-1.1-.5-.31-.33-.46-.69-.46-1.11v-15.88c0-.8.63-1.47,1.4-1.48.04,0,.07-.01.1-.01.06-.01.12-.01.17-.01.35,0,.68.12.94.35.32.28.5.68.5,1.11v14.23s.03.08.08.08h7.51c5.04,0,8.98-1.46,11.72-4.35,2.75-2.89,4.14-7.05,4.14-12.35s-1.35-9.59-4.01-12.43c-2.66-2.83-6.54-4.26-11.55-4.26h-11v-1.61c0-.35.05-.79.4-1.14.36-.37.81-.42,1.16-.42h9.44c2.93,0,5.59.46,7.89,1.36,2.3.9,4.27,2.21,5.86,3.91,1.58,1.68,2.81,3.78,3.65,6.22.84,2.45,1.27,5.27,1.27,8.37Z"/><path d="m158.15,39.13c-2.37-2.55-5.76-3.84-10.06-3.84s-7.69,1.29-10.06,3.84c-2.36,2.54-3.56,6.12-3.56,10.64s1.19,8.15,3.55,10.67c2.38,2.53,5.77,3.81,10.07,3.81s7.69-1.28,10.06-3.81c2.36-2.52,3.56-6.11,3.56-10.67s-1.2-8.1-3.56-10.64Zm-2.3,19.09c-1.78,1.86-4.39,2.81-7.76,2.81s-6.03-.96-7.81-2.87c-1.79-1.91-2.7-4.73-2.7-8.39s.91-6.48,2.7-8.39c1.78-1.9,4.41-2.87,7.81-2.87s6.03.97,7.81,2.87c1.79,1.91,2.7,4.74,2.7,8.39s-.91,6.48-2.7,8.39l-.05.06Z"/><path d="m243.07,39.13c-2.37-2.55-5.76-3.84-10.07-3.84s-7.69,1.29-10.06,3.84c-2.36,2.54-3.56,6.12-3.56,10.64s1.2,8.15,3.56,10.67c2.38,2.53,5.76,3.81,10.06,3.81s7.69-1.28,10.07-3.81c2.36-2.52,3.56-6.11,3.56-10.67s-1.2-8.1-3.56-10.64Zm-10.07,21.9c-3.4,0-6.03-.96-7.81-2.87-1.79-1.91-2.7-4.73-2.7-8.39s.91-6.48,2.7-8.39c1.79-1.9,4.42-2.87,7.81-2.87s6.03.97,7.82,2.87c1.79,1.91,2.7,4.74,2.7,8.39s-.91,6.48-2.7,8.4c-1.79,1.9-4.41,2.86-7.82,2.86Z"/><path d="m274.6,59.15c-.31.46-.66.89-1.03,1.29-2.38,2.53-5.76,3.81-10.07,3.81s-7.69-1.28-10.06-3.81c-2.36-2.52-3.56-6.11-3.56-10.67s1.2-8.1,3.56-10.64c2.37-2.55,5.76-3.84,10.06-3.84s7.69,1.29,10.07,3.84c.36.39.7.81,1.01,1.26.32.46.36,1.05.09,1.56-.26.51-.79.83-1.36.83h-.13c-.49,0-.95-.24-1.23-.63-.2-.28-.42-.54-.64-.77-1.78-1.9-4.41-2.87-7.81-2.87s-6.03.97-7.81,2.87c-1.79,1.91-2.7,4.74-2.7,8.39s.91,6.48,2.7,8.39c1.78,1.91,4.41,2.87,7.81,2.87s6.03-.96,7.81-2.87c.23-.24.45-.5.64-.77.28-.39.74-.62,1.23-.62h.15c.57,0,1.1.31,1.36.82.27.51.24,1.09-.09,1.56Z"/><path d="m318.86,39.13c-2.37-2.55-5.75-3.84-10.06-3.84s-7.69,1.29-10.06,3.84c-2.36,2.53-3.56,6.12-3.56,10.64s1.2,8.15,3.56,10.67c2.37,2.53,5.76,3.81,10.06,3.81s7.69-1.28,10.07-3.81c2.36-2.52,3.55-6.11,3.55-10.67s-1.19-8.11-3.56-10.64Zm-2.25,19.04c-1.78,1.9-4.41,2.86-7.81,2.86s-6.03-.96-7.81-2.87c-1.79-1.91-2.7-4.73-2.7-8.39s.91-6.48,2.7-8.39c1.78-1.9,4.41-2.87,7.81-2.87s6.03.97,7.81,2.87c1.8,1.91,2.71,4.74,2.71,8.39s-.89,6.42-2.64,8.33l-.07.07Z"/><path d="m291.85,60.89c.29.3.44.7.44,1.2,0,.43-.13.81-.4,1.14-.3.37-.69.57-1.13.57h-1.15c-2.53,0-4.51-.7-5.88-2.07-1.37-1.38-2.06-3.57-2.06-6.51v-31.04c0-.49.17-.92.49-1.22.3-.28.67-.43,1.06-.43s.78.15,1.08.44c.32.3.49.72.49,1.21v11.45h6.02c.42,0,.81.18,1.11.52.28.32.42.72.42,1.2,0,.44-.14.82-.42,1.14-.3.34-.69.51-1.11.51h-6.02v16.22c0,1.97.36,3.35,1.06,4.1.68.74,1.95,1.11,3.76,1.11h1.15c.41,0,.79.16,1.09.46Z"/><path d="m137.81,24.46v.25c0,.38-.17.74-.47.98l-.04.05-.06.03c-.21.14-.45.21-.7.21h-1.61c-.31.01-.54.01-.6.01h-9.01c-2.57-.01-4.57.45-5.62,1.28-1,.8-1.51,2.22-1.51,4.23v12.41h8.09c.4,0,.75.13,1.05.39.3.27.46.63.46,1.04,0,.38-.16.72-.46.99-.3.26-.65.39-1.05.39h-8.09v1.67s.01,2.42.01,2.42h-.01v11.45c0,.82-.58,1.52-1.36,1.63-.08.01-.18.01-.28.01-.09,0-.17,0-.25-.01-.75-.11-1.32-.8-1.32-1.62v-30.77c0-2.89.9-5.03,2.69-6.36,1.74-1.3,4.28-1.95,7.54-1.95h11.33c.25,0,.49.07.7.21l.06.03.04.05c.3.24.47.6.47.98Z"/><path d="m180.16,36.88v.45c0,.71-.53,1.31-1.23,1.38-2.38.27-4.27,1.22-5.62,2.83-1.62,1.93-2.44,4.74-2.44,8.35v12.72c0,.79-.65,1.44-1.44,1.44h-.23c-.79,0-1.44-.65-1.44-1.44v-12.72c0-4.53,1.12-8.11,3.31-10.64,1.91-2.2,4.38-3.43,7.57-3.75.04,0,.09-.01.13-.01.35,0,.68.13.94.36.29.26.45.64.45,1.03Z"/></g><g style="fill:var(--marca-sub,#b28b46)"><path d="m140.09,93.44c-.84,0-1.62-.16-2.33-.47-.71-.31-1.28-.82-1.7-1.51-.42-.7-.63-1.62-.63-2.76v-6.54c0-1.14.21-2.06.64-2.76.43-.7,1-1.2,1.71-1.51.71-.31,1.49-.47,2.33-.47.99,0,1.83.17,2.52.5.7.33,1.23.79,1.61,1.36.38.57.56,1.21.56,1.92,0,.41-.08.67-.23.8-.15.13-.38.2-.68.2s-.51-.06-.66-.17c-.15-.12-.24-.27-.25-.46-.01-.22-.05-.47-.12-.75-.07-.28-.2-.56-.39-.83-.2-.27-.48-.49-.85-.66-.37-.17-.86-.26-1.47-.26-.93,0-1.64.25-2.14.75-.5.5-.75,1.28-.75,2.34v6.54c0,1.06.25,1.84.76,2.34.51.5,1.24.75,2.19.75.61,0,1.09-.09,1.45-.26.35-.17.62-.39.79-.65.17-.26.3-.54.37-.84.07-.3.12-.58.15-.84.01-.22.1-.38.26-.48.16-.1.38-.15.65-.15.3,0,.53.07.68.21.15.14.23.41.23.82,0,.71-.19,1.36-.58,1.95-.38.59-.93,1.05-1.63,1.39-.7.34-1.54.51-2.51.51"/><path d="m151.33,91.85c.46,0,.88-.12,1.25-.37.37-.25.67-.57.9-.97.23-.4.35-.82.35-1.25v-2.22c0-.42-.11-.83-.34-1.22s-.53-.71-.9-.96c-.38-.25-.8-.37-1.26-.37s-.88.12-1.26.37c-.38.25-.67.56-.89.96-.22.39-.33.8-.33,1.22v2.22c0,.43.11.85.33,1.25.22.4.51.72.89.97.38.25.8.37,1.26.37m0,1.63c-.77,0-1.48-.2-2.13-.6-.65-.4-1.17-.92-1.57-1.55-.39-.64-.59-1.33-.59-2.06v-2.22c0-.74.19-1.42.58-2.05.38-.63.9-1.14,1.55-1.53.65-.39,1.37-.59,2.15-.59s1.48.19,2.13.58c.65.38,1.18.89,1.58,1.51.4.62.6,1.32.6,2.09v2.22c0,.72-.2,1.41-.6,2.05-.4.65-.92,1.17-1.58,1.56-.65.4-1.36.6-2.13.6"/><path d="m159.24,93.31c-.26,0-.47-.07-.64-.21-.17-.14-.25-.29-.25-.45v-9.02c0-.19.08-.34.25-.46.17-.12.38-.17.64-.17.23,0,.43.06.59.17.16.12.24.27.24.46v.89c.23-.42.59-.8,1.09-1.14.49-.34,1.1-.51,1.83-.51s1.33.19,1.91.58c.58.38,1.04.89,1.39,1.51.35.62.52,1.32.52,2.09v5.61c0,.22-.09.38-.28.49-.19.11-.4.16-.63.16-.22,0-.42-.05-.61-.16-.19-.11-.28-.27-.28-.49v-5.61c0-.42-.11-.83-.34-1.22-.22-.39-.53-.71-.9-.96-.38-.25-.79-.37-1.24-.37-.39,0-.77.11-1.13.32-.36.21-.66.5-.89.87-.23.37-.35.82-.35,1.36v5.61c0,.16-.09.31-.27.45-.18.14-.4.21-.64.21"/><path d="m173.36,93.31c-1.17,0-2.07-.26-2.68-.78-.62-.52-.92-1.35-.92-2.5v-11.19c0-.19.09-.34.28-.46.19-.12.39-.17.61-.17.23,0,.44.06.63.17.19.12.28.27.28.46v4.17h2.74c.17,0,.31.07.4.22.09.14.14.31.14.5s-.05.35-.14.49c-.09.14-.23.21-.4.21h-2.74v5.61c0,.62.13,1.06.4,1.32.27.25.74.38,1.4.38h.67c.26,0,.46.08.59.24.13.16.2.34.2.54s-.07.39-.2.55c-.13.17-.33.25-.59.25h-.67Z"/><path d="m179.88,92.03c.42,0,.83-.12,1.23-.35.4-.23.73-.52,1-.87.27-.35.4-.68.4-1v-1.13h-.76c-.61,0-1.18.04-1.73.11-.54.07-.98.23-1.32.47-.33.24-.5.62-.5,1.14,0,.56.16.98.48,1.24.32.26.72.39,1.2.39m-.56,1.46c-.81,0-1.5-.24-2.08-.71-.57-.47-.86-1.2-.86-2.18,0-.8.22-1.42.65-1.86.43-.44,1.03-.75,1.79-.91.76-.17,1.64-.25,2.64-.25h1.04v-.46c0-.43-.08-.86-.24-1.27-.16-.41-.41-.75-.75-1.02-.34-.27-.81-.4-1.4-.4-.51,0-.91.05-1.21.15-.3.1-.53.21-.71.32-.17.11-.33.16-.46.16-.22,0-.38-.1-.5-.32-.12-.21-.17-.41-.17-.6,0-.23.16-.44.48-.63.32-.19.72-.34,1.2-.46.48-.12.95-.17,1.41-.17,1.01,0,1.83.2,2.43.61.61.41,1.05.93,1.32,1.56.27.64.4,1.32.4,2.04v5.56c0,.17-.08.33-.25.46-.17.13-.38.2-.64.2-.23,0-.43-.07-.59-.2-.16-.13-.24-.28-.24-.46v-.87c-.38.43-.83.83-1.37,1.17-.54.35-1.17.52-1.91.52"/><path d="m191.6,91.85c.45,0,.86-.12,1.24-.37.38-.25.68-.57.9-.98.22-.41.34-.82.34-1.24v-2.22c0-.42-.11-.83-.34-1.22s-.53-.71-.9-.96c-.38-.25-.8-.37-1.26-.37-.39,0-.78.11-1.15.32-.38.21-.68.5-.92.87-.24.37-.36.82-.36,1.36v2.8c0,.19.11.44.33.76.22.32.51.6.89.86.38.25.79.38,1.24.38m.43,1.63c-.67,0-1.27-.17-1.81-.51-.54-.34-.93-.74-1.16-1.18v.87c0,.16-.08.31-.24.45-.16.14-.36.21-.61.21s-.45-.07-.62-.21c-.17-.14-.25-.29-.25-.45v-15.24c0-.19.08-.34.25-.46.17-.12.37-.17.62-.17.26,0,.48.06.66.17.18.12.27.27.27.46v7.11c.23-.42.59-.8,1.08-1.14.49-.34,1.08-.51,1.77-.51s1.36.19,1.95.58c.59.38,1.06.89,1.41,1.51.35.62.53,1.32.53,2.09v2.22c0,.72-.18,1.41-.53,2.05-.36.65-.82,1.17-1.4,1.56-.58.4-1.22.6-1.91.6"/><path d="m199.49,93.31c-.26,0-.47-.07-.64-.21-.17-.14-.25-.29-.25-.45v-9.02c0-.19.08-.34.25-.46.17-.12.38-.17.64-.17.25,0,.46.06.64.17.18.12.27.27.27.46v9.02c0,.16-.09.31-.27.45-.18.14-.4.21-.64.21m0-13.13c-.3,0-.57-.11-.79-.32-.22-.21-.34-.45-.34-.73s.11-.51.34-.72c.22-.2.49-.3.79-.3s.58.1.79.3c.21.2.32.44.32.72s-.11.52-.32.73c-.21.21-.47.32-.79.32"/><path d="m204.57,93.31c-.26,0-.47-.07-.64-.21-.17-.14-.25-.29-.25-.45v-15.24c0-.19.08-.34.25-.46.17-.12.38-.17.64-.17.25,0,.46.06.64.17.18.12.27.27.27.46v15.24c0,.16-.09.31-.27.45-.18.14-.4.21-.64.21"/><path d="m209.68,93.31c-.26,0-.47-.07-.64-.21-.17-.14-.25-.29-.25-.45v-9.02c0-.19.08-.34.25-.46.17-.12.38-.17.64-.17.25,0,.46.06.64.17.18.12.27.27.27.46v9.02c0,.16-.09.31-.27.45-.18.14-.4.21-.64.21m0-13.13c-.3,0-.57-.11-.79-.32-.22-.21-.34-.45-.34-.73s.11-.51.34-.72c.22-.2.49-.3.79-.3s.58.1.79.3c.21.2.32.44.32.72s-.11.52-.32.73c-.21.21-.47.32-.79.32"/><path d="m217.57,91.85c.46,0,.88-.13,1.25-.38s.66-.54.88-.86c.22-.32.33-.57.33-.76v-2.8c0-.54-.12-.99-.36-1.36-.24-.37-.55-.66-.92-.87-.38-.21-.76-.32-1.15-.32-.46,0-.88.12-1.26.37-.38.25-.68.56-.9.96s-.34.8-.34,1.22v2.22c0,.42.11.83.34,1.24.22.41.53.73.9.98.38.25.79.37,1.24.37m-.43,1.63c-.68,0-1.31-.2-1.9-.6-.59-.4-1.06-.92-1.41-1.56-.36-.64-.53-1.33-.53-2.05v-2.22c0-.77.18-1.46.53-2.09.35-.62.83-1.13,1.41-1.51.59-.38,1.24-.58,1.95-.58s1.29.17,1.77.51c.49.34.84.72,1.08,1.14v-7.11c0-.19.09-.34.27-.46.18-.12.4-.17.66-.17s.47.06.63.17c.16.12.24.27.24.46v15.24c0,.16-.08.31-.24.45-.16.14-.37.21-.63.21-.23,0-.43-.07-.6-.21-.17-.14-.25-.29-.25-.45v-.87c-.22.45-.6.84-1.15,1.18-.55.34-1.16.51-1.83.51"/><path d="m227.79,92.03c.42,0,.83-.12,1.23-.35.4-.23.73-.52,1-.87.27-.35.4-.68.4-1v-1.13h-.76c-.61,0-1.18.04-1.73.11-.54.07-.98.23-1.32.47-.33.24-.5.62-.5,1.14,0,.56.16.98.48,1.24.32.26.72.39,1.2.39m-.57,1.46c-.81,0-1.5-.24-2.08-.71-.57-.47-.86-1.2-.86-2.18,0-.8.22-1.42.65-1.86.43-.44,1.03-.75,1.79-.91.76-.17,1.64-.25,2.64-.25h1.04v-.46c0-.43-.08-.86-.24-1.27-.16-.41-.41-.75-.75-1.02-.34-.27-.81-.4-1.4-.4-.51,0-.91.05-1.21.15-.3.1-.53.21-.71.32-.17.11-.33.16-.46.16-.22,0-.38-.1-.5-.32-.12-.21-.17-.41-.17-.6,0-.23.16-.44.48-.63.32-.19.72-.34,1.2-.46.48-.12.95-.17,1.41-.17,1.01,0,1.83.2,2.43.61.61.41,1.05.93,1.32,1.56.27.64.4,1.32.4,2.04v5.56c0,.17-.08.33-.25.46-.17.13-.38.2-.64.2-.23,0-.43-.07-.59-.2-.16-.13-.24-.28-.24-.46v-.87c-.38.43-.83.83-1.37,1.17-.54.35-1.17.52-1.91.52"/><path d="m239.11,91.85c.46,0,.88-.13,1.25-.38s.66-.54.88-.86c.22-.32.33-.57.33-.76v-2.8c0-.54-.12-.99-.36-1.36-.24-.37-.55-.66-.92-.87-.38-.21-.76-.32-1.15-.32-.46,0-.88.12-1.26.37-.38.25-.68.56-.9.96-.22.39-.34.8-.34,1.22v2.22c0,.42.11.83.34,1.24.22.41.53.73.9.98.38.25.79.37,1.24.37m-.43,1.63c-.68,0-1.31-.2-1.9-.6-.59-.4-1.06-.92-1.41-1.56-.36-.64-.53-1.33-.53-2.05v-2.22c0-.77.18-1.46.53-2.09.35-.62.83-1.13,1.41-1.51.59-.38,1.23-.58,1.95-.58s1.29.17,1.77.51c.49.34.84.72,1.08,1.14v-7.11c0-.19.09-.34.27-.46.18-.12.4-.17.66-.17s.47.06.63.17c.16.12.24.27.24.46v15.24c0,.16-.08.31-.24.45-.16.14-.37.21-.63.21-.23,0-.43-.07-.6-.21-.17-.14-.25-.29-.25-.45v-.87c-.22.45-.6.84-1.15,1.18-.55.34-1.16.51-1.83.51"/><path d="m247.91,87.46h4.02c.39,0,.65-.05.77-.14.12-.09.18-.28.18-.55,0-.43-.11-.84-.32-1.21-.21-.37-.5-.67-.88-.9-.38-.23-.8-.35-1.28-.35-.45,0-.86.11-1.24.32-.38.21-.68.5-.91.86-.23.36-.35.76-.35,1.2v.78Zm3.04,6.02c-.94,0-1.78-.18-2.5-.53-.72-.36-1.3-.85-1.72-1.48-.42-.63-.63-1.37-.63-2.21v-2.28c0-.74.2-1.42.6-2.04.4-.62.92-1.12,1.58-1.5.65-.38,1.37-.56,2.15-.56s1.45.17,2.08.52c.63.35,1.14.82,1.52,1.41.38.59.58,1.28.58,2.06,0,.58-.09,1-.28,1.25-.19.25-.43.41-.72.47-.29.06-.59.09-.91.09h-4.78v.65c0,.81.29,1.45.87,1.92.58.47,1.33.71,2.24.71.54,0,.96-.07,1.28-.22.32-.14.58-.29.78-.42.2-.14.38-.21.54-.21s.29.05.4.14c.11.09.19.21.25.34.06.13.09.25.09.35,0,.19-.14.4-.41.64-.28.24-.67.45-1.18.63-.51.18-1.12.27-1.81.27"/><path d="m263.21,93.31c-.22,0-.42-.05-.62-.16-.2-.11-.29-.27-.29-.49v-14.34c0-.33.1-.56.29-.7.2-.13.4-.2.62-.2.23,0,.43.04.6.13.17.09.32.21.46.38.14.17.27.38.4.64l3.43,6.54,3.43-6.54c.14-.26.29-.47.42-.64.14-.17.29-.29.46-.38.17-.09.36-.13.58-.13.25,0,.46.07.64.2.18.13.27.36.27.7v14.34c0,.22-.09.38-.28.49-.19.11-.4.16-.63.16s-.44-.05-.63-.16c-.19-.11-.28-.27-.28-.49v-11.41l-3.3,6.17c-.1.17-.21.3-.33.38-.12.08-.24.12-.37.12-.1,0-.21-.04-.34-.11-.12-.07-.24-.2-.34-.39l-3.28-6.26v11.5c0,.22-.09.38-.28.49-.19.11-.4.16-.63.16"/><path d="m280.27,80.62c-.17,0-.33-.08-.46-.24-.13-.16-.2-.33-.2-.5,0-.23.09-.39.28-.48l2.54-1.35c.09-.03.16-.04.22-.04.19,0,.34.08.45.23.11.15.16.32.16.51,0,.23-.1.41-.3.52l-2.46,1.26s-.08.03-.12.05c-.04.02-.08.03-.12.03m-1.65,6.85h4.02c.39,0,.65-.05.77-.14.12-.09.18-.28.18-.55,0-.43-.11-.84-.32-1.21-.21-.37-.5-.67-.88-.9-.38-.23-.8-.35-1.28-.35-.45,0-.86.11-1.24.32-.38.21-.68.5-.91.86-.23.36-.35.76-.35,1.2v.78Zm3.04,6.02c-.94,0-1.78-.18-2.5-.53-.72-.36-1.3-.85-1.72-1.48-.42-.63-.63-1.37-.63-2.21v-2.28c0-.74.2-1.42.6-2.04.4-.62.92-1.12,1.58-1.5.65-.38,1.37-.56,2.15-.56s1.45.17,2.08.52c.63.35,1.14.82,1.52,1.41.38.59.58,1.28.58,2.06,0,.58-.09,1-.28,1.25-.19.25-.43.41-.72.47-.29.06-.59.09-.91.09h-4.78v.65c0,.81.29,1.45.87,1.92.58.47,1.33.71,2.24.71.54,0,.96-.07,1.28-.22.32-.14.58-.29.78-.42.2-.14.38-.21.54-.21s.29.05.4.14c.11.09.19.21.25.34.06.13.09.25.09.35,0,.19-.14.4-.41.64-.28.24-.67.45-1.18.63-.51.18-1.12.27-1.81.27"/><path d="m291.75,91.85c.46,0,.88-.13,1.25-.38.37-.25.66-.54.88-.86.22-.32.33-.57.33-.76v-2.8c0-.54-.12-.99-.36-1.36-.24-.37-.55-.66-.92-.87-.38-.21-.76-.32-1.15-.32-.46,0-.88.12-1.26.37-.38.25-.68.56-.9.96-.22.39-.34.8-.34,1.22v2.22c0,.42.11.83.34,1.24.22.41.53.73.9.98.38.25.79.37,1.24.37m-.43,1.63c-.68,0-1.31-.2-1.9-.6-.59-.4-1.06-.92-1.41-1.56-.36-.64-.53-1.33-.53-2.05v-2.22c0-.77.18-1.46.53-2.09.35-.62.83-1.13,1.41-1.51.59-.38,1.24-.58,1.95-.58s1.29.17,1.77.51c.49.34.84.72,1.08,1.14v-7.11c0-.19.09-.34.27-.46.18-.12.4-.17.66-.17s.47.06.63.17c.16.12.24.27.24.46v15.24c0,.16-.08.31-.24.45-.16.14-.37.21-.63.21-.23,0-.43-.07-.6-.21-.17-.14-.25-.29-.25-.45v-.87c-.22.45-.6.84-1.15,1.18-.55.34-1.16.51-1.83.51"/><path d="m300.03,93.31c-.26,0-.47-.07-.64-.21-.17-.14-.25-.29-.25-.45v-9.02c0-.19.08-.34.25-.46.17-.12.38-.17.64-.17.25,0,.46.06.64.17.18.12.27.27.27.46v9.02c0,.16-.09.31-.27.45-.18.14-.4.21-.64.21m0-13.13c-.3,0-.57-.11-.79-.32-.22-.21-.34-.45-.34-.73s.11-.51.34-.72c.22-.2.49-.3.79-.3s.58.1.79.3c.21.2.32.44.32.72s-.11.52-.32.73c-.21.21-.47.32-.79.32"/><path d="m308.03,93.48c-1,0-1.82-.19-2.47-.56-.65-.38-1.12-.88-1.43-1.51-.31-.63-.47-1.34-.47-2.14v-2.17c0-.78.16-1.49.47-2.13.31-.64.79-1.14,1.43-1.52.64-.38,1.46-.56,2.45-.56.64,0,1.2.08,1.67.24.48.16.85.36,1.11.59.26.23.39.46.39.67,0,.12-.03.24-.1.38-.07.14-.15.26-.26.36-.11.1-.24.15-.38.15s-.3-.07-.47-.2c-.17-.13-.39-.26-.67-.38-.28-.12-.68-.18-1.18-.18-.88,0-1.55.23-1.99.7-.44.46-.66,1.09-.66,1.89v2.17c0,.8.22,1.43.66,1.89.44.46,1.11.7,2.01.7.52,0,.93-.07,1.22-.21.29-.14.52-.27.68-.39.17-.12.33-.18.49-.18s.3.05.41.14c.12.09.21.21.27.34.07.13.1.26.1.39,0,.22-.14.45-.41.68-.28.24-.66.44-1.15.61-.49.17-1.06.25-1.72.25"/><path d="m316.48,92.03c.42,0,.83-.12,1.23-.35.4-.23.73-.52,1-.87.27-.35.4-.68.4-1v-1.13h-.76c-.61,0-1.18.04-1.73.11-.54.07-.98.23-1.32.47-.33.24-.5.62-.5,1.14,0,.56.16.98.48,1.24.32.26.72.39,1.2.39m-.57,1.46c-.81,0-1.5-.24-2.08-.71-.57-.47-.86-1.2-.86-2.18,0-.8.22-1.42.65-1.86.43-.44,1.03-.75,1.79-.91.76-.17,1.64-.25,2.64-.25h1.04v-.46c0-.43-.08-.86-.24-1.27-.16-.41-.41-.75-.75-1.02-.34-.27-.81-.4-1.4-.4-.51,0-.91.05-1.21.15-.3.1-.53.21-.71.32-.17.11-.33.16-.46.16-.22,0-.38-.1-.5-.32-.12-.21-.17-.41-.17-.6,0-.23.16-.44.48-.63.32-.19.72-.34,1.2-.46.48-.12.95-.17,1.41-.17,1.01,0,1.83.2,2.43.61.61.41,1.05.93,1.31,1.56.27.64.4,1.32.4,2.04v5.56c0,.17-.08.33-.25.46-.17.13-.38.2-.64.2-.23,0-.43-.07-.59-.2-.16-.13-.24-.28-.24-.46v-.87c-.38.43-.83.83-1.37,1.17-.54.35-1.17.52-1.91.52"/></g></symbol>
+  <!-- sprite-marca:fim -->
   <symbol id="aneis" viewBox="-400 -400 800 800">
     <circle r="60" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
     <circle r="100" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
@@ -593,13 +880,42 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     <circle r="340" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
     <circle r="380" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/>
   </symbol>
+  <!-- Ícones da Liga: traço único, pontas redondas e a seta em ângulo reto das pontas do símbolo ForDoctor.
+       pathLength="1" em cada traço permite desenhá-los na entrada. -->
+  <symbol id="i-informacao" viewBox="0 0 24 24"><path pathLength="1" d="M12 6.6C9.9 5.1 7 4.6 4 5v13.4c3-.4 5.9.1 8 1.6 2.1-1.5 5-2 8-1.6V5c-3-.4-5.9.1-8 1.6z"/><path pathLength="1" d="M12 6.6V20"/></symbol>
+  <symbol id="i-orientacao" viewBox="0 0 24 24"><circle pathLength="1" cx="5" cy="19" r="1.6"/><path pathLength="1" d="M6.4 17.6C9 15 10.6 14 13 13.4c3-.8 5.6-2.6 5.6-8.4"/><path pathLength="1" d="M15 8.4l3.6-3.6 3.6 3.6"/></symbol>
+  <symbol id="i-beneficios" viewBox="0 0 24 24"><circle pathLength="1" cx="12" cy="9.5" r="6.5"/><path pathLength="1" d="M12 6.3l3.2 3.2-3.2 3.2-3.2-3.2z"/><path pathLength="1" d="M8.6 15.1L7.4 21l4.6-2.2 4.6 2.2-1.2-5.9"/></symbol>
+  <symbol id="i-conexao" viewBox="0 0 24 24"><circle pathLength="1" cx="12" cy="5.5" r="2.4"/><circle pathLength="1" cx="5.5" cy="17.5" r="2.4"/><circle pathLength="1" cx="18.5" cy="17.5" r="2.4"/><path pathLength="1" d="M10.8 7.6l-4.1 7.8M13.2 7.6l4.1 7.8M7.9 17.5h8.2"/></symbol>
+  <symbol id="i-empresa" viewBox="0 0 24 24"><path pathLength="1" d="M5 20.5V9.2L12 5l7 4.2v11.3"/><path pathLength="1" d="M3 20.5h18"/><path pathLength="1" d="M12 10.5v6M9 13.5h6"/></symbol>
+  <symbol id="i-nota" viewBox="0 0 24 24"><path pathLength="1" d="M14 3H6.5v18h11V6.5z"/><path pathLength="1" d="M14 3v3.5h3.5"/><path pathLength="1" d="M9.5 11h5M9.5 14.5h5M9.5 18h3"/></symbol>
+  <symbol id="i-planejamento" viewBox="0 0 24 24"><path pathLength="1" d="M4 3.5v17h16.5"/><path pathLength="1" d="M7.5 15.5l3.8-4 3 2.8 4.7-5.6"/><path pathLength="1" d="M15.2 8.4h3.8v3.8"/></symbol>
+  <symbol id="i-obrigacoes" viewBox="0 0 24 24"><path pathLength="1" d="M4.5 6h15v14.5h-15z"/><path pathLength="1" d="M4.5 10h15M9 3.5V8M15 3.5V8"/><path pathLength="1" d="M9.3 15.2l2 2 3.7-3.7"/></symbol>
+  <symbol id="i-renda" viewBox="0 0 24 24"><path pathLength="1" d="M6 3h12v18H6z"/><path pathLength="1" d="M9 16.5l6-6"/><circle pathLength="1" cx="9.6" cy="10.8" r="1.3"/><circle pathLength="1" cx="14.4" cy="16.2" r="1.3"/></symbol>
+  <symbol id="i-gestao" viewBox="0 0 24 24"><path pathLength="1" d="M11 5a8 8 0 1 0 8 8h-8z"/><path pathLength="1" d="M14 2.5A7.5 7.5 0 0 1 21.5 10H14z"/></symbol>
+  <!-- Formandos em 2D (desenho próprio, vetor): três de beca e capelo, três de jaleco. Ilustrações, não retratos de pessoas reais. -->
+  <clipPath id="recorte-aluno"><circle r="31"/></clipPath>
+  <g id="rosto"><circle cx="-3.6" cy="-4" r="1.05" fill="#1E1B1B"/><circle cx="3.6" cy="-4" r="1.05" fill="#1E1B1B"/><path d="M-3 1.6Q0 4 3 1.6" fill="none" stroke="#1E1B1B" stroke-width="1" stroke-linecap="round"/></g>
+  <g id="beca"><path fill="#0A1630" d="M-28 36C-28 18-15 12 0 12S28 18 28 36Z"/><path d="M-9 12.6L-2.5 36M9 12.6L2.5 36" fill="none" stroke="#C19B52" stroke-width="3.2"/></g>
+  <g id="jaleco"><path fill="#F7F5EF" d="M-28 36C-28 18-15 12 0 12S28 18 28 36Z"/><path fill="#13294F" d="M-6.5 12.4L0 23.5 6.5 12.4Z"/><path d="M-6.5 12.4L-2.2 28M6.5 12.4L2.2 28" fill="none" stroke="#C9C1AE" stroke-width="1.1"/></g>
+  <g id="estetoscopio" fill="none" stroke="#091D3E" stroke-width="1.6" stroke-linecap="round"><path d="M-9.5 13C-12 21-7 26.5-1.5 26.5"/><circle cx="-0.5" cy="26.5" r="1.9" fill="#091D3E"/></g>
+  <g id="capelo"><path fill="#091D3E" d="M-9-11.5V-7.2C-5-5.2 5-5.2 9-7.2V-11.5L0-8Z"/><path fill="#091D3E" stroke="#C19B52" stroke-width=".8" stroke-linejoin="round" d="M-18-14.5L0-21.5 18-14.5 0-7.5Z"/><path d="M0-14.5L12.5-12.5V-3.5" fill="none" stroke="#C19B52" stroke-width="1.2" stroke-linecap="round"/><circle cx="12.5" cy="-2.6" r="1.5" fill="#C19B52"/></g>
+  <symbol id="aluno-1" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><path fill="#2B1A12" d="M-12.5-3C-13.5-18 13.5-18 12.5-3L13.5 16H-13.5Z"/><use href="#beca"/><rect fill="#C68A62" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#C68A62" cx="0" cy="-4" rx="9.5" ry="10.5"/><path fill="#2B1A12" d="M-10-5C-10-15 10-16 10-5C6-10-3-11-10-5Z"/><use href="#rosto"/><use href="#capelo"/></g></symbol>
+  <symbol id="aluno-2" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><use href="#jaleco"/><use href="#estetoscopio"/><rect fill="#6B4330" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#6B4330" cx="0" cy="-4" rx="9.5" ry="10.5"/><path fill="#1A1210" d="M-10.2-4.5C-12-17.5 12-17.5 10.2-4.5C9.5-9.5 5.5-12 0-12S-9.5-9.5-10.2-4.5Z"/><use href="#rosto"/></g></symbol>
+  <symbol id="aluno-3" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><use href="#jaleco"/><rect fill="#F2C9A8" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#F2C9A8" cx="0" cy="-4" rx="9.5" ry="10.5"/><circle cx="0" cy="-17.5" r="5.2" fill="#C8963E"/><path fill="#C8963E" d="M-10.2-3.5C-11.5-16.5 11.5-16.5 10.2-3.5C7-10-6-10.5-10.2-3.5Z"/><use href="#rosto"/></g></symbol>
+  <symbol id="aluno-4" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><use href="#beca"/><rect fill="#E0AC84" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#E0AC84" cx="0" cy="-4" rx="9.5" ry="10.5"/><path fill="#5A3A22" d="M-9.6-1.5C-9.5 9 9.5 9 9.6-1.5C6 3-6 3-9.6-1.5Z"/><path fill="#5A3A22" d="M-9.8-6.5L-9.6-1H-8.4L-8.2-7.5Z M9.8-6.5L9.6-1H8.4L8.2-7.5Z"/><circle cx="-3.6" cy="-4.2" r="1.05" fill="#1E1B1B"/><circle cx="3.6" cy="-4.2" r="1.05" fill="#1E1B1B"/><path d="M-2.6 2.4Q0 4.2 2.6 2.4" fill="none" stroke="#F7F5EF" stroke-width="1" stroke-linecap="round"/><use href="#capelo"/></g></symbol>
+  <symbol id="aluno-5" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><circle cx="0" cy="-7" r="15.5" fill="#1A1210"/><use href="#jaleco"/><use href="#estetoscopio"/><rect fill="#8A5A3C" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#8A5A3C" cx="0" cy="-3.5" rx="9.5" ry="10.2"/><path fill="#1A1210" d="M-9.5-6C-8-12.5 8-12.5 9.5-6C5-9-5-9-9.5-6Z"/><use href="#rosto"/></g></symbol>
+  <symbol id="aluno-6" viewBox="-34 -34 68 68"><circle r="33" fill="#13294F" stroke-width="2" style="stroke:var(--aluno-aro,#C19B52)"/><g clip-path="url(#recorte-aluno)"><use href="#beca"/><rect fill="#B57B55" x="-4" y="3" width="8" height="10.5" rx="3"/><ellipse fill="#B57B55" cx="0" cy="-4" rx="9.5" ry="10.5"/><path fill="#141414" d="M-10-5.5C-10.5-12-8-13.5-6-13.5L-8.6-1.5Z M10-5.5C10.5-12 8-13.5 6-13.5L8.6-1.5Z"/><use href="#rosto"/><g fill="none" stroke="#091D3E" stroke-width="1.3"><circle cx="-4" cy="-4" r="3.3"/><circle cx="4" cy="-4" r="3.3"/><path d="M-.7-4H.7"/></g><use href="#capelo"/></g></symbol>
 </svg>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="topo" data-topo>
+<!-- Cabeçalho flutuante: transparente sobre o hero; o tom (claro/escuro) acompanha o fundo que passa por baixo -->
+<header class="topo" data-topo data-tom="escuro">
   <div class="topo__barra">
     <a class="topo__marca" href="#topo" aria-label="ForDoctor, voltar ao topo">
-      <img src="assets/img/logo-fordoctor.svg" width="171" height="47" alt="ForDoctor">
+      <svg class="marca" viewBox="0 0 341.01 93.48" width="171" height="47" aria-hidden="true" focusable="false">
+        <use class="marca__simbolo" href="#simbolo" width="93.36" height="93.15"/>
+        <use class="marca__nome" href="#marca-nome"/>
+      </svg>
     </a>
     <a class="botao botao--topo" href="#cadastro">Quero fazer parte da Liga</a>
   </div>
@@ -608,7 +924,7 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
 <main id="conteudo" tabindex="-1">
   <span id="topo" class="ancora-topo"></span>
 
-  <section class="hero" aria-labelledby="titulo">
+  <section class="caixa caixa--navy hero" aria-labelledby="titulo" data-escuro>
    <div class="hero__grade">
     <div class="hero__texto">
       <h1 id="titulo"><span class="h1__marca">Liga ForDoctor<span class="so-leitor">:</span></span> <span class="h1__frase">Benefícios exclusivos para turmas de Medicina que irão se formar em 2026</span></h1>
@@ -619,30 +935,72 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
         <p class="hero__publico">Para estudantes do 11º e do 12º período de Medicina.</p>
       </div>
     </div>
-    <figure class="hero__foto" data-foto-hero>
-      <!-- Anéis em ondas: cada anel cresce e volta com um pequeno atraso em relação ao anterior, então a onda corre para fora -->
-      <div class="ondas" aria-hidden="true" data-ondas>
-        <span style="--i:0;--r:160"></span><span style="--i:1;--r:200"></span><span style="--i:2;--r:240"></span>
-        <span style="--i:3;--r:280"></span><span style="--i:4;--r:320"></span><span style="--i:5;--r:360"></span>
+    <!-- A turma se liga: demonstração da indicação, em ciclo. O símbolo oficial no centro; "Você" (à esquerda) indica o colega
+         da direita, a luz desce pela curva de baixo até ele; o colega fecha contrato e a conexão sobe até o símbolo, que acende e
+         solta duas ondas; o crédito volta por cima até você. Os outros quatro formam a rede, menores e em azul acinzentado.
+         Valor e regra são os da seção "Indicação" (R$ 200 em crédito na mensalidade por indicado que fechar contrato) e não somam
+         a cada volta. Sem JavaScript ou com movimento reduzido fica a composição estática, com a história inteira.
+         Coordenadas: 600 × 600, centro no símbolo; formandos no anel de raio 215. Roteiro em src/assets/liga.css. -->
+    <div class="constelacao" aria-hidden="true" data-constelacao>
+      <svg class="constelacao__arte" viewBox="-300 -300 600 600" focusable="false">
+        <defs>
+          <!-- o trajeto é um oval que contorna o símbolo: indicação por baixo, validação e retorno por cima, encostando no topo do símbolo -->
+          <path id="rota-indica" pathLength="1" d="M-190 8C-128 176 128 176 190 8"/>
+          <path id="rota-valida" pathLength="1" d="M190-8C190-60 108-97 0-97"/>
+          <path id="rota-volta" pathLength="1" d="M0-97C-108-97-190-60-190-8"/>
+          <radialGradient id="brilho-simbolo"><stop offset="0" stop-color="#C19B52" stop-opacity=".42"/><stop offset=".5" stop-color="#C19B52" stop-opacity=".13"/><stop offset="1" stop-color="#C19B52" stop-opacity="0"/></radialGradient>
+          <radialGradient id="sombra-aluno"><stop offset=".62" stop-color="#000" stop-opacity=".34"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        </defs>
+        <g class="aneis-turma"><circle class="anel" r="150"/><circle class="anel" r="215"/><circle class="anel anel--fora" r="284"/></g>
+        <g class="ondas"><circle class="onda" r="290"/><circle class="onda onda--2" r="290"/></g>
+        <g class="rotas"><use class="rota" href="#rota-indica"/><use class="rota" href="#rota-valida"/><use class="rota" href="#rota-volta"/></g>
+        <g class="rastros"><use class="rastro rastro--indica" href="#rota-indica"/><use class="rastro rastro--valida" href="#rota-valida"/><use class="rastro rastro--volta" href="#rota-volta"/></g>
+        <!-- só na composição estática: o sentido do trajeto, com a ponta em ângulo reto das setas do símbolo -->
+        <g class="setas"><path d="M-6-6L0 0-6 6" transform="translate(4 134)"/><path d="M-6-6L0 0-6 6" transform="translate(135.5 -72) rotate(-155.1)"/><path d="M-6-6L0 0-6 6" transform="translate(-135.5 -72) rotate(155.1)"/></g>
+        <g class="luzes">
+          <use class="luz luz--halo luz--indica" href="#rota-indica"/><use class="luz luz--cauda luz--indica" href="#rota-indica"/><use class="luz luz--nucleo luz--indica" href="#rota-indica"/>
+          <use class="luz luz--halo luz--valida" href="#rota-valida"/><use class="luz luz--cauda luz--valida" href="#rota-valida"/><use class="luz luz--nucleo luz--valida" href="#rota-valida"/>
+          <use class="luz luz--halo luz--volta" href="#rota-volta"/><use class="luz luz--cauda luz--volta" href="#rota-volta"/><use class="luz luz--nucleo luz--volta" href="#rota-volta"/>
+        </g>
+        <circle class="simbolo__brilho" r="150" fill="url(#brilho-simbolo)"/>
+        <use class="constelacao__simbolo" href="#simbolo" x="-64" y="-64" width="128" height="128"/>
+        <use class="simbolo__luz" href="#simbolo" x="-64" y="-64" width="128" height="128"/>
+        <g class="alunos">
+          <g class="pessoa pessoa--rede pessoa--ne" style="--i:0;--fd:5.4s;--fa:-1.1s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="107.5" cy="-180.2" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-1" x="67.5" y="-226.2" width="80" height="80"/><circle class="aro aro--rede" cx="107.5" cy="-186.2" r="38.8"/></g></g>
+          <g class="pessoa pessoa--rede pessoa--se" style="--i:2;--fd:6.2s;--fa:-4.3s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="107.5" cy="192.2" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-4" x="67.5" y="146.2" width="80" height="80"/><circle class="aro aro--rede" cx="107.5" cy="186.2" r="38.8"/></g></g>
+          <g class="pessoa pessoa--rede pessoa--sw" style="--i:3;--fd:5.8s;--fa:-2.6s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="-107.5" cy="192.2" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-3" x="-147.5" y="146.2" width="80" height="80"/><circle class="aro aro--rede" cx="-107.5" cy="186.2" r="38.8"/></g></g>
+          <g class="pessoa pessoa--rede pessoa--nw" style="--i:5;--fd:6.6s;--fa:-5.2s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="-107.5" cy="-180.2" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-5" x="-147.5" y="-226.2" width="80" height="80"/><circle class="aro aro--rede" cx="-107.5" cy="-186.2" r="38.8"/></g></g>
+          <g class="pessoa pessoa--colega" style="--i:1;--fd:5.6s;--fa:-1.4s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="215" cy="6" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-2" x="175" y="-40" width="80" height="80"/><g class="aro"><circle class="aro__brilho" cx="215" cy="0" r="41.5"/><circle class="aro__linha" cx="215" cy="0" r="38.8"/></g><circle class="pulso" cx="215" cy="0" r="38.8"/></g></g>
+          <g class="pessoa pessoa--voce" style="--i:4;--fd:6s;--fa:-2.4s"><g class="pessoa__corpo"><circle class="pessoa__sombra" cx="-215" cy="6" r="46" fill="url(#sombra-aluno)"/><use class="aluno" href="#aluno-6" x="-255" y="-40" width="80" height="80"/><g class="aro"><circle class="aro__brilho" cx="-215" cy="0" r="41.5"/><circle class="aro__linha" cx="-215" cy="0" r="38.8"/></g><circle class="pulso" cx="-215" cy="0" r="38.8"/></g></g>
+        </g>
+      </svg>
+      <!-- etiquetas em HTML (texto nítido e legível em qualquer largura), presas ao centro de cada formando e flutuando junto com ele -->
+      <div class="ancora ancora--voce" style="--x:-215;--fd:6s;--fa:-2.4s">
+        <span class="etiqueta etiqueta--voce"><span class="etiqueta__texto">Você</span><span class="etiqueta__ativa">Você</span></span>
+        <span class="beneficio"><strong>R$ 200 em crédito</strong> <span>na mensalidade</span></span>
       </div>
-      <picture>
-        <source type="image/avif" srcset="assets/img/liga-kit-alfa-480.avif 480w, assets/img/liga-kit-alfa-720.avif 720w, assets/img/liga-kit-alfa-991.avif 991w" sizes="(min-width: 960px) 460px, (min-width: 600px) 400px, 320px">
-        <source type="image/webp" srcset="assets/img/liga-kit-alfa-480.webp 480w, assets/img/liga-kit-alfa-720.webp 720w, assets/img/liga-kit-alfa-991.webp 991w" sizes="(min-width: 960px) 460px, (min-width: 600px) 400px, 320px">
-        <img src="assets/img/liga-kit-alfa-720.webp" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" fetchpriority="high" decoding="async">
-      </picture>
-    </figure>
+      <div class="ancora ancora--colega" style="--x:215;--fd:5.6s;--fa:-1.4s">
+        <span class="etiqueta etiqueta--colega"><span class="etiqueta__texto">Colega</span></span>
+        <span class="contrato"><svg viewBox="0 0 16 16" focusable="false"><path pathLength="1" d="M3.5 8.4l3 3 6-6.6"/></svg>Fechou contrato</span>
+      </div>
+    </div>
    </div>
   </section>
 
-  <section class="secao secao--branca" id="formatura" aria-labelledby="h-formatura">
+  <section class="secao secao--aberta" id="formatura" aria-labelledby="h-formatura">
+    <!-- marca-d'água: o contorno do símbolo oficial, grande, saindo pela borda; desenha uma vez ao entrar na tela -->
+    <svg class="marca-dagua marca-dagua--formatura" viewBox="0 0 93.36 93.15" aria-hidden="true" focusable="false" data-desenha><use href="#simbolo"/></svg>
     <div class="editorial">
-      <h2 id="h-formatura" data-revela>O que acontece quando você se forma em Medicina?</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>01</span>A formatura</p>
+        <h2 id="h-formatura" data-revela>O que acontece quando você se forma em Medicina?</h2>
+      </div>
       <div class="editorial__corpo">
         <p>Você está perto de se formar e já pensa em plantões, residência, especialização, consultório e nas primeiras oportunidades de trabalho? Então também chegou a hora de entender como funciona a sua vida profissional e financeira como médico.</p>
         <p>A graduação termina e uma nova etapa começa. Depois da faculdade, muitos médicos passam a lidar com situações que ainda não foram ensinadas na graduação:</p>
       </div>
     </div>
-    <ul class="perguntas">
+    <ol class="perguntas">
       <li>Como abrir uma empresa médica?</li>
       <li>É melhor trabalhar como pessoa física ou pessoa jurídica?</li>
       <li>Quanto um médico paga de imposto?</li>
@@ -653,33 +1011,44 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
       <li>O que muda se eu começar uma residência?</li>
       <li>Como organizar meus primeiros recebimentos?</li>
       <li>Quando vale a pena abrir minha empresa?</li>
-    </ul>
+    </ol>
     <div class="editorial editorial--fecho"><span class="editorial__vazio"></span><p class="secao__fecho">Essas decisões podem ter impacto direto na organização financeira e tributária dos primeiros anos da carreira. Por isso, quanto antes você entender esse cenário, melhor.</p></div>
   </section>
 
-  <section class="secao secao--liga" id="liga" aria-labelledby="h-liga">
-    <!-- Composição oficial da Liga (estudante + gradiente azul + círculos): fundo da seção, versão própria para celular -->
-    <figure class="liga__fundo" data-revela-imagem>
-      <picture>
-        <source media="(min-width: 900px)" type="image/avif" srcset="assets/img/liga-fundo-1280.avif 1280w, assets/img/liga-fundo-1920.avif 1920w" sizes="100vw">
-        <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/liga-fundo-1280.webp 1280w, assets/img/liga-fundo-1920.webp 1920w" sizes="100vw">
-        <source type="image/avif" srcset="assets/img/liga-fundo-mobile-480.avif 480w, assets/img/liga-fundo-mobile-668.avif 668w" sizes="100vw">
-        <img src="assets/img/liga-fundo-mobile-668.webp" srcset="assets/img/liga-fundo-mobile-480.webp 480w, assets/img/liga-fundo-mobile-668.webp 668w" sizes="100vw" width="668" height="1188" alt="Estudante fazendo anotações em um caderno numa biblioteca" loading="lazy" decoding="async">
-      </picture>
-    </figure>
+  <section class="caixa caixa--branca secao" id="liga" aria-labelledby="h-liga">
     <div class="liga">
       <div class="liga__texto">
+        <p class="indice" aria-hidden="true"><span>02</span>A Liga</p>
         <h2 id="h-liga" data-revela>O que é a Liga ForDoctor?</h2>
         <p>A Liga ForDoctor é uma iniciativa criada para estudantes de Medicina que estão perto da formatura e querem se preparar para os próximos passos da carreira.</p>
         <p>A proposta é conectar futuros médicos a informação, orientação e benefícios para facilitar a transição entre a faculdade e a vida profissional, especialmente quando chega o momento de abrir uma PJ médica, organizar os primeiros recebimentos e entender a tributação para médicos.</p>
         <a class="botao" href="#cadastro">Quero fazer parte da Liga</a>
       </div>
+      <!-- A única foto da página: as duas médicas com o kit dentro do círculo; órbita e selo do símbolo em vetor -->
+      <figure class="liga__foto" data-foto-liga>
+        <svg class="liga__orbita" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false" data-desenha>
+          <circle class="orbita" pathLength="1" r="292"/>
+          <circle class="orbita orbita--fina" pathLength="1" r="252"/>
+          <circle class="orbita__no" cx="206.5" cy="-206.5" r="7"/>
+          <circle class="orbita__no" cx="-282" cy="75.6" r="5"/>
+          <circle class="orbita__no orbita__no--navy" cx="122.2" cy="220.4" r="5"/>
+        </svg>
+        <picture>
+          <source type="image/avif" srcset="assets/img/liga-kit-alfa-480.avif 480w, assets/img/liga-kit-alfa-720.avif 720w, assets/img/liga-kit-alfa-991.avif 991w" sizes="(min-width: 960px) 440px, (min-width: 600px) 400px, 300px">
+          <source type="image/webp" srcset="assets/img/liga-kit-alfa-480.webp 480w, assets/img/liga-kit-alfa-720.webp 720w, assets/img/liga-kit-alfa-991.webp 991w" sizes="(min-width: 960px) 440px, (min-width: 600px) 400px, 300px">
+          <img src="assets/img/liga-kit-alfa-720.webp" width="991" height="1010" alt="Duas médicas sorrindo com o kit de boas-vindas da Liga ForDoctor" loading="lazy" decoding="async">
+        </picture>
+        <span class="liga__selo" aria-hidden="true"><svg viewBox="0 0 93.36 93.15" focusable="false"><use href="#simbolo"/></svg></span>
+      </figure>
     </div>
   </section>
 
-  <section class="secao secao--branca" id="pj" aria-labelledby="h-pj">
+  <section class="secao secao--aberta" id="pj" aria-labelledby="h-pj">
     <div class="editorial">
-      <h2 id="h-pj" data-revela>Por que um médico precisa entender de PJ?</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>03</span>PJ médica</p>
+        <h2 id="h-pj" data-revela>Por que um médico precisa entender de PJ?</h2>
+      </div>
       <div class="editorial__corpo">
         <p>A rotina profissional do médico pode envolver diferentes fontes de renda e diferentes formas de contratação. Plantões, clínicas, hospitais, cooperativas, consultórios e outros serviços podem ter necessidades distintas.</p>
         <p>Por isso, entender como funciona uma empresa médica antes de começar a trabalhar pode evitar decisões precipitadas. A abertura de uma PJ pode fazer sentido para muitos médicos, mas não existe uma regra única para todos. É preciso avaliar fatores como:</p>
@@ -697,7 +1066,9 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </div>
 
     <div class="editorial">
-      <h2 id="h-recem" data-revela>PJ médica para&nbsp;recém-formados</h2>
+      <div class="editorial__titulo">
+        <h2 id="h-recem" data-revela>PJ médica para&nbsp;recém-formados</h2>
+      </div>
       <div class="editorial__corpo">
         <p>Para quem está se formando, uma das principais dúvidas é: “Preciso abrir uma empresa assim que me formar?” Não necessariamente. A decisão depende da sua realidade profissional e das oportunidades que você pretende assumir.</p>
         <p>Em muitos casos, as oportunidades de trabalho podem exigir que o médico tenha uma pessoa jurídica. Conhecer antes o processo de abertura de uma PJ médica deixa você preparado quando surgir a primeira oportunidade. Veja como funciona a <a href="https://fordoctor.com.br/abertura-de-empresa/">abertura de empresa para médicos na ForDoctor</a>.</p>
@@ -705,7 +1076,9 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </div>
 
     <div class="editorial">
-      <h2 id="h-residencia" data-revela>E se eu for fazer residência médica?</h2>
+      <div class="editorial__titulo">
+        <h2 id="h-residencia" data-revela>E se eu for fazer residência médica?</h2>
+      </div>
       <div class="editorial__corpo">
         <p>A intenção de fazer residência não significa automaticamente que abrir uma PJ seja certo ou errado.</p>
         <p>Antes de decidir, vale analisar o período entre a formatura e o início da residência, as oportunidades de plantão, a previsão de faturamento e a forma como os recebimentos serão feitos. Cada caso precisa ser analisado individualmente.</p>
@@ -713,27 +1086,32 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </div>
   </section>
 
-  <section class="secao secao--aneis" id="oferece" aria-labelledby="h-oferece">
-    <!-- Os mesmos anéis das recompensas, em azul, continuando para cima; parallax junto com a faixa de baixo -->
+  <section class="caixa caixa--ouro secao secao--aneis" id="oferece" aria-labelledby="h-oferece">
+    <!-- Os mesmos anéis das recompensas, em navy sobre o dourado, continuando para cima; parallax junto com a caixa de baixo -->
     <svg class="aneis aneis--oferece" aria-hidden="true" focusable="false" data-parallax><use href="#aneis"/></svg>
     <div class="editorial">
-      <h2 id="h-oferece" data-revela>O que a Liga oferece?</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>04</span>Na Liga</p>
+        <h2 id="h-oferece" data-revela>O que a Liga oferece?</h2>
+      </div>
       <div class="editorial__corpo">
         <p>A Liga ForDoctor conecta estudantes de Medicina a uma iniciativa voltada para a transição entre a faculdade e a carreira médica.</p>
       </div>
     </div>
-    <dl class="oferta">
-      <div><dt>Informação</dt><dd>Conteúdos sobre PJ médica, impostos, contabilidade e organização financeira.</dd></div>
-      <div><dt>Orientação</dt><dd>Informações práticas sobre os próximos passos quando você começar a trabalhar.</dd></div>
-      <div><dt>Benefícios</dt><dd>Condições especiais e benefícios relacionados à indicação de colegas.</dd></div>
-      <div><dt>Conexão</dt><dd>A possibilidade de envolver a sua turma em uma iniciativa voltada ao início da carreira.</dd></div>
+    <dl class="oferta" data-desenha>
+      <div><dt><svg class="oferta__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-informacao"/></svg>Informação</dt><dd>Conteúdos sobre PJ médica, impostos, contabilidade e organização financeira.</dd></div>
+      <div><dt><svg class="oferta__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-orientacao"/></svg>Orientação</dt><dd>Informações práticas sobre os próximos passos quando você começar a trabalhar.</dd></div>
+      <div><dt><svg class="oferta__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-beneficios"/></svg>Benefícios</dt><dd>Condições especiais e benefícios relacionados à indicação de colegas.</dd></div>
+      <div><dt><svg class="oferta__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-conexao"/></svg>Conexão</dt><dd>A possibilidade de envolver a sua turma em uma iniciativa voltada ao início da carreira.</dd></div>
     </dl>
   </section>
 
-  <section class="secao secao--navy secao--aneis" id="recompensas" aria-labelledby="h-recompensas">
+  <!-- Esta caixa sobe sobre a dourada (Siteflux: a peça de baixo invade a de cima); os anéis continuam na divisa -->
+  <section class="caixa caixa--navy caixa--sobe secao secao--aneis" id="recompensas" aria-labelledby="h-recompensas" data-escuro>
     <svg class="aneis aneis--recompensas" aria-hidden="true" focusable="false" data-parallax><use href="#aneis"/></svg>
     <div class="recompensas">
       <div class="recompensas__intro">
+        <p class="indice" aria-hidden="true"><span>05</span>Recompensas</p>
         <h2 id="h-recompensas" data-revela>Benefícios para quem movimenta a turma</h2>
         <p>Saiba como funciona o modelo de recompensas da Liga ForDoctor. O representante de turma que marcar reuniões tem os benefícios abaixo:</p>
       </div>
@@ -763,9 +1141,12 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </div>
   </section>
 
-  <section class="secao" id="indicacao" aria-labelledby="h-indicacao">
+  <section class="secao secao--aberta" id="indicacao" aria-labelledby="h-indicacao">
     <div class="editorial">
-      <h2 id="h-indicacao" data-revela>E você também ganha quando um colega entra</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>06</span>Indicação</p>
+        <h2 id="h-indicacao" data-revela>E você também ganha quando um colega entra</h2>
+      </div>
       <div class="editorial__corpo">
         <p>Você indica colegas para conversar com o nosso time, ajuda sua turma a entender a importância da contabilidade especializada e ainda ganha sempre que alguém vira cliente.</p>
       </div>
@@ -794,28 +1175,36 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </ol>
   </section>
 
-  <section class="secao secao--branca" id="contabilidade" aria-labelledby="h-contabilidade">
+  <section class="caixa caixa--branca secao" id="contabilidade" aria-labelledby="h-contabilidade">
     <div class="editorial">
-      <h2 id="h-contabilidade" data-revela>Por que contar com uma contabilidade especializada em médicos?</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>07</span>Contabilidade</p>
+        <h2 id="h-contabilidade" data-revela>Por que contar com uma contabilidade especializada em médicos?</h2>
+      </div>
       <div class="editorial__corpo">
         <p>A contabilidade de um médico tem particularidades que podem não ser consideradas por uma contabilidade generalista. A rotina pode envolver PJ, pessoa física, plantões, várias fontes de renda, emissão de notas fiscais, impostos e diferentes formas de contratação.</p>
         <p>Uma contabilidade especializada conhece essas particularidades e consegue estruturar o atendimento de acordo com a realidade da profissão médica.</p>
-        <h3>O que a ForDoctor pode ajudar a organizar</h3>
-        <ul class="fatores fatores--duas">
-          <li>Abertura de empresa médica</li>
-          <li>Emissão de notas fiscais</li>
-          <li>Planejamento tributário</li>
-          <li>Obrigações fiscais</li>
-          <li>Imposto de Renda</li>
-          <li>Gestão financeira</li>
-        </ul>
       </div>
+    </div>
+    <div class="servicos-bloco">
+      <h3>O que a ForDoctor pode ajudar a organizar</h3>
+      <ul class="servicos" data-desenha>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-empresa"/></svg>Abertura de empresa médica</li>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-nota"/></svg>Emissão de notas fiscais</li>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-planejamento"/></svg>Planejamento tributário</li>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-obrigacoes"/></svg>Obrigações fiscais</li>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-renda"/></svg>Imposto de Renda</li>
+        <li><svg class="servicos__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-gestao"/></svg>Gestão financeira</li>
+      </ul>
     </div>
   </section>
 
-  <section class="secao" id="perguntas" aria-labelledby="h-perguntas">
+  <section class="secao secao--aberta" id="perguntas" aria-labelledby="h-perguntas">
     <div class="editorial">
-      <h2 id="h-perguntas" data-revela>Perguntas frequentes sobre PJ médica</h2>
+      <div class="editorial__titulo">
+        <p class="indice" aria-hidden="true"><span>08</span>Dúvidas</p>
+        <h2 id="h-perguntas" data-revela>Perguntas frequentes sobre PJ médica</h2>
+      </div>
       <div class="faq">
         <details>
           <summary>Todo médico recém-formado precisa abrir uma PJ?</summary>
@@ -849,10 +1238,11 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
     </div>
   </section>
 
-  <section class="secao secao--navy secao--aneis" id="cadastro" aria-labelledby="h-cadastro">
-   <svg class="aneis aneis--cadastro" aria-hidden="true" focusable="false"><use href="#aneis"/></svg>
+  <section class="caixa caixa--navy secao" id="cadastro" aria-labelledby="h-cadastro" data-escuro>
+   <svg class="marca-dagua marca-dagua--cadastro" viewBox="0 0 93.36 93.15" aria-hidden="true" focusable="false" data-desenha><use href="#simbolo"/></svg>
    <div class="cadastro">
     <div class="cadastro__texto">
+      <p class="indice" aria-hidden="true"><span>09</span>Cadastro</p>
       <h2 id="h-cadastro" data-revela>Pronto para começar essa nova fase?</h2>
       <p>Cadastre-se para receber orientações práticas sobre como abrir sua empresa médica da forma certa.</p>
       <p>Entre para a Liga ForDoctor e prepare-se para a sua vida profissional como médico.</p>
@@ -920,10 +1310,13 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
   </section>
 </main>
 
-<p class="aviso-preview" role="note">Pré-visualização v0.4.0 para revisão. O formulário não envia dados.</p>
+<p class="aviso-preview" role="note">Pré-visualização v0.6.0 para revisão. O formulário não envia dados.</p>
 <footer class="rodape">
   <div class="rodape__barra">
-    <img src="assets/img/logo-fordoctor-claro.svg" width="140" height="38" alt="ForDoctor" loading="lazy">
+    <svg class="marca marca--rodape" viewBox="0 0 341.01 93.48" width="140" height="38" role="img" aria-label="ForDoctor" focusable="false">
+      <use href="#simbolo" width="93.36" height="93.15"/>
+      <use href="#marca-nome"/>
+    </svg>
     <p>© 2026 ForDoctor. Todos os direitos reservados.</p>
     <a href="https://fordoctor.com.br/privacidade/">Política de privacidade</a>
   </div>

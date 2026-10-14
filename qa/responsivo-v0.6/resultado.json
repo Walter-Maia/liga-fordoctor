@@ -1,0 +1,617 @@
+{
+ "telas": [
+  {
+   "W": 280,
+   "H": 653,
+   "dpr": 3,
+   "scrollW": 280,
+   "docH": 14624,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 184,
+     "arquivo": 991,
+     "precisa": 552,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "dobrável fechado",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 236,
+    "problemas": []
+   }
+  },
+  {
+   "W": 320,
+   "H": 568,
+   "dpr": 2,
+   "scrollW": 320,
+   "docH": 13463,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-720.avif",
+     "exibida": 215,
+     "arquivo": 720,
+     "precisa": 431,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "celular pequeno",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 276,
+    "problemas": []
+   }
+  },
+  {
+   "W": 360,
+   "H": 740,
+   "dpr": 3,
+   "scrollW": 360,
+   "docH": 12658,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 246,
+     "arquivo": 991,
+     "precisa": 739,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "Android comum",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 316,
+    "problemas": []
+   }
+  },
+  {
+   "W": 375,
+   "H": 667,
+   "dpr": 2,
+   "scrollW": 375,
+   "docH": 12485,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-720.avif",
+     "exibida": 258,
+     "arquivo": 720,
+     "precisa": 516,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "iPhone SE",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 331,
+    "problemas": []
+   }
+  },
+  {
+   "W": 390,
+   "H": 844,
+   "dpr": 3,
+   "scrollW": 390,
+   "docH": 12299,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 270,
+     "arquivo": 991,
+     "precisa": 810,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPhone 14",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 346,
+    "problemas": []
+   }
+  },
+  {
+   "W": 414,
+   "H": 896,
+   "dpr": 2,
+   "scrollW": 414,
+   "docH": 12177,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-720.avif",
+     "exibida": 289,
+     "arquivo": 720,
+     "precisa": 577,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "iPhone grande",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 370,
+    "problemas": []
+   }
+  },
+  {
+   "W": 430,
+   "H": 932,
+   "dpr": 3,
+   "scrollW": 430,
+   "docH": 11911,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": false,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 301,
+     "arquivo": 991,
+     "precisa": 903,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPhone Pro Max",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 386,
+    "problemas": []
+   }
+  },
+  {
+   "W": 844,
+   "H": 390,
+   "dpr": 3,
+   "scrollW": 844,
+   "docH": 9788,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": false,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 380,
+     "arquivo": 991,
+     "precisa": 1140,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "celular deitado",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 440,
+    "problemas": []
+   }
+  },
+  {
+   "W": 768,
+   "H": 1024,
+   "dpr": 2,
+   "scrollW": 768,
+   "docH": 9838,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 380,
+     "arquivo": 991,
+     "precisa": 760,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPad retrato",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 440,
+    "problemas": []
+   }
+  },
+  {
+   "W": 820,
+   "H": 1180,
+   "dpr": 2,
+   "scrollW": 820,
+   "docH": 9802,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 380,
+     "arquivo": 991,
+     "precisa": 760,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPad Air retrato",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 440,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1024,
+   "H": 768,
+   "dpr": 2,
+   "scrollW": 1024,
+   "docH": 9079,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 420,
+     "arquivo": 991,
+     "precisa": 840,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPad deitado",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 398,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1180,
+   "H": 820,
+   "dpr": 2,
+   "scrollW": 1180,
+   "docH": 8544,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-991.avif",
+     "exibida": 420,
+     "arquivo": 991,
+     "precisa": 840,
+     "nitida": true,
+     "limiteDoOriginal": true
+    }
+   ],
+   "fonte": true,
+   "nome": "iPad Air deitado",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 466,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1280,
+   "H": 800,
+   "dpr": 1,
+   "scrollW": 1280,
+   "docH": 8381,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "notebook",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1366,
+   "H": 768,
+   "dpr": 1,
+   "scrollW": 1366,
+   "docH": 8322,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "notebook comum",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1440,
+   "H": 900,
+   "dpr": 1,
+   "scrollW": 1440,
+   "docH": 8445,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "desktop",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1600,
+   "H": 900,
+   "dpr": 1,
+   "scrollW": 1600,
+   "docH": 8445,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "desktop largo",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  },
+  {
+   "W": 1920,
+   "H": 1080,
+   "dpr": 1,
+   "scrollW": 1920,
+   "docH": 8445,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "Full HD",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  },
+  {
+   "W": 2560,
+   "H": 1440,
+   "dpr": 1,
+   "scrollW": 2560,
+   "docH": 8445,
+   "estouro": [],
+   "cortado": [],
+   "largosDemais": [],
+   "alvos": [],
+   "viuvas": [],
+   "fontesPequenas": [],
+   "ancorasQuebradas": [],
+   "ctaNaDobra": true,
+   "ctaTopo": true,
+   "imgs": [
+    {
+     "img": "liga-kit-alfa-480.avif",
+     "exibida": 420,
+     "arquivo": 480,
+     "precisa": 420,
+     "nitida": true,
+     "limiteDoOriginal": false
+    }
+   ],
+   "fonte": true,
+   "nome": "QHD",
+   "ctaCobreRodape": false,
+   "tituloSobCabecalho": false,
+   "heroEstatico": {
+    "largura": 486,
+    "problemas": []
+   }
+  }
+ ],
+ "erros": []
+}

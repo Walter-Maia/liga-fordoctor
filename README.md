@@ -19,10 +19,11 @@ A intro toca uma vez por sessão do navegador. Para revê-la, use `?intro=1`; pa
 | `src/landing.html` | fonte única do conteúdo |
 | `src/assets/liga.css`, `src/assets/liga.js` | estilos e comportamento (vanilla, sem bibliotecas) |
 | `src/assets/fonts/` | Dosis e Jost em woff2, subset latino (licença SIL OFL) |
-| `src/assets/img/` | imagens responsivas (AVIF e WebP), logo oficial em SVG e imagem de compartilhamento |
+| `src/assets/img/` | a única foto da página em AVIF e WebP (desde a v0.5), logo oficial em SVG (intro e imagem de compartilhamento) e imagem de compartilhamento |
 | `src/originais/` | originais baixados da produção, usados para gerar as imagens |
 | `build/build.mjs` | gera `preview/` (CSS embutido, versão nos assets, `noindex`) |
 | `build/imagens.sh`, `build/og.mjs` | regeneram as imagens (ffmpeg) e a imagem de compartilhamento (Edge headless) |
+| `build/gera-sprite.mjs` | copia o símbolo e o nome do logo oficial para o sprite de `src/landing.html` (logo inline do cabeçalho e do rodapé, constelação do hero e marcas-d'água) |
 | `build/intro.template.js`, `build/gera-intro.mjs` | molde da intro e gerador que insere o path oficial do símbolo em `src/assets/intro.js` (rode antes do build; `npm run build` já faz) |
 | `qa/` | auditoria da Fase 1, capturas e Lighthouse da pré-visualização e scripts de QA |
 

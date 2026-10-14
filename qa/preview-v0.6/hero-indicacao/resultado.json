@@ -1,0 +1,361 @@
+{
+ "relato": {
+  "320": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 0.97"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "9.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 42
+  },
+  "390": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 0.97"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "9.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 42
+  },
+  "1024": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 0.97"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "9.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 42
+  },
+  "1440": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 0.97"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "etiqueta--colega 1.00",
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "9.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 42
+  },
+  "abaOculta": {
+   "pausada": true,
+   "estados": [
+    "paused"
+   ],
+   "parado": true,
+   "voltou": true,
+   "andaDeNovo": true,
+   "continuaDeOndeParou": true
+  },
+  "foraDaTela": {
+   "armada": true,
+   "emCiclo": false
+  },
+  "deVolta": {
+   "emCicloLogoNaVolta": false,
+   "emCicloDepoisDaEntrada": true
+  },
+  "reduzido-1440": {
+   "etiquetas": [
+    "etiqueta--voce 1.00",
+    "beneficio 1.00",
+    "etiqueta--colega 1.00",
+    "contrato 1.00"
+   ],
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0
+  },
+  "reduzido-390": {
+   "etiquetas": [
+    "etiqueta--voce 1.00",
+    "beneficio 1.00",
+    "etiqueta--colega 1.00",
+    "contrato 1.00"
+   ],
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0
+  }
+ },
+ "erros": []
+}

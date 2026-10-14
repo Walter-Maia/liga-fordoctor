@@ -1,6 +1,6 @@
 /* Liga ForDoctor: comportamento da LP. Vanilla, carregado com defer.
    Regra geral: sem JS todo o conteúdo aparece; com movimento reduzido tudo nasce no estado final;
-   só arma animação no que ainda está abaixo da dobra. */
+   o que está na tela no carregamento não é escondido; os efeitos de entrada se repetem a cada volta à tela. */
 (function () {
   'use strict';
 
@@ -10,10 +10,10 @@
   var reduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
   var temIO = 'IntersectionObserver' in window;
   var semMovimento = function () { return reduzido.matches || !temIO; };
-  var abaixoDaDobra = function (el) { return el.getBoundingClientRect().top > window.innerHeight; };
   var naoFaz = function () {};
 
-  /* 1. Cabeçalho: só o fundo muda depois da rolagem (sentinela, sem listener de scroll) */
+  /* 1. Cabeçalho: ganha fundo depois da rolagem (sentinela, sem listener de scroll) e troca de tom
+        quando uma caixa navy passa pela linha do meio dele (faixa de 1 px no IntersectionObserver) */
   (function cabecalho() {
     var topo = doc.querySelector('[data-topo]');
     if (!topo || !temIO) return;
@@ -24,6 +24,35 @@
     new IntersectionObserver(function (entradas) {
       topo.classList.toggle('topo--rolado', !entradas[0].isIntersecting);
     }).observe(sentinela);
+
+    var escuras = [].slice.call(doc.querySelectorAll('[data-escuro]'));
+    var observador = null;
+    var monta = function () {
+      if (observador) observador.disconnect();
+      var meio = Math.round(topo.offsetHeight / 2);
+      var abaixo = Math.max(0, window.innerHeight - meio - 1);
+      var sob = [];
+      observador = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          var i = sob.indexOf(e.target);
+          if (e.isIntersecting && i < 0) sob.push(e.target);
+          if (!e.isIntersecting && i >= 0) sob.splice(i, 1);
+        });
+        topo.setAttribute('data-tom', sob.length ? 'escuro' : 'claro');
+      }, { rootMargin: '-' + meio + 'px 0px -' + abaixo + 'px 0px' });
+      escuras.forEach(function (s) { observador.observe(s); });
+    };
+    monta();
+    var altura = window.innerHeight;
+    var espera = 0;
+    window.addEventListener('resize', function () {
+      clearTimeout(espera);
+      espera = setTimeout(function () {
+        if (window.innerHeight === altura) return;
+        altura = window.innerHeight;
+        monta();
+      }, 150);
+    });
   })();
 
   /* 2. CTA fixo no celular: aparece depois do botão do hero e some quando o formulário está na tela */
@@ -46,165 +75,117 @@
     }, { rootMargin: '0px 0px -10% 0px' }).observe(cadastro);
   })();
 
-  /* 3. Foto do hero: entra quando ela mesma termina de carregar; nunca esconde uma imagem pronta */
-  (function fotoHero() {
-    var figura = doc.querySelector('[data-foto-hero]');
-    var img = figura && figura.querySelector('img');
-    if (!img || reduzido.matches) return;
-    if (img.complete && img.naturalWidth) return;
-    if (raiz.classList.contains('intro-ativa')) return; // com a intro, a dissolução já revela a foto
-    figura.classList.add('aguardando');
-    var mostra = function () {
-      if (!figura.classList.contains('aguardando')) return;
-      figura.classList.remove('aguardando');
-      figura.classList.add('entrando');
+  /* 3. Efeitos que se repetem: cada bloco volta ao estado inicial quando sai inteiro da tela e toca de novo quando
+        volta, rolando para baixo ou para cima. O que já está na tela no carregamento não é escondido; sem JS ou com
+        movimento reduzido tudo fica no estado final. */
+  var PASSOS_DO_OBSERVADOR = [];
+  for (var passo = 0; passo <= 20; passo++) PASSOS_DO_OBSERVADOR.push(passo / 20);
+  var repete = function (el, op) {
+    if (!el || semMovimento()) return;
+    var estado = 'final';
+    var timer = 0;
+    var arma = function () { clearTimeout(timer); estado = 'armado'; op.arma(el); };
+    var solta = function () { clearTimeout(timer); estado = 'final'; op.conclui(el); };
+    var toca = function () {
+      estado = 'tocando';
+      op.toca(el);
+      timer = setTimeout(function () { if (estado === 'tocando') solta(); }, op.duracao);
     };
-    var libera = function () { figura.classList.remove('aguardando'); };
-    img.addEventListener('load', function () {
-      if (img.decode) img.decode().then(mostra, mostra); else mostra();
-    }, { once: true });
-    img.addEventListener('error', libera, { once: true });
-    window.addEventListener('pageshow', function () { if (img.complete) mostra(); });
-  })();
-
-  /* 3b. Ondas dos anéis do hero: pausam fora da tela e com a aba oculta, sem reiniciar o ciclo */
-  (function ondas() {
-    var camada = doc.querySelector('[data-ondas]');
-    if (!camada || !temIO) return;
-    var naTela = true;
-    var atualiza = function () { camada.classList.toggle('pausada', !naTela || doc.hidden); };
-    new IntersectionObserver(function (entradas) { naTela = entradas[0].isIntersecting; atualiza(); }).observe(camada.parentElement);
-    doc.addEventListener('visibilitychange', atualiza);
-  })();
-
-  /* 4. Títulos H2 revelados por linha, só abaixo da dobra; o texto existe sem JS */
-  (function titulosPorLinha() {
-    var titulos = [].slice.call(doc.querySelectorAll('[data-revela]'));
-    if (!titulos.length || semMovimento()) return;
-    var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
-    var armados = [];
-
-    var restaura = function (item) {
-      if (item.feito) return;
-      item.feito = true;
-      item.el.innerHTML = item.original;
-      item.el.classList.remove('revela-armado', 'revela-ativo');
-    };
-
-    // Em três passos para o navegador calcular o layout uma vez só: escreve as palavras, lê as posições, escreve as linhas.
-    var separaPalavras = function (item) {
-      // divide só em espaços comuns: o espaço inseguível mantém palavras juntas, como no título final
-      var texto = item.el.textContent.replace(/[ \t\r\n]+/g, ' ').trim();
-      item.el.innerHTML = texto.split(' ').map(function (p) { return '<span data-p>' + esc(p) + '</span>'; }).join(' ');
-    };
-    var leLinhas = function (item) {
-      var linhas = [];
-      var topoAtual = null;
-      [].forEach.call(item.el.querySelectorAll('[data-p]'), function (s) {
-        var t = s.offsetTop;
-        if (topoAtual === null || Math.abs(t - topoAtual) > 3) { linhas.push([]); topoAtual = t; }
-        linhas[linhas.length - 1].push(s.textContent);
-      });
-      item.grupos = linhas;
-      item.linhas = linhas.length;
-    };
-    var montaLinhas = function (item) {
-      item.el.innerHTML = item.grupos.map(function (l, i) {
-        return '<span class="linha-mascara"><span class="linha-conteudo" style="--i:' + Math.min(i, 10) + '">' + esc(l.join(' ')) + '</span></span>';
-      }).join(' ');
-      item.el.classList.add('revela-armado');
-    };
-
-    var observador = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        observador.unobserve(e.target);
-        var item = armados.filter(function (a) { return a.el === e.target; })[0];
-        if (!item || item.feito) return;
-        item.el.classList.add('revela-ativo');
-        var total = Math.min(item.linhas * 60, 600) + 600;
-        setTimeout(function () { restaura(item); }, total);
-      });
-    }, { rootMargin: '0px 0px -12% 0px' });
-
-    var arma = function () {
-      requestAnimationFrame(function () {
-        var novos = titulos.filter(abaixoDaDobra).map(function (el) {
-          return { el: el, original: el.innerHTML, feito: false, linhas: 0, grupos: [] };
-        });
-        novos.forEach(separaPalavras);
-        novos.forEach(leLinhas);
-        novos.forEach(montaLinhas);
-        novos.forEach(function (item) { armados.push(item); observador.observe(item.el); });
-      });
-    };
-
-    var larguraInicial = window.innerWidth;
-    window.addEventListener('resize', function () {
-      if (window.innerWidth === larguraInicial) return;
-      armados.forEach(restaura);
-      observador.disconnect();
-    });
-    reduzido.addEventListener && reduzido.addEventListener('change', function () { armados.forEach(restaura); });
-
-    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(arma, arma); else arma();
-  })();
-
-  /* 5. Sequências desenhadas uma vez ao entrar na tela: a trilha 5 → 10 → 20 (momento principal)
-        e os passos da indicação, no estilo da ForDoctor Indica. O fim é o último elemento animado. */
-  [['[data-trilha]', '.degrau:last-child .degrau__valor', 'valor-aparece'], ['[data-passos]', '.passo--credito .passo__no', 'pulso']].forEach(function (par) {
-    var lista = doc.querySelector(par[0]);
-    if (!lista || semMovimento() || !abaixoDaDobra(lista)) return;
-    lista.classList.add('armada');
-    var ultimo = lista.querySelector(par[1]);
-    var naTela = false;
-    var terminou = false;
-    var conclui = function () {
-      if (terminou) return;
-      terminou = true;
-      lista.classList.remove('armada', 'desenhando', 'pausada');
-    };
-    var pausa = function () {
-      if (!lista.classList.contains('desenhando') || terminou) return;
-      lista.classList.toggle('pausada', !naTela || doc.hidden);
-    };
-    ultimo.addEventListener('animationend', function (e) { if (e.animationName === par[2]) conclui(); });
-    // começa com 35% da trilha na tela; só pausa quando ela sai inteira da tela
+    // blocos mais altos que a tela começam com uma fração menor visível. A altura vem do retângulo, que também existe
+    // em SVG (offsetHeight não existe em SVG). Peças grandes cortadas pela caixa, como as marcas-d'água, nunca ficam
+    // inteiras na tela: tocam também quando a parte visível ocupa metade da altura da tela.
+    var limiar = function () { return Math.max(0.05, Math.min(op.limiar, 0.6 * window.innerHeight / Math.max(1, el.getBoundingClientRect().height))); };
     new IntersectionObserver(function (entradas) {
-      var e = entradas[0];
-      naTela = e.isIntersecting;
-      if (e.intersectionRatio >= 0.35 && lista.classList.contains('armada') && !lista.classList.contains('desenhando')) {
-        lista.classList.add('desenhando');
-      }
-      pausa();
-    }, { threshold: [0, 0.35] }).observe(lista);
+      var e = entradas[entradas.length - 1];
+      if (reduzido.matches) { if (estado !== 'final') solta(); return; }
+      if (!e.isIntersecting) { if (estado !== 'armado') arma(); return; }
+      if (estado === 'armado' && (e.intersectionRatio >= limiar() || e.intersectionRect.height >= 0.5 * window.innerHeight)) toca();
+    }, { threshold: PASSOS_DO_OBSERVADOR }).observe(el);
+  };
+  // o par de classes mais comum: "armada" (estado inicial) e a classe que roda a animação
+  var porClasses = function (armada, ativa) {
+    return {
+      arma: function (el) { el.classList.remove(ativa); el.classList.add(armada); },
+      toca: function (el) { el.classList.remove(armada); el.classList.add(ativa); },
+      conclui: function (el) { el.classList.remove(armada); el.classList.remove(ativa); }
+    };
+  };
+  var com = function (base, extra) { for (var k in extra) base[k] = extra[k]; return base; };
+
+  /* 3a. Constelação do hero: a entrada é só CSS; o JS liga o ciclo da indicação (.em-ciclo) quando o
+         hero está na tela e a entrada terminou (depois da intro, se houver). Com a aba oculta tudo para onde está
+         (.pausada); quando o hero sai inteiro da tela, entrada e ciclo voltam ao início e tocam de novo na volta, a partir
+         do "Você". Sem JS ou com movimento reduzido fica a composição estática do CSS. */
+  (function constelacao() {
+    var camada = doc.querySelector('[data-constelacao]');
+    if (!camada || semMovimento()) return;
+    var ENTRADA = 1900; // ms: símbolo, formandos, trajeto e etiqueta "Você" já entraram
+    var espera = 0;
+    var naTela = false;
+    var comecou = false;
+    var introAtiva = function () { return raiz.classList.contains('intro-ativa'); };
+    var liga = function () {
+      clearTimeout(espera);
+      camada.classList.remove('em-ciclo');
+      if (introAtiva()) return; // a intro cobre o hero; o observador abaixo chama de novo quando ela sai
+      espera = setTimeout(function () { camada.classList.add('em-ciclo'); }, ENTRADA);
+    };
+    var desliga = function () { clearTimeout(espera); camada.classList.remove('em-ciclo'); };
+    var pausa = function () { camada.classList.toggle('pausada', doc.hidden); };
+    pausa();
     doc.addEventListener('visibilitychange', pausa);
-    reduzido.addEventListener && reduzido.addEventListener('change', conclui);
+    // primeira vez na tela com a entrada do CSS tocando (o hero visível na carga não é armado)
+    new IntersectionObserver(function (entradas) {
+      naTela = entradas[0].isIntersecting;
+      if (naTela && !comecou) { comecou = true; if (!camada.classList.contains('armada')) liga(); }
+    }).observe(camada);
+    if (introAtiva() && 'MutationObserver' in window) {
+      var fimDaIntro = new MutationObserver(function () {
+        if (introAtiva()) return;
+        fimDaIntro.disconnect();
+        if (naTela && !camada.classList.contains('armada')) liga();
+      });
+      fimDaIntro.observe(raiz, { attributes: true, attributeFilter: ['class'] });
+    }
+    repete(camada, {
+      limiar: 0.3, duracao: 2600,
+      arma: function (el) { desliga(); el.classList.add('armada'); },
+      toca: function (el) { el.classList.remove('armada'); comecou = true; liga(); },
+      conclui: function (el) { el.classList.remove('armada'); }
+    });
+  })();
+
+  /* 3b. Trilha 5 → 10 → 20 (momento principal) e passos da indicação, no estilo da ForDoctor Indica */
+  repete(doc.querySelector('[data-trilha]'), com(porClasses('armada', 'desenhando'), { limiar: 0.35, duracao: 1500 }));
+  repete(doc.querySelector('[data-passos]'), com(porClasses('armada', 'desenhando'), { limiar: 0.35, duracao: 2500 }));
+
+  /* 3c. Traços desenhados: marcas-d'água do símbolo, órbita da foto, ícones da oferta e da contabilidade */
+  [].forEach.call(doc.querySelectorAll('[data-desenha]'), function (el) {
+    repete(el, com(porClasses('armada', 'desenhando'), { limiar: 0.2, duracao: 2900 }));
   });
 
-  /* 6. Foto de "O que é a Liga" revelada por máscara curta, com espaço reservado */
-  (function imagemComMascara() {
-    var figura = doc.querySelector('[data-revela-imagem]');
+  /* 3d. Foto de "O que é a Liga": o círculo abre a partir do centro quando a foto já carregou; o selo estoura depois */
+  (function fotoDaLiga() {
+    var figura = doc.querySelector('[data-foto-liga]');
     var img = figura && figura.querySelector('img');
-    if (!img || semMovimento() || !abaixoDaDobra(figura)) return;
-    figura.classList.add('armada');
-    var visivel = false;
-    var limpa = function () { figura.classList.remove('armada', 'revelada'); };
-    var revela = function () {
-      if (!visivel || !(img.complete && img.naturalWidth)) return;
+    if (!img || semMovimento()) return;
+    var quer = false;
+    var abre = function () {
+      if (!quer) return;
       figura.classList.remove('armada');
       figura.classList.add('revelada');
-      setTimeout(limpa, 1200);
     };
-    img.addEventListener('load', revela, { once: true });
-    img.addEventListener('error', limpa, { once: true });
-    var obs = new IntersectionObserver(function (entradas) {
-      if (!entradas[0].isIntersecting) return;
-      visivel = true;
-      obs.disconnect();
-      revela();
-    }, { rootMargin: '0px 0px -10% 0px' });
-    obs.observe(figura);
+    repete(figura, {
+      limiar: 0.3, duracao: 1400,
+      arma: function () { quer = false; figura.classList.remove('revelada'); figura.classList.add('armada'); },
+      toca: function () {
+        quer = true;
+        if (img.complete && img.naturalWidth) abre();
+        else img.addEventListener('load', abre, { once: true });
+      },
+      conclui: function () { quer = false; figura.classList.remove('armada', 'revelada'); }
+    });
+    img.addEventListener('error', function () { quer = false; figura.classList.remove('armada', 'revelada'); }, { once: true });
     // com o recorte fechado o navegador não dispara o lazy-load sozinho: pedimos a imagem quando a seção se aproxima
     var perto = new IntersectionObserver(function (entradas) {
       if (!entradas[0].isIntersecting) return;
@@ -212,10 +193,61 @@
       if (img.loading === 'lazy' && !img.currentSrc) img.loading = 'eager';
     }, { rootMargin: '0px 0px 900px 0px' });
     perto.observe(figura);
-    reduzido.addEventListener && reduzido.addEventListener('change', limpa);
   })();
 
-  /* 6b. Parallax dos anéis: a camada azul de "O que a Liga oferece?" e a clara das recompensas andam juntas,
+  /* 3e. Títulos H2 linha a linha (Siteflux): cada linha sobe de dentro da própria máscara, 90 ms entre linhas.
+         O texto inteiro fica num trecho só para leitores de tela; as linhas visuais ficam ocultas para eles. */
+  (function titulosPorLinha() {
+    var titulos = [].slice.call(doc.querySelectorAll('[data-revela]'));
+    if (!titulos.length || semMovimento()) return;
+    var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+    var itens = titulos.map(function (el) {
+      // divide só em espaços comuns: o espaço inseguível mantém palavras juntas, como no título final
+      return { el: el, texto: el.textContent.replace(/[ \t\r\n]+/g, ' ').trim(), grupos: [] };
+    });
+    // em três passos para o navegador calcular o layout uma vez só: escreve as palavras, lê as posições, escreve as linhas
+    var divide = function () {
+      itens.forEach(function (it) {
+        it.el.innerHTML = '<span class="so-leitor">' + esc(it.texto) + '</span><span class="titulo-linhas" aria-hidden="true">' +
+          it.texto.split(' ').map(function (p) { return '<span data-p>' + esc(p) + '</span>'; }).join(' ') + '</span>';
+      });
+      itens.forEach(function (it) {
+        var linhas = [];
+        var topoAtual = null;
+        [].forEach.call(it.el.querySelectorAll('[data-p]'), function (s) {
+          var t = s.offsetTop;
+          if (topoAtual === null || Math.abs(t - topoAtual) > 3) { linhas.push([]); topoAtual = t; }
+          linhas[linhas.length - 1].push(s.textContent);
+        });
+        it.grupos = linhas;
+      });
+      itens.forEach(function (it) {
+        it.el.querySelector('.titulo-linhas').innerHTML = it.grupos.map(function (l, i) {
+          return '<span class="linha-mascara"><span class="linha-conteudo" style="--i:' + Math.min(i, 10) + '">' + esc(l.join(' ')) + '</span></span>';
+        }).join(' ');
+      });
+    };
+    var comeca = function () {
+      requestAnimationFrame(function () {
+        divide();
+        itens.forEach(function (it) { repete(it.el, com(porClasses('revela-armado', 'revela-ativo'), { limiar: 0.6, duracao: 1900 })); });
+      });
+    };
+    // a quebra de linha muda com a largura: refaz as linhas (as classes de estado continuam no título)
+    var largura = window.innerWidth;
+    var espera = 0;
+    window.addEventListener('resize', function () {
+      clearTimeout(espera);
+      espera = setTimeout(function () {
+        if (window.innerWidth === largura) return;
+        largura = window.innerWidth;
+        requestAnimationFrame(divide);
+      }, 200);
+    });
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(comeca, comeca); else comeca();
+  })();
+
+  /* 4. Parallax dos anéis: a camada azul de "O que a Liga oferece?" e a clara das recompensas andam juntas,
          mais devagar que a página, e por isso continuam alinhadas na divisa entre as duas seções.
          y = A × (2p − 1), com p = progresso da faixa das recompensas (que não se move) atravessando a tela. */
   (function parallaxDosAneis() {
@@ -247,7 +279,7 @@
     });
   })();
 
-  /* 7. Formulário: UTM, máscara do WhatsApp, validação em português e estados de envio */
+  /* 5. Formulário: UTM, máscara do WhatsApp, validação em português e estados de envio */
   (function formulario() {
     var form = doc.querySelector('[data-formulario]');
     if (!form) return;

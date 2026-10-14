@@ -72,12 +72,20 @@
       curvas += '<path class="li-con" style="--i:' + i + '" pathLength="1" d="M' + f(p[0]) + ' ' + f(p[1]) + 'Q' + f(q[0]) + ' ' + f(q[1]) + ' ' + f(fim[0]) + ' ' + f(fim[1]) + '"/>';
       pontos += '<circle class="li-no" style="--i:' + i + '" cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="2.6"/>';
     });
+    // luz dentro do símbolo (técnica do Siteflux): três setores de 120° giram sob a máscara do desenho oficial
+    var CORES = ['#C19B52', '#FFFFFF', '#A7C4F0'], setores = '';
+    CORES.forEach(function (cor, i) {
+      var a = ponto(72, i * 120 - 90), b = ponto(72, i * 120 + 30);
+      setores += '<path fill="' + cor + '" d="M' + f(CENTRO[0]) + ' ' + f(CENTRO[1]) + 'L' + f(a[0]) + ' ' + f(a[1]) + 'A72 72 0 0 1 ' + f(b[0]) + ' ' + f(b[1]) + 'Z"/>';
+    });
     // anéis numa camada fixa no centro da tela: começam em volta do símbolo e, quando a câmera desliza, emolduram o logo inteiro
     return '<svg class="li-campo" viewBox="-250 -250 500 500" aria-hidden="true" focusable="false"><g class="li-aneis">' + aneis + '</g></svg>' +
       '<div class="li-palco">' +
       '<div class="li-cam">' +
         '<svg class="li-svg" viewBox="0 0 341.01 93.48" aria-hidden="true" focusable="false">' +
           curvas + pontos +
+          '<defs><mask id="li-mascara" maskUnits="userSpaceOnUse" x="-10" y="-10" width="114" height="114"><path fill="#fff" d="' + SIMBOLO + '"/></mask></defs>' +
+          '<g mask="url(#li-mascara)"><g class="li-luz">' + setores + '</g></g>' +
           '<path class="li-preenche" d="' + SIMBOLO + '"/>' +
           '<path class="li-contorno" pathLength="1" d="' + SIMBOLO + '"/>' +
         '</svg>' +
