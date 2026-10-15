@@ -1,0 +1,23 @@
+{
+ "390": {
+  "threadPrincipal_msPorS": 779.5,
+  "estilo_msPorS": 170.7,
+  "layout_msPorS": 17.5,
+  "pintura_msPorS": 90.6,
+  "rasterizacao_msPorS": 0,
+  "pinturas": 1493,
+  "quadrosNaPrincipal": 0
+ },
+ "1440": {
+  "threadPrincipal_msPorS": 959.3,
+  "estilo_msPorS": 179.6,
+  "layout_msPorS": 18.2,
+  "pintura_msPorS": 90.7,
+  "rasterizacao_msPorS": 0,
+  "pinturas": 1399,
+  "quadrosNaPrincipal": 0
+ },
+ "rotulo": "antes-v0.6",
+ "cpu": "4x",
+ "janelaMs": 12000
+}

@@ -112,25 +112,25 @@
   };
   var com = function (base, extra) { for (var k in extra) base[k] = extra[k]; return base; };
 
-  /* 3a. Constelação do hero: a entrada é só CSS; o JS liga o ciclo da indicação (.em-ciclo) quando o
-         hero está na tela e a entrada terminou (depois da intro, se houver). Com a aba oculta tudo para onde está
-         (.pausada); quando o hero sai inteiro da tela, entrada e ciclo voltam ao início e tocam de novo na volta, a partir
-         do "Você". Sem JS ou com movimento reduzido fica a composição estática do CSS. */
+  /* 3a. Constelação do hero: a entrada é só CSS; o JS liga a cena da indicação (.em-cena) quando o hero está na
+         tela e a entrada já mostrou o símbolo e os formandos (depois da intro, se houver). A cena toca uma vez e para no
+         quadro final. Com a aba oculta tudo para onde está (.pausada); quando o hero sai inteiro da tela, entrada e cena
+         voltam ao início e tocam de novo na volta. Sem JS ou com movimento reduzido fica o quadro final, só com CSS. */
   (function constelacao() {
     var camada = doc.querySelector('[data-constelacao]');
     if (!camada || semMovimento()) return;
-    var ENTRADA = 1900; // ms: símbolo, formandos, trajeto e etiqueta "Você" já entraram
+    var ENTRADA = 1100; // ms: símbolo, formandos e etiqueta "Você" já entraram (entrada + cena < 5 s)
     var espera = 0;
     var naTela = false;
     var comecou = false;
     var introAtiva = function () { return raiz.classList.contains('intro-ativa'); };
     var liga = function () {
       clearTimeout(espera);
-      camada.classList.remove('em-ciclo');
+      camada.classList.remove('em-cena');
       if (introAtiva()) return; // a intro cobre o hero; o observador abaixo chama de novo quando ela sai
-      espera = setTimeout(function () { camada.classList.add('em-ciclo'); }, ENTRADA);
+      espera = setTimeout(function () { camada.classList.add('em-cena'); }, ENTRADA);
     };
-    var desliga = function () { clearTimeout(espera); camada.classList.remove('em-ciclo'); };
+    var desliga = function () { clearTimeout(espera); camada.classList.remove('em-cena'); };
     var pausa = function () { camada.classList.toggle('pausada', doc.hidden); };
     pausa();
     doc.addEventListener('visibilitychange', pausa);

@@ -2,14 +2,14 @@
 // nitidez das imagens (densidade da tela) e captura da página inteira. Desde a v0.6 também: fontes abaixo de 12 px, erros
 // de console, âncoras sem destino, título escondido sob o cabeçalho ao pular para uma seção, CTA fixo cobrindo o rodapé e a
 // composição estática do hero (movimento reduzido: todas as etiquetas visíveis) dentro da caixa e sem sobreposição.
-// Uso: node qa/scripts/com-servidor.js qa/scripts/responsivo.js   (QA_PASTA=responsivo-v0.6 para outra pasta)
+// Uso: node qa/scripts/com-servidor.js qa/scripts/responsivo.js   (QA_PASTA=responsivo-v0.8 para outra pasta)
 const fs = require('fs');
 const path = require('path');
 const { launch, screenshot, sleep } = require('../fase-1-auditoria/scripts/cdp');
 
 // servidor local (npm run preview): em file:// o navegador bloqueia o preload da fonte
 const URL_ = (process.env.QA_URL || 'http://localhost:4173/') + '?intro=0';
-const OUT = path.join(__dirname, '..', process.env.QA_PASTA || 'responsivo-v0.6');
+const OUT = path.join(__dirname, '..', process.env.QA_PASTA || 'responsivo-v0.8');
 fs.mkdirSync(path.join(OUT, 'capturas'), { recursive: true });
 const TELAS = [
   [280, 653, 3, 'dobrável fechado'], [320, 568, 2, 'celular pequeno'], [360, 740, 3, 'Android comum'], [375, 667, 2, 'iPhone SE'],
@@ -45,8 +45,9 @@ const ESTATICO = `(() => {
   const caixa = c.closest('.caixa').getBoundingClientRect();
   const ret = el => el.getBoundingClientRect();
   const cruza = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
-  const et = [...c.querySelectorAll('.etiqueta, .beneficio, .contrato')].map(el => ({ n: el.classList[el.classList.length - 1], dono: el.closest('.ancora--voce') ? 'voce' : 'colega', r: ret(el), o: +getComputedStyle(el).opacity }));
-  const pes = [...c.querySelectorAll('.pessoa')].filter(p => getComputedStyle(p).display !== 'none').map(p => ({ n: p.classList[1], r: ret(p.querySelector('.aluno')) }));
+  // etiquetas do quadro final (v0.8): "Você", o crédito do colega e o seu crédito
+  const et = [...c.querySelectorAll('.etiqueta, .credito-colega, .beneficio')].map(el => ({ n: el.classList[el.classList.length - 1], dono: el.closest('.pessoa--voce') ? 'voce' : 'colega', r: ret(el), o: +getComputedStyle(el).opacity }));
+  const pes = [...c.querySelectorAll('.pessoa')].filter(p => getComputedStyle(p).display !== 'none').map(p => ({ n: p.classList[1], r: ret(p.querySelector('.pessoa__aluno')) }));
   const problemas = [];
   et.forEach((a, i) => {
     if (a.o < 0.99) problemas.push(a.n + ' invisível');
@@ -94,10 +95,15 @@ const ESTATICO = `(() => {
     await send('Page.navigate', { url: URL_ }); await sleep(1200);
     r.heroEstatico = await evaluate(ESTATICO);
     // captura da página inteira nesse estado (tudo no estado final; com movimento, o que está fora da tela fica armado),
-    // em densidade 1 (arquivo menor)
+    // em densidade 1 (arquivo menor). A janela fica da altura da página e a captura é a normal: o modo "além da janela"
+    // do Edge (captureBeyondViewport) às vezes desenha parte do hero com o tamanho de antes (unidades cqw), o que não
+    // acontece na tela de verdade. A única medida pela altura da tela é o mínimo do hero, limitado a 880 px.
     await send('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile });
-    await sleep(400);
-    await screenshot(send, path.join(OUT, 'capturas', w + 'x' + h + '.jpg'), { full: true, quality: 55 });
+    await sleep(300);
+    const alturaFinal = await evaluate('document.documentElement.scrollHeight');
+    await send('Emulation.setDeviceMetricsOverride', { width: w, height: Math.min(16000, alturaFinal), deviceScaleFactor: 1, mobile });
+    await sleep(600);
+    await screenshot(send, path.join(OUT, 'capturas', w + 'x' + h + '.jpg'), { quality: 55 });
     await send('Emulation.setEmulatedMedia', { features: [] });
     res.push(r);
     const ok = !r.fontesPequenas.length && !r.ancorasQuebradas.length && !r.ctaCobreRodape && !r.tituloSobCabecalho && !r.heroEstatico.problemas.length && r.scrollW === w && !r.estouro.length && !r.cortado.length && !r.largosDemais.length && !r.alvos.length && (r.ctaNaDobra || r.ctaTopo) && r.imgs.every(i => i.nitida || i.limiteDoOriginal) && r.fonte;

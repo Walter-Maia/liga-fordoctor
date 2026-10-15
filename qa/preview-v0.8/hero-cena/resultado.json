@@ -1,0 +1,741 @@
+{
+ "relato": {
+  "320": {
+   "instantes": {
+    "0.5": {
+     "etiquetas": [],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.6": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.9": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.4": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.95": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "4.25": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 0.95"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "15%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "???"
+    },
+    "4.5": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "15%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    },
+    "4.8": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "15%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    }
+   },
+   "animacoes": 159
+  },
+  "390": {
+   "instantes": {
+    "0.5": {
+     "etiquetas": [],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.6": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.9": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.4": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.95": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "4.25": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 0.95"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "12%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "???"
+    },
+    "4.5": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "12%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    },
+    "4.8": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "12%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    }
+   },
+   "animacoes": 159
+  },
+  "1024": {
+   "instantes": {
+    "0.5": {
+     "etiquetas": [],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.6": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.9": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.4": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.95": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "4.25": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 0.95"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "10%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "???"
+    },
+    "4.5": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "10%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    },
+    "4.8": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "10%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    }
+   },
+   "animacoes": 159
+  },
+  "1440": {
+   "instantes": {
+    "0.5": {
+     "etiquetas": [],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "—",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "1.7": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "—",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.6": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "2.9": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.4": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "—"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "3.95": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00"
+     ],
+     "caneta": "visível",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "000"
+    },
+    "4.25": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 0.95"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "???"
+    },
+    "4.5": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    },
+    "4.8": {
+     "etiquetas": [
+      "credito-colega 1.00",
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "caneta": "escondida",
+     "tracoCobertoPorEtiqueta": {
+      "indica": "0%",
+      "valida": "0%",
+      "volta": "0%"
+     },
+     "problemas": [],
+     "rolagemLateral": false,
+     "valor": "200"
+    }
+   },
+   "animacoes": 161
+  },
+  "duracao": {
+   "fimMs": 5052,
+   "primeiraPinturaMs": 208,
+   "cenaLigouMsDepoisDaPintura": 1113,
+   "movimentoMs": 4844,
+   "animacoesInfinitas": 0,
+   "animacoes": 151
+  },
+  "abaOculta": {
+   "pausada": true,
+   "estados": [
+    "paused"
+   ],
+   "parado": true,
+   "voltou": true,
+   "andaDeNovo": true,
+   "continuaDeOndeParou": true
+  },
+  "terminouParado": true,
+  "foraDaTela": {
+   "armada": true,
+   "emCena": false
+  },
+  "deVolta": {
+   "emCenaLogoNaVolta": false,
+   "emCenaDepoisDaEntrada": true,
+   "cenaDoComeco": 950
+  },
+  "reduzido-1440": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "0%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0,
+   "credito": "200"
+  },
+  "sem-js-1440": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "0%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false
+  },
+  "reduzido-390": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "12%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0,
+   "credito": "200"
+  },
+  "sem-js-390": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "12%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false
+  },
+  "reduzido-320": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "15%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0,
+   "credito": "200"
+  },
+  "sem-js-320": {
+   "etiquetas": [
+    "credito-colega 1.00",
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "caneta": "escondida",
+   "tracoCobertoPorEtiqueta": {
+    "indica": "15%",
+    "valida": "0%",
+    "volta": "0%"
+   },
+   "problemas": [],
+   "rolagemLateral": false
+  }
+ },
+ "erros": []
+}

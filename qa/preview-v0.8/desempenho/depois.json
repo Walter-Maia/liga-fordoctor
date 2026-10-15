@@ -1,0 +1,48 @@
+{
+ "390": {
+  "cena": {
+   "janelaMs": 3700,
+   "threadPrincipal_msPorS": 357,
+   "estilo_msPorS": 83.1,
+   "layout_msPorS": 0.5,
+   "pintura_msPorS": 34.6,
+   "rasterizacao_msPorS": 0,
+   "pinturas": 37,
+   "quadrosNaPrincipal": 0
+  },
+  "parado": {
+   "janelaMs": 3000,
+   "threadPrincipal_msPorS": 0.7,
+   "estilo_msPorS": 0,
+   "layout_msPorS": 0,
+   "pintura_msPorS": 0,
+   "rasterizacao_msPorS": 0,
+   "pinturas": 0,
+   "quadrosNaPrincipal": 0
+  }
+ },
+ "1440": {
+  "cena": {
+   "janelaMs": 3700,
+   "threadPrincipal_msPorS": 77.3,
+   "estilo_msPorS": 8.6,
+   "layout_msPorS": 0,
+   "pintura_msPorS": 2.5,
+   "rasterizacao_msPorS": 0,
+   "pinturas": 2,
+   "quadrosNaPrincipal": 0
+  },
+  "parado": {
+   "janelaMs": 3000,
+   "threadPrincipal_msPorS": 0.2,
+   "estilo_msPorS": 0,
+   "layout_msPorS": 0,
+   "pintura_msPorS": 0,
+   "rasterizacao_msPorS": 0,
+   "pinturas": 0,
+   "quadrosNaPrincipal": 0
+  }
+ },
+ "rotulo": "depois",
+ "cpu": "4x"
+}

@@ -1,14 +1,14 @@
-// v0.6: testes funcionais da página inteira, sem congelar nada.
+// Testes funcionais da página inteira, sem congelar nada (desde a v0.6; saída na pasta da versão atual, QA_SAIDA muda).
 // Celular (390 × 844, toque): CTA fixo, tom do cabeçalho, formulário (vazio, máscara do WhatsApp, envio simulado, erro com
 // ?erro=1), FAQ e o primeiro Tab no link "Pular para o conteúdo". Desktop: a intro (?intro=1) cobre o hero, sai sozinha e
-// o ciclo da indicação só começa depois dela. Erros de console em todas as etapas.
+// a cena da indicação só começa depois dela. Erros de console em todas as etapas.
 // Uso: node qa/scripts/com-servidor.js qa/scripts/v06-funcional.js
 const fs = require('fs');
 const path = require('path');
 const { launch, sleep } = require('../fase-1-auditoria/scripts/cdp');
 
 const BASE = process.env.QA_URL || 'http://localhost:4173/';
-const OUT = path.join(__dirname, '..', 'preview-v0.6', 'funcional');
+const OUT = path.join(__dirname, '..', process.env.QA_SAIDA || 'preview-v0.8', 'funcional');
 fs.mkdirSync(OUT, { recursive: true });
 
 (async () => {
@@ -70,16 +70,16 @@ fs.mkdirSync(OUT, { recursive: true });
   await evaluate("document.querySelector('.faq summary').click()"); await sleep(400);
   r.faq = { abre: aberto, fecha: !(await evaluate("document.querySelector('.faq details').open")) };
 
-  // desktop: intro e ciclo do hero
+  // desktop: intro e cena do hero
   await send('Emulation.setTouchEmulationEnabled', { enabled: false });
   await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
   await send('Page.navigate', { url: BASE + '?intro=1' });
-  const amostra = async () => evaluate("({ intro: !!document.querySelector('.li-intro'), ativa: document.documentElement.classList.contains('intro-ativa'), ciclo: document.querySelector('[data-constelacao]').classList.contains('em-ciclo') })");
+  const amostra = async () => evaluate("({ intro: !!document.querySelector('.li-intro'), ativa: document.documentElement.classList.contains('intro-ativa'), cena: document.querySelector('[data-constelacao]').classList.contains('em-cena') })");
   await sleep(1500); const durante = await amostra();
   await sleep(2500); const saindo = await amostra();
-  let cicloEm = null;
-  for (let i = 0; i < 40; i++) { await sleep(100); if ((await amostra()).ciclo) { cicloEm = 4000 + i * 100; break; } }
-  r.intro = { durante, aos4s: saindo, cicloLigouEm: cicloEm };
+  let cenaEm = null;
+  for (let i = 0; i < 40; i++) { await sleep(100); if ((await amostra()).cena) { cenaEm = 4000 + i * 100; break; } }
+  r.intro = { durante, aos4s: saindo, cenaLigouEm: cenaEm };
 
   fs.writeFileSync(path.join(OUT, 'resultado.json'), JSON.stringify({ r, erros }, null, 1));
   console.log(JSON.stringify({ r, erros }, null, 1));

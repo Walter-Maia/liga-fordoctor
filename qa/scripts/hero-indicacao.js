@@ -1,6 +1,8 @@
-// v0.6: confere a demonstração da indicação no hero (constelação).
+// v0.7: confere a demonstração da indicação no hero (constelação): convite → contrato → moedas de crédito.
 // Para cada largura: espera o ciclo ligar, congela as animações do ciclo e fotografa instantes do roteiro;
-// mede sobreposição entre etiquetas, etiquetas × formandos (exceto o próprio) e etiquetas fora da caixa do hero;
+// mede sobreposição entre etiquetas, etiquetas × formandos (exceto o próprio) e etiquetas fora da caixa do hero, e os
+// objetos que viajam × formandos da rede, × símbolo e × etiquetas (o convite e as moedas podem passar por trás de
+// "Você" e do colega, de onde saem e aonde chegam);
 // grava um ciclo em MP4 e uma folha de contato. Também confere a composição estática (movimento reduzido e sem JS),
 // a pausa com a aba oculta e o reinício quando o hero sai da tela e volta.
 // Uso: node qa/scripts/com-servidor.js qa/scripts/hero-indicacao.js [--video]
@@ -10,10 +12,11 @@ const { execFileSync } = require('child_process');
 const { launch, screenshot, sleep } = require('../fase-1-auditoria/scripts/cdp');
 
 const URL_ = (process.env.QA_URL || 'http://localhost:4173/') + '?intro=0';
-const OUT = path.join(__dirname, '..', 'preview-v0.6', 'hero-indicacao');
+const OUT = path.join(__dirname, '..', 'preview-v0.7', 'hero-indicacao');
 const VIDEO = process.argv.includes('--video');
 const TELAS = [[1440, 900, 1], [1024, 768, 1], [390, 844, 2], [320, 640, 2]];
-const INSTANTES = [0.5, 1.8, 2.7, 3.5, 4.2, 4.6, 5.3, 6.6, 9.8];
+const INSTANTES = [0.5, 0.95, 1.8, 2.6, 3.3, 3.9, 4.8, 5.4, 6.2, 7.2, 8.5, 10.5];
+const CICLO = 12;
 fs.mkdirSync(OUT, { recursive: true });
 
 // congela o ciclo em t segundos (a flutuação fica parada onde estava)
@@ -32,8 +35,11 @@ const mede = `(() => {
   const vis = el => { let o = 1, e = el; while (e && e !== c) { const s = getComputedStyle(e); if (s.display === 'none' || s.visibility === 'hidden') return 0; o *= +s.opacity; e = e.parentElement; } return o; };
   const ret = el => { const r = el.getBoundingClientRect(); return { x: r.left, y: r.top, r: r.right, b: r.bottom }; };
   const cruza = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.y, b.y));
-  const etiquetas = [...c.querySelectorAll('.etiqueta, .beneficio, .contrato')].map(el => ({ nome: el.className.baseVal || el.className, dono: el.closest('.ancora').classList.contains('ancora--voce') ? 'voce' : 'colega', o: vis(el), ret: ret(el), fonte: parseFloat(getComputedStyle(el.querySelector('span, strong') || el).fontSize) })).filter(e => e.o > 0.05);
-  const pessoas = [...c.querySelectorAll('.pessoa')].filter(p => getComputedStyle(p).display !== 'none').map(p => ({ nome: p.classList[1].replace('pessoa--', '') + (p.classList[2] ? '-' + p.classList[2].replace('pessoa--', '') : ''), ret: ret(p.querySelector('.aluno')) }));
+  const etiquetas = [...c.querySelectorAll('.etiqueta, .beneficio')].map(el => ({ nome: el.className.baseVal || el.className, dono: el.closest('.pessoa--voce') ? 'voce' : 'colega', o: vis(el), ret: ret(el), fonte: Math.min(...[...el.querySelectorAll('span, strong')].filter(t => t.textContent.trim()).map(t => parseFloat(getComputedStyle(t).fontSize))) })).filter(e => e.o > 0.05);
+  const pessoas = [...c.querySelectorAll('.pessoa')].filter(p => getComputedStyle(p).display !== 'none').map(p => ({ nome: p.classList[1].replace('pessoa--', '') + (p.classList[2] ? '-' + p.classList[2].replace('pessoa--', '') : ''), ret: ret(p.querySelector('.pessoa__aluno')) }));
+  // objetos que viajam (só o desenho, sem o halo) e o símbolo
+  const objetos = [...c.querySelectorAll('.viajante__icone')].map(el => ({ nome: el.parentElement.classList[1].replace('viajante--', '') + (el.parentElement.classList[2] ? '-' + el.parentElement.classList[2].replace('viajante--', '') : ''), o: vis(el), ret: ret(el.querySelector('svg')) })).filter(e => e.o > 0.05);
+  const simbolo = ret(c.querySelector('.constelacao__simbolo'));
   const problemas = [];
   etiquetas.forEach((a, i) => {
     etiquetas.slice(i + 1).forEach(b => { if (cruza(a.ret, b.ret) > 4) problemas.push(a.nome + ' × ' + b.nome); });
@@ -41,7 +47,12 @@ const mede = `(() => {
     if (a.ret.x < caixa.left + 2 || a.ret.r > caixa.right - 2) problemas.push(a.nome + ' fora da caixa');
     if (a.fonte < 13) problemas.push(a.nome + ' com fonte de ' + a.fonte + ' px');
   });
-  return { etiquetas: etiquetas.map(e => e.nome.split(' ')[0] + (e.nome.includes('--') ? '--' + e.nome.split('--')[1] : '') + ' ' + e.o.toFixed(2)), problemas, rolagemLateral: document.documentElement.scrollWidth > innerWidth };
+  objetos.forEach(o => {
+    pessoas.forEach(p => { if (!/^(voce|colega)/.test(p.nome) && cruza(o.ret, p.ret) > 4) problemas.push('objeto ' + o.nome + ' × formando ' + p.nome); });
+    if (cruza(o.ret, simbolo) > 4) problemas.push('objeto ' + o.nome + ' × símbolo');
+    etiquetas.forEach(e => { if (cruza(o.ret, e.ret) > 4) problemas.push('objeto ' + o.nome + ' × ' + e.nome); });
+  });
+  return { etiquetas: etiquetas.map(e => e.nome.split(' ')[0] + (e.nome.includes('--') ? '--' + e.nome.split('--')[1] : '') + ' ' + e.o.toFixed(2)), objetos: objetos.map(o => o.nome + ' ' + o.o.toFixed(2)), problemas, rolagemLateral: document.documentElement.scrollWidth > innerWidth };
 })()`;
 
 const recorte = async (evaluate, margem) => evaluate(`(() => { const r = document.querySelector('[data-constelacao]').getBoundingClientRect(); const m = ${margem}; return { x: Math.max(0, r.left + scrollX - m), y: Math.max(0, r.top + scrollY - m), width: Math.min(innerWidth, r.width + 2 * m), height: r.height + 2 * m, scale: 1 }; })()`);
@@ -79,7 +90,7 @@ const centraliza = `(() => { const r = document.querySelector('[data-constelacao
     if (VIDEO && (w === 1440 || w === 390)) {
       const dir = path.join(OUT, 'quadros-' + w); fs.mkdirSync(dir, { recursive: true });
       const FPS = 20;
-      for (let q = 0; q < 11 * FPS; q++) {
+      for (let q = 0; q < CICLO * FPS; q++) {
         await evaluate(congela(q / FPS));
         await screenshot(send, path.join(dir, String(q).padStart(3, '0') + '.jpg'), { quality: 88, clip });
       }
@@ -105,10 +116,11 @@ const centraliza = `(() => { const r = document.querySelector('[data-constelacao
         const t2 = anim().currentTime;
         Object.defineProperty(document, 'hidden', { value: false, configurable: true });
         document.dispatchEvent(new Event('visibilitychange'));
-        requestAnimationFrame(() => requestAnimationFrame(() => {
+        // a animação roda no compositor: ao sair da pausa fica "pendente" até o compositor confirmar; mede 300 ms depois
+        setTimeout(() => {
           const t3 = anim().currentTime;
-          r({ pausada, estados, parado: t1 === t2, voltou: !c.classList.contains('pausada'), andaDeNovo: t3 !== t2, continuaDeOndeParou: t3 - t2 < 200 });
-        }));
+          r({ pausada, estados, parado: t1 === t2, voltou: !c.classList.contains('pausada'), andaDeNovo: t3 !== t2, continuaDeOndeParou: t3 - t2 < 600 });
+        }, 300);
       }, 400);
     })));
   })()`);

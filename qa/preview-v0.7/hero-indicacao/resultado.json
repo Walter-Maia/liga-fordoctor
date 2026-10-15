@@ -1,0 +1,539 @@
+{
+ "relato": {
+  "320": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "0.95": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.9": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 0.77"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.4": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 1.00",
+      "moeda-m2 1.00",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m2 0.10",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "7.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "8.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "10.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 66
+  },
+  "390": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "0.95": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.9": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 0.77"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.4": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 1.00",
+      "moeda-m2 1.00",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m2 0.10",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "7.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "8.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "10.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 66
+  },
+  "1024": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "0.95": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.9": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 0.77"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.4": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 1.00",
+      "moeda-m2 1.00",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m2 0.10",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "7.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "8.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "10.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 66
+  },
+  "1440": {
+   "ligou": true,
+   "instantes": {
+    "0.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "0.95": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "1.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "convite 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "2.6": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.3": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "3.9": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "contrato 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "4.8": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 0.77"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "5.4": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m1 1.00",
+      "moeda-m2 1.00",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "6.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [
+      "moeda-m2 0.10",
+      "moeda-m3 1.00"
+     ],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "7.2": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "8.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00",
+      "beneficio 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    },
+    "10.5": {
+     "etiquetas": [
+      "etiqueta--voce 1.00"
+     ],
+     "objetos": [],
+     "problemas": [],
+     "rolagemLateral": false
+    }
+   },
+   "animacoesDoCiclo": 68
+  },
+  "abaOculta": {
+   "pausada": true,
+   "estados": [
+    "paused"
+   ],
+   "parado": true,
+   "voltou": true,
+   "andaDeNovo": true,
+   "continuaDeOndeParou": true
+  },
+  "foraDaTela": {
+   "armada": true,
+   "emCiclo": false
+  },
+  "deVolta": {
+   "emCicloLogoNaVolta": false,
+   "emCicloDepoisDaEntrada": true
+  },
+  "reduzido-1440": {
+   "etiquetas": [
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "objetos": [
+    "convite 1.00",
+    "contrato 1.00",
+    "moeda-m1 1.00",
+    "moeda-m2 1.00",
+    "moeda-m3 1.00"
+   ],
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0
+  },
+  "reduzido-390": {
+   "etiquetas": [
+    "etiqueta--voce 1.00",
+    "beneficio 1.00"
+   ],
+   "objetos": [
+    "convite 1.00",
+    "contrato 1.00",
+    "moeda-m1 1.00",
+    "moeda-m2 1.00",
+    "moeda-m3 1.00"
+   ],
+   "problemas": [],
+   "rolagemLateral": false,
+   "animacoesRodando": 0
+  }
+ },
+ "erros": []
+}

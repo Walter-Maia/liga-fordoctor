@@ -1,11 +1,12 @@
 // Servidor local para revisar a pré-visualização: node build/serve.mjs  →  http://localhost:4173
+// Outra pasta (ex.: a cópia da v0.7 para comparar): RAIZ=qa/preview-v0.7/pagina PORT=4174 node build/serve.mjs
 import http from 'http';
 import zlib from 'zlib';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'preview');
+const raiz = process.env.RAIZ ? path.resolve(process.env.RAIZ) : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'preview');
 const porta = Number(process.env.PORT) || 4173;
 const tipos = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',

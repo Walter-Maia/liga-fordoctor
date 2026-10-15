@@ -1,0 +1,54 @@
+{
+ "r": {
+  "primeiroTab": "pular → #conteudo",
+  "ctaFixo": {
+   "noTopo": false,
+   "depoisDoHero": true,
+   "noFormulario": false
+  },
+  "tomDoCabecalho": {
+   "noTopo": "escuro",
+   "formatura": "claro",
+   "recompensas": "escuro"
+  },
+  "formVazio": {
+   "invalidos": 5,
+   "status": "Confira os campos destacados para enviar seu cadastro.",
+   "foco": "form-field-first_namae",
+   "mensagens": 5
+  },
+  "mascara": "(31) 99999-8888",
+  "enviando": {
+   "texto": "Enviando…",
+   "desativado": true
+  },
+  "sucesso": {
+   "painel": true,
+   "formOculto": true,
+   "foco": true
+  },
+  "erroNoEnvio": {
+   "estado": "erro",
+   "botaoLiberado": true,
+   "mensagem": "Não foi possível enviar seu cadastro agora. Tente de novo em"
+  },
+  "faq": {
+   "abre": true,
+   "fecha": true
+  },
+  "intro": {
+   "durante": {
+    "intro": true,
+    "ativa": true,
+    "cena": false
+   },
+   "aos4s": {
+    "intro": false,
+    "ativa": false,
+    "cena": false
+   },
+   "cenaLigouEm": 4400
+  }
+ },
+ "erros": []
+}

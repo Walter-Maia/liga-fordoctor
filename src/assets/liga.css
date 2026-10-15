@@ -218,176 +218,318 @@ main:focus { outline: none; }
 }
 
 /* ==========================================================================
-   Constelação do hero (v0.6): demonstração da indicação, em ciclo.
-   "Você" (à esquerda, sempre identificado) indica o colega da direita → o colega fecha contrato e a ForDoctor valida →
-   o crédito volta para você. Os outros quatro formandos são a rede: menores, com borda azul acinzentada.
-   O trajeto é um oval que contorna o símbolo (curvas como os laços do símbolo): indicação por baixo, validação e retorno
-   por cima, encostando no topo do símbolo. Fica atrás dos formandos e do símbolo e nunca cruza o desenho.
-   Base = composição estática (sem JavaScript ou com movimento reduzido): a história inteira de uma vez, com o sentido do
-   trajeto marcado pelas pontas em ângulo reto do símbolo. Com JS e movimento liberado, a arte fica em repouso e o JS liga
-   o ciclo (.em-ciclo) com o hero na tela; pausa com a aba oculta; fora da tela volta ao início.
-   Coordenadas do SVG: 600 × 600, centro no símbolo. Nas etiquetas (HTML): 1 unidade = 1/600 da largura = 0,1667cqw.
-   ROTEIRO (ciclo de 11 s; t = 0 quando .em-ciclo entra, depois da entrada)
-   0,2–0,7    anel dourado de "Você" acende, pulso de atenção, etiqueta "Você" fica dourada
-   1,0–2,45   a luz desce pela curva de baixo até o colega, deixando um rastro dourado
-   2,4–2,9    o colega cresce (0,8 → 1), ganha anel dourado e a etiqueta "Colega"; "Você" volta ao destaque discreto
-   3,0–3,4    "Fechou contrato" (a condição real do benefício)
-   3,1–3,95   a luz sobe do colega até o topo do símbolo (validação)
-   3,9–5,8    brilho suave no símbolo; ondas nascem junto dele (4,0 e 4,4 s), crescem e se apagam;
-              a 1ª onda passa pelos formandos em ~4,45–4,75 s: a borda da rede reage, o colega confirma
-   4,4–5,6    a luz volta por cima até você; 5,3–5,7 seu anel acende e confirma (pulso)
-   6,0–8,3    etiqueta "R$ 200 em crédito na mensalidade" junto de você (valor da seção Indicação, sem somar)
-   5,6–6,1    somem as etiquetas do colega; 6,2–7,4 ele volta ao tamanho da rede; 8,3–9,0 tudo volta ao repouso; 9,0–11,0 pausa
+   Constelação do hero (v0.8): a indicação contada pelo traço do próprio símbolo, uma vez.
+   O símbolo da ForDoctor é um S com uma seta para cada lado: ida e volta. A cena usa o traço dele como trajeto:
+   você → colega (fecha contrato e ganha o crédito dele) → ponta direita do símbolo → a luz percorre o S → ponta esquerda
+   → de volta a você, que recebe o crédito na mensalidade. Só "Você" e os valores são texto.
+   Linguagem: linha que se desenha, opacidade e no máximo 8 px de deslocamento; uma família de curvas, sem mola e sem
+   passar do ponto; nada nasce de escala 0; um brilho só (o crédito chegando em você); nada flutua.
+   Formandos em traço, sem rosto, no mesmo desenho de linha dos ícones da página. Você e o colega em destaque; os outros
+   quatro são a rede, apagados (metade da opacidade e menores).
+   Camadas (de baixo para cima): fundo em SVG parado (anéis, trilho apagado e, só na composição estática, as setas); traço
+   dourado (segmentos em HTML); símbolo; luz do S (segmentos claros); ponta da caneta; formandos, com as etiquetas.
+   Desempenho: tudo o que se move na cena é transform ou opacity em HTML, que a GPU anima sem a thread principal; cada
+   segmento tem um @keyframes do tamanho da cena, para todos começarem e terminarem juntos (medição em
+   qa/preview-v0.8/desempenho/).
+   Base = quadro final (sem JavaScript ou com movimento reduzido): o traço inteiro, o colega com o visto e os R$ 500, você
+   com o brilho e os R$ 200, e o sentido do trajeto marcado pelas pontas em ângulo reto do símbolo. Com JS e movimento
+   liberado, a arte fica em repouso e o JS liga a cena (.em-cena) com o hero na tela, depois da entrada. A cena toca uma
+   vez e para no quadro final; pausa com a aba oculta; quando o hero sai inteiro da tela, entrada e cena voltam ao início
+   e tocam de novo na volta.
+   Coordenadas: 600 × 600 unidades com o símbolo em 0,0; --u = 1 unidade (a caixa é um container de largura: 100cqw = 600).
+   ROTEIRO (cena de 3,7 s; t = 0 quando .em-cena entra, 1,1 s depois da entrada começar: tudo termina antes de 5 s).
+   Tempos, traços e a ponta da caneta saem de build/gera-roteiro.mjs (bloco "roteiro-hero" abaixo): mude lá e rode o build.
+   0–0,35     você acende: aro dourado e etiqueta dourada
+   0,15–1,05  o traço dourado se desenha de você até o colega, por baixo, puxado pela ponta da caneta
+   0,95–1,45  o colega acende (aro dourado) e ganha o crédito dele: "+R$ 500", com o visto
+   1,4–1,9    o traço segue do colega até a ponta direita do símbolo
+   1,88–2,68  a luz percorre o S de uma seta à outra (e se apaga até 3,25)
+   2,6–3,1    o traço sai pela ponta esquerda e volta até você
+   3,0–3,6    o crédito chega: brilho em você, o cartão sobe e o valor rola até 200 (odômetro)
+   3,3–3,7    o traço assenta (fica um pouco mais apagado) e a cena para no quadro final
    ========================================================================== */
-.constelacao { --ciclo: 11s; position: relative; justify-self: center; width: min(100%, 440px); aspect-ratio: 1; container-type: inline-size; }
+.constelacao { --cena: 3.7s; --u: calc(100cqw / 600); position: relative; justify-self: center; width: min(100%, 440px); aspect-ratio: 1; container-type: inline-size; }
 @media (min-width: 960px) { .constelacao { width: 100%; } }
-.constelacao__arte { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.constelacao > * { position: absolute; }
+.constelacao__fundo { inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* peças em HTML: presas ao centro da arte; o tamanho e o deslocamento vêm em unidades (--u) */
+.constelacao__simbolo, .luz, .caneta, .segmentos { left: 50%; top: 50%; }
 
-/* estruturas secundárias em azul acinzentado; o dourado fica para quem está agindo */
+/* estruturas secundárias em azul acinzentado; o dourado fica para o que está acontecendo */
 .anel { fill: none; stroke: rgba(167, 196, 240, 0.13); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.rota { fill: none; stroke: rgba(167, 196, 240, 0.15); stroke-width: 1.4; }
-.rastro { --atras: 1; fill: none; stroke: var(--ouro); stroke-width: 2; stroke-linecap: round; opacity: 0.62; }
+.rota { fill: none; stroke: rgba(167, 196, 240, 0.13); stroke-width: 1.4; }
+/* o traço dourado da indicação: segmentos curtos (cordas da curva, gerados) com as pontas redondas, que se emendam como
+   uma linha só. Cada um começa no seu ponto (--x, --y), gira no ângulo da corda (--a) e cresce a partir da ponta de trás
+   (scaleX); --w é a espessura, --c o comprimento da corda. No quadro final o traço fica um pouco mais apagado (0,7). */
+.segmentos { width: 0; height: 0; opacity: 0.7; }
+.segmento { --w: 2.6; position: absolute; left: calc(var(--x) * var(--u)); top: calc(var(--y) * var(--u)); width: calc((var(--c) + var(--w)) * var(--u)); height: calc(var(--w) * var(--u)); margin: calc(var(--w) * var(--u) / -2) 0 0 calc(var(--w) * var(--u) / -2); border-radius: 999px; background: var(--ouro); transform-origin: calc(var(--w) * var(--u) / 2) 50%; rotate: var(--a); }
+.segmento--luz { --w: 5.2; background: #F6E7C1; }
 .setas { fill: none; stroke: var(--ouro); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
-.luz { --atras: 0; fill: none; stroke-linecap: round; opacity: 0; }
-.luz--nucleo { stroke: #F6E6BE; stroke-width: 6; stroke-dasharray: 0.001 2; }
-.luz--halo { stroke: var(--ouro); stroke-width: 18; stroke-opacity: 0.3; stroke-dasharray: 0.001 2; }
-.luz--cauda { --atras: 0.07; stroke: var(--ouro); stroke-width: 3; stroke-opacity: 0.75; stroke-dasharray: 0.07 2; }
-.onda { --pico: 0.5; fill: none; stroke: var(--ouro); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.onda--2 { --pico: 0.32; stroke: #E3CB95; }
-.simbolo__brilho { --pico: 1; opacity: 0.8; }
+.constelacao__simbolo { width: calc(128 * var(--u)); height: calc(128 * var(--u)); margin: calc(-64 * var(--u)) 0 0 calc(-64 * var(--u)); overflow: visible; }
 .constelacao__simbolo { fill: var(--ouro); stroke: var(--ouro); stroke-width: 1.5; stroke-linejoin: round; stroke-dasharray: 1; }
-.simbolo__luz { --pico: 0.36; fill: #EDD49C; opacity: 0; }
+/* a luz do S: segmentos claros, quase da espessura do traço do símbolo, sobre a linha central dele (gerada e corrigida
+   contra o contorno oficial); no quadro final ela já se apagou */
+.luz { width: 0; height: 0; opacity: 0; }
+/* ponta da caneta: o ponto claro na frente do traço; some quando entra em alguém ou no símbolo */
+.caneta { width: calc(10 * var(--u)); height: calc(10 * var(--u)); margin: calc(-5 * var(--u)) 0 0 calc(-5 * var(--u)); border-radius: 50%; background: #F6E7C1; box-shadow: 0 0 0 calc(3 * var(--u)) rgba(193, 155, 82, 0.35); opacity: 0; }
 
-/* formandos: o corpo escala (rede 0,78; colega 0,8 → 1) e o grupo de fora flutua; a borda vem do sprite por --aluno-aro */
-.pessoa { --aluno-aro: rgba(167, 196, 240, 0.45); }
-.pessoa--voce { --aluno-aro: var(--ouro); }
-.pessoa--rede { opacity: 0.9; }
-.pessoa__corpo { transform-box: fill-box; transform-origin: center; }
+/* formandos: o de fora fica no ponto (--x, --y); as cores do desenho vêm por variáveis (--aluno-aro, --aluno-traco,
+   --aluno-detalhe) */
+.pessoa { --aluno-aro: rgba(167, 196, 240, 0.5); --aluno-traco: #A9BCD9; left: calc(50% + var(--x) * var(--u)); top: calc(50% + var(--y) * var(--u)); width: 0; height: 0; }
+.pessoa--rede { opacity: 0.5; }
+.pessoa--colega { --aluno-aro: rgba(167, 196, 240, 0.6); --aluno-traco: #E3EAF4; }
+.pessoa--voce { --aluno-aro: var(--ouro); --aluno-traco: #F3E3BD; --aluno-detalhe: var(--ouro); }
+.pessoa__corpo { position: absolute; width: calc(80 * var(--u)); height: calc(80 * var(--u)); margin: calc(-40 * var(--u)) 0 0 calc(-40 * var(--u)); }
 .pessoa--rede .pessoa__corpo { scale: 0.78; }
-.aro { fill: none; }
-.aro__linha { stroke: var(--ouro); stroke-width: 3.2; }
-.aro__brilho { stroke: var(--ouro); stroke-width: 9; stroke-opacity: 0.2; }
-.aro--rede { stroke: #D5E3F8; stroke-width: 2.6; opacity: 0; }
-.pulso { fill: none; stroke: var(--ouro); stroke-width: 2.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.pessoa__corpo > * { position: absolute; }
+.pessoa__aluno { inset: 0; width: 100%; height: 100%; }
+.pessoa__sombra { left: calc(-6 * var(--u)); top: 0; width: calc(92 * var(--u)); height: calc(92 * var(--u)); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.26) 62%, rgba(0, 0, 0, 0)); }
+/* aro de quem está agindo: dourado, nítido, sem halo (centrado no formando; raio 38,8 do desenho) */
+.aro { left: 50%; top: 50%; width: calc(81 * var(--u)); height: calc(81 * var(--u)); margin: calc(-40.5 * var(--u)) 0 0 calc(-40.5 * var(--u)); border: calc(3 * var(--u)) solid var(--ouro); border-radius: 50%; }
+/* o único brilho da cena: quando o crédito chega em você */
+.pessoa__brilho { left: 50%; top: 50%; width: calc(200 * var(--u)); height: calc(200 * var(--u)); margin: calc(-100 * var(--u)) 0 0 calc(-100 * var(--u)); border-radius: 50%; background: radial-gradient(closest-side, rgba(193, 155, 82, 0.34), rgba(193, 155, 82, 0.1) 55%, rgba(193, 155, 82, 0)); opacity: 0.75; }
 
-/* etiquetas: presas ao centro de cada formando (âncora sem tamanho), sempre na horizontal */
-.ancora { position: absolute; left: calc((var(--x) + 300) * 100% / 600); top: 50%; width: 0; height: 0; }
-.etiqueta { position: absolute; top: 5cqw; display: grid; translate: -50% 0; font-family: var(--fonte-titulo); font-weight: 700; font-size: 0.875rem; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+/* etiquetas: presas ao centro de quem descrevem, sempre na horizontal */
+.etiqueta { position: absolute; top: 5cqw; left: -3.667cqw; display: grid; translate: -50% 0; font-family: var(--fonte-titulo); font-weight: 700; font-size: 0.875rem; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
 .etiqueta > span { grid-area: 1 / 1; padding: 5px 11px 6px; border-radius: 999px; text-align: center; }
 .etiqueta__texto { background: var(--navy-claro); color: #F3E3BD; box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.75), 0 4px 10px rgba(0, 0, 0, 0.25); }
 .etiqueta__ativa { background: var(--ouro); color: var(--navy); }
-/* do lado de fora do formando, longe do ponto onde o trajeto sai */
-.etiqueta--voce { left: -3.667cqw; }
-.etiqueta--colega { left: 3.667cqw; }
-.beneficio, .contrato { position: absolute; top: calc(5cqw + 31px); white-space: nowrap; }
-.beneficio { left: -11.667cqw; display: grid; gap: 3px; padding: 8px 13px 9px; border-radius: 12px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.8), 0 10px 24px rgba(0, 0, 0, 0.3); }
-.beneficio strong { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.0625rem; line-height: 1.1; color: #F3E3BD; font-variant-numeric: lining-nums; }
-.beneficio span { font-size: 0.875rem; line-height: 1.2; color: var(--sobre-navy); }
-.contrato { right: -11.667cqw; display: flex; align-items: center; gap: 6px; padding: 6px 12px 7px 9px; border-radius: 999px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.6), 0 4px 10px rgba(0, 0, 0, 0.25); font-size: 0.875rem; font-weight: 500; line-height: 1.1; color: var(--branco); }
-.contrato svg { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--ouro); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+/* o crédito do colega: acima dele, com o visto (contrato fechado) */
+.credito-colega { position: absolute; bottom: 5cqw; left: 0; translate: -50% 0; display: flex; align-items: center; gap: 6px; padding: 4px 11px 4px 4px; border-radius: 999px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.6), 0 4px 10px rgba(0, 0, 0, 0.25); font-family: var(--fonte-titulo); font-weight: 700; font-size: 0.875rem; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+.credito-colega strong { color: #F3E3BD; font-weight: 700; font-variant-numeric: lining-nums; }
+.credito-colega__visto { flex: none; width: 18px; height: 18px; overflow: visible; }
+.credito-colega__visto circle { fill: var(--ouro); }
+.credito-colega__visto path { fill: none; stroke: var(--navy); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+/* o seu crédito: um lançamento de extrato, sem moeda; o valor é um odômetro (fitas de dígitos que a cena faz rolar até 200).
+   Fica acima de você, para não cobrir o traço de baixo (em colunas estreitas desce para baixo da etiqueta) */
+.beneficio { position: absolute; bottom: calc(6.667cqw + 8px); left: -11.667cqw; display: grid; gap: 4px; padding: 9px 15px 10px; border-radius: 12px; background: var(--navy-claro); box-shadow: inset 0 0 0 1px rgba(193, 155, 82, 0.6), 0 10px 24px rgba(0, 0, 0, 0.3); white-space: nowrap; }
+.beneficio strong { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.375rem; line-height: 1; color: #F3E3BD; font-variant-numeric: lining-nums tabular-nums; }
+/* odômetro: cada coluna mostra uma linha da fita de dígitos; parada, a fita fica no valor final (2, 0, 0) */
+.odometro { display: inline-flex; vertical-align: top; height: 1em; }
+.odometro__coluna { display: block; height: 1em; overflow: hidden; }
+.odometro__fita { display: flex; flex-direction: column; align-items: center; }
+.odometro__fita > span { display: block; height: 1em; line-height: 1; }
+.odometro__fita--2 { transform: translateY(-2em); }
+.odometro__fita--10 { transform: translateY(-10em); }
+.beneficio__regra { font-size: 0.8125rem; line-height: 1.2; color: var(--sobre-navy); }
+/* "em crédito / na mensalidade" em duas linhas: o cartão fica estreito, centrado em você e longe do símbolo */
+.beneficio__regra > span { display: block; }
 
-/* celular e colunas estreitas: menos peças decorativas (saem o anel de fora e os dois formandos de baixo, onde ficam as
-   etiquetas) e traços mais grossos, para continuarem visíveis na escala menor */
+/* celular e colunas estreitas: menos peças decorativas (saem o anel de fora e os dois formandos de baixo, onde fica o
+   crédito) e traços mais grossos, para continuarem legíveis na escala menor */
 @container (max-width: 439px) {
   .anel--fora, .pessoa--se, .pessoa--sw { display: none; }
   .rota { stroke-width: 2.2; }
-  .rastro { stroke-width: 3.2; }
+  .segmento { --w: 3.8; }
+  .segmento--luz { --w: 6.2; }
   .setas { stroke-width: 3.8; }
-  .luz--nucleo { stroke-width: 9; }
-  .luz--halo { stroke-width: 26; }
-  .luz--cauda { stroke-width: 4.6; }
-  .aro__linha { stroke-width: 4.4; }
-  .pulso { stroke-width: 3.4; }
+  .caneta { width: calc(13 * var(--u)); height: calc(13 * var(--u)); margin: calc(-6.5 * var(--u)) 0 0 calc(-6.5 * var(--u)); }
+  .aro { border-width: calc(4.4 * var(--u)); }
   .constelacao__simbolo { stroke-width: 2.2; }
-  .beneficio strong { font-size: 1rem; }
+  .beneficio strong { font-size: 1.25rem; }
+  /* aqui o crédito desce para baixo da etiqueta (em cima bateria no formando da rede) */
+  .beneficio { bottom: auto; top: calc(5cqw + 31px); }
 }
-/* telas de 280–340 px: na composição estática o crédito e o "Fechou contrato" aparecem juntos e não cabem lado a lado;
-   o do colega desce uma linha (no ciclo os dois nunca aparecem ao mesmo tempo) */
+/* colunas muito estreitas (telas de 280–340 px): os créditos ficam mais compactos */
 @container (max-width: 339px) {
-  html:not(.js) .contrato { top: calc(5cqw + 96px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  @container (max-width: 339px) { .contrato { top: calc(5cqw + 96px); } }
+  .beneficio { padding: 7px 11px 8px; }
+  .credito-colega { padding: 3px 9px 3px 3px; gap: 5px; }
+  .credito-colega__visto { width: 16px; height: 16px; }
 }
 
-/* entrada: só CSS (existe sem JavaScript); com a intro, espera a dissolução */
-.aneis-turma { animation: aparece 900ms var(--ease-out) backwards; animation-delay: var(--rise-start, 0s); }
-/* o contorno do símbolo se desenha e depois acende no dourado oficial; os formandos estouram com mola; o trajeto aparece */
-.constelacao__simbolo { animation: traco 1400ms var(--ease-draw) backwards, acende 500ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 100ms), calc(var(--rise-start, 0s) + 1300ms); }
-.pessoa__corpo { animation: pop 520ms var(--ease-spring) backwards; animation-delay: calc(var(--rise-start, 0s) + 500ms + var(--i) * 110ms); }
-.rotas, .rastros, .setas { animation: aparece 700ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 900ms); }
-.etiqueta--voce { animation: aparece 400ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 1150ms); }
+/* entrada: só CSS (existe sem JavaScript); com a intro, espera a dissolução. Sem mola e sem escala: os formandos
+   aparecem subindo 6 px, o contorno do símbolo se desenha e acende no dourado oficial */
+.constelacao__fundo { animation: aparece 700ms var(--ease-out) backwards; animation-delay: var(--rise-start, 0s); }
+.constelacao__simbolo { animation: traco 1000ms var(--ease-draw) backwards, acende 400ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 60ms), calc(var(--rise-start, 0s) + 800ms); }
+.pessoa__corpo { animation: entra-formando 450ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 250ms + var(--i) * 70ms); }
+.segmentos { animation: aparece 600ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 600ms); }
+.etiqueta--voce, .credito-colega, .beneficio { animation: aparece 400ms var(--ease-out) backwards; animation-delay: calc(var(--rise-start, 0s) + 800ms); }
 @keyframes aparece { from { opacity: 0; } }
 @keyframes acende { from { fill-opacity: 0; } }
-@keyframes pop { from { opacity: 0; transform: scale(0); } }
+@keyframes entra-formando { from { opacity: 0; transform: translateY(6px); } }
 /* repetição: quando o hero sai da tela a entrada volta ao início e toca de novo na volta (o JS arma e desarma) */
-.constelacao.armada .aneis-turma, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo,
-.constelacao.armada .rotas, .constelacao.armada .etiqueta--voce { animation: none; opacity: 0; }
+.constelacao.armada .constelacao__fundo, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo,
+.constelacao.armada .etiqueta--voce { animation: none; opacity: 0; }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* repouso (com JS): só "Você" em destaque; o resto espera a sua vez */
-  .js .rastro { stroke-dasharray: 1 2; stroke-dashoffset: 1; opacity: 0; }
+  /* repouso (com JS): o traço ainda não foi feito; só "Você" em destaque, com o aro fino do desenho */
   .js .setas { display: none; }
-  .js .simbolo__brilho, .js .pessoa .aro, .js .etiqueta__ativa, .js .etiqueta--colega, .js .contrato, .js .beneficio { opacity: 0; }
-  .js .pessoa--colega .pessoa__corpo { scale: 0.8; }
-  .js .contrato svg { stroke-dashoffset: 1; }
+  .js .segmento { transform: scaleX(0); }
+  .js .pessoa .aro, .js .etiqueta__ativa, .js .credito-colega, .js .beneficio, .js .pessoa__brilho { opacity: 0; }
 
-  /* flutuação lenta e desencontrada (≈ 2–4 px); as etiquetas flutuam junto com o formando delas */
-  .js .pessoa { --amp: 2.2px; animation: flutua var(--fd) ease-in-out var(--fa) infinite alternate; }
-  .js .ancora { --amp: 0.3667cqw; animation: flutua var(--fd) ease-in-out var(--fa) infinite alternate; }
-
-  /* o ciclo (roteiro acima): todos com a mesma duração, então ficam em sincronia e param juntos */
-  .em-ciclo .pessoa--voce .aro { animation: voce-destaque var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .etiqueta--voce .etiqueta__ativa { animation: voce-etiqueta var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .pessoa--voce .pulso { animation: voce-pulso var(--ciclo) cubic-bezier(.2, .6, .35, 1) infinite both; }
-  .em-ciclo .rastro--indica { animation: anda-indica var(--ciclo) linear infinite both, rastro-indica var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .luz--indica { animation: anda-indica var(--ciclo) linear infinite both, luz-indica var(--ciclo) linear infinite both; }
-  .em-ciclo .pessoa--colega .pessoa__corpo { animation: colega-corpo var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .pessoa--colega .aro { animation: colega-aro var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .pessoa--colega .pulso { animation: colega-pulso var(--ciclo) cubic-bezier(.2, .6, .35, 1) infinite both; }
-  .em-ciclo .etiqueta--colega { animation: colega-etiqueta var(--ciclo) var(--ease-out) infinite both; }
-  .em-ciclo .contrato { animation: contrato var(--ciclo) var(--ease-out) infinite both; }
-  .em-ciclo .contrato svg { animation: contrato-visto var(--ciclo) var(--ease-draw) infinite both; }
-  .em-ciclo .rastro--valida { animation: anda-valida var(--ciclo) linear infinite both, rastro-valida var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .luz--valida { animation: anda-valida var(--ciclo) linear infinite both, luz-valida var(--ciclo) linear infinite both; }
-  .em-ciclo .simbolo__brilho, .em-ciclo .simbolo__luz { animation: simbolo-brilho var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .onda { animation: onda var(--ciclo) var(--ease-out) infinite both; }
-  .em-ciclo .onda--2 { animation-delay: 0.4s; }
-  .em-ciclo .aro--rede { animation: rede-onda var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .rastro--volta { animation: anda-volta var(--ciclo) linear infinite both, rastro-volta var(--ciclo) ease-in-out infinite both; }
-  .em-ciclo .luz--volta { animation: anda-volta var(--ciclo) linear infinite both, luz-volta var(--ciclo) linear infinite both; }
-  .em-ciclo .beneficio { animation: beneficio var(--ciclo) var(--ease-out) infinite both; }
+  /* a cena (roteiro acima): todas com a mesma duração, então ficam em sincronia, tocam uma vez e param juntas no quadro
+     final. A curva de cada trecho vem nos próprios @keyframes (gerados), por isso aqui fica linear. Cada segmento do traço
+     e da luz tem o seu @keyframes (--k, gerado), também do tamanho da cena: começam e terminam todos juntos, então a
+     thread principal só trabalha quando a cena liga e quando ela para. */
+  .em-cena .pessoa--voce .aro { animation: cena-voce-aro var(--cena) linear both; }
+  .em-cena .etiqueta--voce .etiqueta__ativa { animation: cena-voce-etiqueta var(--cena) linear both; }
+  .em-cena .segmentos { animation: cena-tracos var(--cena) linear both; }
+  .em-cena .segmento { animation: var(--k) var(--cena) linear both; }
+  .em-cena .caneta { animation: cena-caneta-anda var(--cena) linear both, cena-caneta var(--cena) linear both; }
+  .em-cena .pessoa--colega .aro { animation: cena-colega-aro var(--cena) linear both; }
+  .em-cena .credito-colega { animation: cena-credito-colega var(--cena) linear both; }
+  .em-cena .luz { animation: cena-luz var(--cena) linear both; }
+  .em-cena .odometro__fita--2 { animation: cena-odometro-2 var(--cena) linear both; }
+  .em-cena .odometro__fita--10 { animation: cena-odometro-10 var(--cena) linear both; }
+  .em-cena .pessoa__brilho { animation: cena-voce-brilho var(--cena) linear both; }
+  .em-cena .beneficio { animation: cena-beneficio var(--cena) linear both; }
 
   /* aba oculta: tudo para onde está e continua na volta */
   .constelacao.pausada, .constelacao.pausada * { animation-play-state: paused !important; }
 }
-@keyframes flutua { from { translate: 0 calc(-1 * var(--amp)); } to { translate: 0 var(--amp); } }
 
-/* tempos em % de 11 s (t ÷ 11 × 100). A luz e o rastro andam juntos: deslocamento do traço = --atras − progresso
-   (núcleo e halo: o ponto no progresso; cauda: 0,07 atrás; rastro: tudo desde o início) */
-@keyframes anda-indica { 0%, 9.09% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 22.27%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
-@keyframes anda-valida { 0%, 28.18% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 35.91%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
-@keyframes anda-volta { 0%, 40% { stroke-dashoffset: calc(var(--atras) * 1px); animation-timing-function: cubic-bezier(.45, .05, .3, 1); } 50.91%, 100% { stroke-dashoffset: calc((var(--atras) - 1) * 1px); } }
-@keyframes luz-indica { 0%, 9.09% { opacity: 0; } 9.55%, 21.82% { opacity: 1; } 22.73%, 100% { opacity: 0; } }
-@keyframes luz-valida { 0%, 28.18% { opacity: 0; } 28.64%, 35.91% { opacity: 1; } 38.18%, 100% { opacity: 0; } }
-@keyframes luz-volta { 0%, 39.55% { opacity: 0; } 40.45%, 50% { opacity: 1; } 51.36%, 100% { opacity: 0; } }
-@keyframes rastro-indica { 0%, 9.09% { opacity: 0; } 9.55%, 23.18% { opacity: 1; } 27.73%, 100% { opacity: 0; } }
-@keyframes rastro-valida { 0%, 28.18% { opacity: 0; } 28.64%, 39.55% { opacity: 1; } 45.45%, 100% { opacity: 0; } }
-@keyframes rastro-volta { 0%, 40% { opacity: 0; } 40.45%, 54.55% { opacity: 1; } 61.82%, 100% { opacity: 0; } }
-@keyframes voce-destaque { 0%, 1.82% { opacity: 0; } 6.36%, 23.64% { opacity: 1; } 29.09%, 48.18% { opacity: 0; } 51.82%, 74.55% { opacity: 1; } 81.82%, 100% { opacity: 0; } }
-/* a etiqueta troca de cor mais depressa que o anel: no meio da troca os dois textos se misturam */
-@keyframes voce-etiqueta { 0%, 1.82% { opacity: 0; } 4.09%, 23.64% { opacity: 1; } 25.91%, 48.18% { opacity: 0; } 50.45%, 74.55% { opacity: 1; } 77.27%, 100% { opacity: 0; } }
-@keyframes voce-pulso { 0% { opacity: 0; scale: 1; } 2.27% { opacity: 0.55; scale: 1; } 9.55% { opacity: 0; scale: 1.22; } 50.91% { opacity: 0; scale: 1; } 51.36% { opacity: 0.9; scale: 1; } 59.09%, 100% { opacity: 0; scale: 1.34; } }
-@keyframes colega-corpo { 0%, 21.82% { scale: 0.8; animation-timing-function: cubic-bezier(.34, 1.56, .64, 1); } 26.36%, 56.36% { scale: 1; } 67.27%, 100% { scale: 0.8; } }
-@keyframes colega-aro { 0%, 22.27% { opacity: 0; } 25.91%, 56.36% { opacity: 1; } 63.64%, 100% { opacity: 0; } }
-@keyframes colega-pulso { 0%, 22.73% { opacity: 0; scale: 1; } 23.18% { opacity: 0.5; scale: 1; } 29.09% { opacity: 0; scale: 1.2; } 41.36% { opacity: 0; scale: 1; } 41.82% { opacity: 0.85; scale: 1; } 49.09%, 100% { opacity: 0; scale: 1.34; } }
-@keyframes colega-etiqueta { 0%, 22.73% { opacity: 0; translate: -50% 4px; } 26.36%, 50.91% { opacity: 1; translate: -50% 0; } 55.45%, 100% { opacity: 0; translate: -50% 0; } }
-@keyframes contrato { 0%, 27.27% { opacity: 0; translate: 0 4px; } 30.91%, 50.91% { opacity: 1; translate: 0 0; } 55.45%, 100% { opacity: 0; translate: 0 0; } }
-@keyframes contrato-visto { 0%, 28.18% { stroke-dashoffset: 1; } 31.82%, 100% { stroke-dashoffset: 0; } }
-@keyframes simbolo-brilho { 0%, 35.45% { opacity: 0; } 39.55%, 43.64% { opacity: var(--pico); } 52.73%, 100% { opacity: 0; } }
-@keyframes onda { 0%, 36.36% { scale: 0.3; opacity: 0; animation-timing-function: cubic-bezier(.25, .55, .35, 1); } 37.73% { opacity: var(--pico); } 54.55%, 100% { scale: 1; opacity: 0; } }
-@keyframes rede-onda { 0%, 40.45% { opacity: 0; } 42.27% { opacity: 0.55; } 47.27%, 100% { opacity: 0; } }
-@keyframes beneficio { 0%, 54.55% { opacity: 0; translate: 0 6px; } 58.64%, 75.45% { opacity: 1; translate: 0 0; } 81.82%, 100% { opacity: 0; translate: 0 0; } }
+/* roteiro-hero:inicio (gerado por build/gera-roteiro.mjs a partir do roteiro em segundos; não editar à mão) */
+@keyframes cena-voce-aro { 0% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 9.459% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-voce-etiqueta { 0% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 1.351% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 9.459% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-colega-aro { 0% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 25.676% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 35.135% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { opacity: 1; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-credito-colega { 0% { opacity: 0; transform: translateY(6px); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 29.73% { opacity: 0; transform: translateY(6px); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 39.189% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-luz { 0% { opacity: 0; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 49.73% { opacity: 0; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 50.811% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 74.324% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 87.838% { opacity: 0; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 100% { opacity: 0; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } }
+@keyframes cena-voce-brilho { 0% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 81.081% { opacity: 0; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 89.189% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 100% { opacity: .75; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-beneficio { 0% { opacity: 0; transform: translateY(8px); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 81.081% { opacity: 0; transform: translateY(8px); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 90.541% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-odometro-2 { 0% { transform: translateY(0); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 82.432% { transform: translateY(0); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 97.297% { transform: translateY(-2em); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { transform: translateY(-2em); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-odometro-10 { 0% { transform: translateY(0); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 82.432% { transform: translateY(0); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 97.297% { transform: translateY(-10em); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } 100% { transform: translateY(-10em); animation-timing-function: cubic-bezier(.16, 1, .3, 1); } }
+@keyframes cena-tracos { 0% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 89.189% { opacity: 1; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 100% { opacity: .7; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } }
+@keyframes cena-caneta { 0% { opacity: 0; animation-timing-function: linear; } 3.243% { opacity: 0; animation-timing-function: linear; } 4.054% { opacity: 1; animation-timing-function: linear; } 50.27% { opacity: 1; animation-timing-function: linear; } 52.432% { opacity: 0; animation-timing-function: linear; } 70.27% { opacity: 0; animation-timing-function: linear; } 71.892% { opacity: 1; animation-timing-function: linear; } 83.784% { opacity: 1; animation-timing-function: linear; } 84.324% { opacity: 0; animation-timing-function: linear; } 100% { opacity: 0; animation-timing-function: linear; } }
+@keyframes cena-caneta-anda { 0%, 4.054% { transform: translate(-31.667cqw, 1.333cqw); } 5.068% { transform: translate(-31.626cqw, 1.443cqw); } 6.081% { transform: translate(-31.493cqw, 1.794cqw); } 7.095% { transform: translate(-31.241cqw, 2.426cqw); } 8.108% { transform: translate(-30.83cqw, 3.385cqw); } 9.122% { transform: translate(-30.191cqw, 4.727cqw); } 10.135% { transform: translate(-29.217cqw, 6.512cqw); } 11.149% { transform: translate(-27.731cqw, 8.796cqw); } 12.162% { transform: translate(-25.458cqw, 11.607cqw); } 13.176% { transform: translate(-21.976cqw, 14.877cqw); } 14.189% { transform: translate(-16.728cqw, 18.307cqw); } 15.203% { transform: translate(-9.266cqw, 21.166cqw); } 16.216% { transform: translate(0cqw, 22.333cqw); } 17.23% { transform: translate(9.266cqw, 21.166cqw); } 18.243% { transform: translate(16.728cqw, 18.307cqw); } 19.257% { transform: translate(21.976cqw, 14.877cqw); } 20.27% { transform: translate(25.458cqw, 11.607cqw); } 21.284% { transform: translate(27.731cqw, 8.796cqw); } 22.297% { transform: translate(29.217cqw, 6.512cqw); } 23.311% { transform: translate(30.191cqw, 4.727cqw); } 24.324% { transform: translate(30.83cqw, 3.385cqw); } 25.338% { transform: translate(31.241cqw, 2.426cqw); } 26.351% { transform: translate(31.493cqw, 1.794cqw); } 27.365% { transform: translate(31.626cqw, 1.443cqw); } 28.378%, 37.811% { transform: translate(31.667cqw, 1.333cqw); } 37.838% { transform: translate(31.667cqw, -1.333cqw); } 38.401% { transform: translate(31.637cqw, -1.346cqw); } 38.964% { transform: translate(31.544cqw, -1.389cqw); } 39.527% { transform: translate(31.373cqw, -1.465cqw); } 40.09% { transform: translate(31.112cqw, -1.581cqw); } 40.653% { transform: translate(30.738cqw, -1.744cqw); } 41.216% { transform: translate(30.226cqw, -1.964cqw); } 41.779% { transform: translate(29.537cqw, -2.253cqw); } 42.342% { transform: translate(28.617cqw, -2.624cqw); } 42.905% { transform: translate(27.393cqw, -3.094cqw); } 43.468% { transform: translate(25.77cqw, -3.67cqw); } 44.032% { transform: translate(23.676cqw, -4.329cqw); } 44.595% { transform: translate(21.192cqw, -4.978cqw); } 45.158% { transform: translate(18.673cqw, -5.473cqw); } 45.721% { transform: translate(16.496cqw, -5.754cqw); } 46.284% { transform: translate(14.778cqw, -5.87cqw); } 46.847% { transform: translate(13.467cqw, -5.891cqw); } 47.41% { transform: translate(12.476cqw, -5.864cqw); } 47.973% { transform: translate(11.73cqw, -5.819cqw); } 48.536% { transform: translate(11.175cqw, -5.771cqw); } 49.099% { transform: translate(10.769cqw, -5.728cqw); } 49.662% { transform: translate(10.485cqw, -5.693cqw); } 50.225% { transform: translate(10.3cqw, -5.669cqw); } 50.788% { transform: translate(10.198cqw, -5.654cqw); } 51.351%, 70.243% { transform: translate(10.167cqw, -5.65cqw); } 70.27% { transform: translate(-10.167cqw, 5.65cqw); } 70.833% { transform: translate(-10.198cqw, 5.654cqw); } 71.396% { transform: translate(-10.3cqw, 5.669cqw); } 71.959% { transform: translate(-10.485cqw, 5.693cqw); } 72.523% { transform: translate(-10.769cqw, 5.728cqw); } 73.086% { transform: translate(-11.175cqw, 5.771cqw); } 73.649% { transform: translate(-11.73cqw, 5.819cqw); } 74.212% { transform: translate(-12.476cqw, 5.864cqw); } 74.775% { transform: translate(-13.467cqw, 5.891cqw); } 75.338% { transform: translate(-14.778cqw, 5.87cqw); } 75.901% { transform: translate(-16.496cqw, 5.754cqw); } 76.464% { transform: translate(-18.673cqw, 5.473cqw); } 77.027% { transform: translate(-21.192cqw, 4.978cqw); } 77.59% { transform: translate(-23.676cqw, 4.329cqw); } 78.153% { transform: translate(-25.77cqw, 3.67cqw); } 78.716% { transform: translate(-27.393cqw, 3.094cqw); } 79.279% { transform: translate(-28.617cqw, 2.624cqw); } 79.842% { transform: translate(-29.537cqw, 2.253cqw); } 80.405% { transform: translate(-30.226cqw, 1.964cqw); } 80.968% { transform: translate(-30.738cqw, 1.744cqw); } 81.532% { transform: translate(-31.112cqw, 1.581cqw); } 82.095% { transform: translate(-31.373cqw, 1.465cqw); } 82.658% { transform: translate(-31.544cqw, 1.389cqw); } 83.221% { transform: translate(-31.637cqw, 1.346cqw); } 83.784%, 100% { transform: translate(-31.667cqw, 1.333cqw); } }
+@keyframes seg-0 { 0%, 4.0541% { transform: scaleX(0); } 7.9065%, 100% { transform: none; } }
+@keyframes seg-1 { 0%, 7.9065% { transform: scaleX(0); } 9.264%, 100% { transform: none; } }
+@keyframes seg-2 { 0%, 9.264% { transform: scaleX(0); } 10.2171%, 100% { transform: none; } }
+@keyframes seg-3 { 0%, 10.2171% { transform: scaleX(0); } 10.9638%, 100% { transform: none; } }
+@keyframes seg-4 { 0%, 10.9638% { transform: scaleX(0); } 11.5809%, 100% { transform: none; } }
+@keyframes seg-5 { 0%, 11.5809% { transform: scaleX(0); } 12.1076%, 100% { transform: none; } }
+@keyframes seg-6 { 0%, 12.1076% { transform: scaleX(0); } 12.5675%, 100% { transform: none; } }
+@keyframes seg-7 { 0%, 12.5675% { transform: scaleX(0); } 12.9758%, 100% { transform: none; } }
+@keyframes seg-8 { 0%, 12.9758% { transform: scaleX(0); } 13.3431%, 100% { transform: none; } }
+@keyframes seg-9 { 0%, 13.3431% { transform: scaleX(0); } 13.6775%, 100% { transform: none; } }
+@keyframes seg-10 { 0%, 13.6775% { transform: scaleX(0); } 13.9849%, 100% { transform: none; } }
+@keyframes seg-11 { 0%, 13.9849% { transform: scaleX(0); } 14.27%, 100% { transform: none; } }
+@keyframes seg-12 { 0%, 14.27% { transform: scaleX(0); } 14.5367%, 100% { transform: none; } }
+@keyframes seg-13 { 0%, 14.5367% { transform: scaleX(0); } 14.7883%, 100% { transform: none; } }
+@keyframes seg-14 { 0%, 14.7883% { transform: scaleX(0); } 15.0274%, 100% { transform: none; } }
+@keyframes seg-15 { 0%, 15.0274% { transform: scaleX(0); } 15.2565%, 100% { transform: none; } }
+@keyframes seg-16 { 0%, 15.2565% { transform: scaleX(0); } 15.4776%, 100% { transform: none; } }
+@keyframes seg-17 { 0%, 15.4776% { transform: scaleX(0); } 15.6928%, 100% { transform: none; } }
+@keyframes seg-18 { 0%, 15.6928% { transform: scaleX(0); } 15.9038%, 100% { transform: none; } }
+@keyframes seg-19 { 0%, 15.9038% { transform: scaleX(0); } 16.1124%, 100% { transform: none; } }
+@keyframes seg-20 { 0%, 16.1124% { transform: scaleX(0); } 16.3201%, 100% { transform: none; } }
+@keyframes seg-21 { 0%, 16.3201% { transform: scaleX(0); } 16.5286%, 100% { transform: none; } }
+@keyframes seg-22 { 0%, 16.5286% { transform: scaleX(0); } 16.7396%, 100% { transform: none; } }
+@keyframes seg-23 { 0%, 16.7396% { transform: scaleX(0); } 16.9548%, 100% { transform: none; } }
+@keyframes seg-24 { 0%, 16.9548% { transform: scaleX(0); } 17.1759%, 100% { transform: none; } }
+@keyframes seg-25 { 0%, 17.1759% { transform: scaleX(0); } 17.405%, 100% { transform: none; } }
+@keyframes seg-26 { 0%, 17.405% { transform: scaleX(0); } 17.6441%, 100% { transform: none; } }
+@keyframes seg-27 { 0%, 17.6441% { transform: scaleX(0); } 17.8957%, 100% { transform: none; } }
+@keyframes seg-28 { 0%, 17.8957% { transform: scaleX(0); } 18.1624%, 100% { transform: none; } }
+@keyframes seg-29 { 0%, 18.1624% { transform: scaleX(0); } 18.4475%, 100% { transform: none; } }
+@keyframes seg-30 { 0%, 18.4475% { transform: scaleX(0); } 18.7549%, 100% { transform: none; } }
+@keyframes seg-31 { 0%, 18.7549% { transform: scaleX(0); } 19.0893%, 100% { transform: none; } }
+@keyframes seg-32 { 0%, 19.0893% { transform: scaleX(0); } 19.4567%, 100% { transform: none; } }
+@keyframes seg-33 { 0%, 19.4567% { transform: scaleX(0); } 19.8649%, 100% { transform: none; } }
+@keyframes seg-34 { 0%, 19.8649% { transform: scaleX(0); } 20.3248%, 100% { transform: none; } }
+@keyframes seg-35 { 0%, 20.3248% { transform: scaleX(0); } 20.8515%, 100% { transform: none; } }
+@keyframes seg-36 { 0%, 20.8515% { transform: scaleX(0); } 21.4686%, 100% { transform: none; } }
+@keyframes seg-37 { 0%, 21.4686% { transform: scaleX(0); } 22.2154%, 100% { transform: none; } }
+@keyframes seg-38 { 0%, 22.2154% { transform: scaleX(0); } 23.1684%, 100% { transform: none; } }
+@keyframes seg-39 { 0%, 23.1684% { transform: scaleX(0); } 24.5259%, 100% { transform: none; } }
+@keyframes seg-40 { 0%, 24.5259% { transform: scaleX(0); } 28.3784%, 100% { transform: none; } }
+@keyframes seg-41 { 0%, 37.8378% { transform: scaleX(0); } 41.5718%, 100% { transform: none; } }
+@keyframes seg-42 { 0%, 41.5718% { transform: scaleX(0); } 42.6738%, 100% { transform: none; } }
+@keyframes seg-43 { 0%, 42.6738% { transform: scaleX(0); } 43.3846%, 100% { transform: none; } }
+@keyframes seg-44 { 0%, 43.3846% { transform: scaleX(0); } 43.9223%, 100% { transform: none; } }
+@keyframes seg-45 { 0%, 43.9223% { transform: scaleX(0); } 44.3786%, 100% { transform: none; } }
+@keyframes seg-46 { 0%, 44.3786% { transform: scaleX(0); } 44.8106%, 100% { transform: none; } }
+@keyframes seg-47 { 0%, 44.8106% { transform: scaleX(0); } 45.2669%, 100% { transform: none; } }
+@keyframes seg-48 { 0%, 45.2669% { transform: scaleX(0); } 45.8046%, 100% { transform: none; } }
+@keyframes seg-49 { 0%, 45.8046% { transform: scaleX(0); } 46.5154%, 100% { transform: none; } }
+@keyframes seg-50 { 0%, 46.5154% { transform: scaleX(0); } 47.6173%, 100% { transform: none; } }
+@keyframes seg-51 { 0%, 47.6173% { transform: scaleX(0); } 51.3514%, 100% { transform: none; } }
+@keyframes seg-52 { 0%, 70.2703% { transform: scaleX(0); } 74.0043%, 100% { transform: none; } }
+@keyframes seg-53 { 0%, 74.0043% { transform: scaleX(0); } 75.1062%, 100% { transform: none; } }
+@keyframes seg-54 { 0%, 75.1062% { transform: scaleX(0); } 75.8171%, 100% { transform: none; } }
+@keyframes seg-55 { 0%, 75.8171% { transform: scaleX(0); } 76.3548%, 100% { transform: none; } }
+@keyframes seg-56 { 0%, 76.3548% { transform: scaleX(0); } 76.8111%, 100% { transform: none; } }
+@keyframes seg-57 { 0%, 76.8111% { transform: scaleX(0); } 77.243%, 100% { transform: none; } }
+@keyframes seg-58 { 0%, 77.243% { transform: scaleX(0); } 77.6993%, 100% { transform: none; } }
+@keyframes seg-59 { 0%, 77.6993% { transform: scaleX(0); } 78.237%, 100% { transform: none; } }
+@keyframes seg-60 { 0%, 78.237% { transform: scaleX(0); } 78.9479%, 100% { transform: none; } }
+@keyframes seg-61 { 0%, 78.9479% { transform: scaleX(0); } 80.0498%, 100% { transform: none; } }
+@keyframes seg-62 { 0%, 80.0498% { transform: scaleX(0); } 83.7838%, 100% { transform: none; } }
+@keyframes seg-63 { 0%, 50.8108% { transform: scaleX(0); } 52.7017%, 100% { transform: none; } }
+@keyframes seg-64 { 0%, 52.7017% { transform: scaleX(0); } 53.455%, 100% { transform: none; } }
+@keyframes seg-65 { 0%, 53.455% { transform: scaleX(0); } 54.0226%, 100% { transform: none; } }
+@keyframes seg-66 { 0%, 54.0226% { transform: scaleX(0); } 54.4946%, 100% { transform: none; } }
+@keyframes seg-67 { 0%, 54.4946% { transform: scaleX(0); } 54.9059%, 100% { transform: none; } }
+@keyframes seg-68 { 0%, 54.9059% { transform: scaleX(0); } 55.2744%, 100% { transform: none; } }
+@keyframes seg-69 { 0%, 55.2744% { transform: scaleX(0); } 55.6109%, 100% { transform: none; } }
+@keyframes seg-70 { 0%, 55.6109% { transform: scaleX(0); } 55.9221%, 100% { transform: none; } }
+@keyframes seg-71 { 0%, 55.9221% { transform: scaleX(0); } 56.2129%, 100% { transform: none; } }
+@keyframes seg-72 { 0%, 56.2129% { transform: scaleX(0); } 56.4869%, 100% { transform: none; } }
+@keyframes seg-73 { 0%, 56.4869% { transform: scaleX(0); } 56.7466%, 100% { transform: none; } }
+@keyframes seg-74 { 0%, 56.7466% { transform: scaleX(0); } 56.9942%, 100% { transform: none; } }
+@keyframes seg-75 { 0%, 56.9942% { transform: scaleX(0); } 57.2312%, 100% { transform: none; } }
+@keyframes seg-76 { 0%, 57.2312% { transform: scaleX(0); } 57.459%, 100% { transform: none; } }
+@keyframes seg-77 { 0%, 57.459% { transform: scaleX(0); } 57.6787%, 100% { transform: none; } }
+@keyframes seg-78 { 0%, 57.6787% { transform: scaleX(0); } 57.8913%, 100% { transform: none; } }
+@keyframes seg-79 { 0%, 57.8913% { transform: scaleX(0); } 58.0974%, 100% { transform: none; } }
+@keyframes seg-80 { 0%, 58.0974% { transform: scaleX(0); } 58.2979%, 100% { transform: none; } }
+@keyframes seg-81 { 0%, 58.2979% { transform: scaleX(0); } 58.4933%, 100% { transform: none; } }
+@keyframes seg-82 { 0%, 58.4933% { transform: scaleX(0); } 58.684%, 100% { transform: none; } }
+@keyframes seg-83 { 0%, 58.684% { transform: scaleX(0); } 58.8707%, 100% { transform: none; } }
+@keyframes seg-84 { 0%, 58.8707% { transform: scaleX(0); } 59.0536%, 100% { transform: none; } }
+@keyframes seg-85 { 0%, 59.0536% { transform: scaleX(0); } 59.2331%, 100% { transform: none; } }
+@keyframes seg-86 { 0%, 59.2331% { transform: scaleX(0); } 59.4096%, 100% { transform: none; } }
+@keyframes seg-87 { 0%, 59.4096% { transform: scaleX(0); } 59.5834%, 100% { transform: none; } }
+@keyframes seg-88 { 0%, 59.5834% { transform: scaleX(0); } 59.7548%, 100% { transform: none; } }
+@keyframes seg-89 { 0%, 59.7548% { transform: scaleX(0); } 59.924%, 100% { transform: none; } }
+@keyframes seg-90 { 0%, 59.924% { transform: scaleX(0); } 60.0912%, 100% { transform: none; } }
+@keyframes seg-91 { 0%, 60.0912% { transform: scaleX(0); } 60.2567%, 100% { transform: none; } }
+@keyframes seg-92 { 0%, 60.2567% { transform: scaleX(0); } 60.4207%, 100% { transform: none; } }
+@keyframes seg-93 { 0%, 60.4207% { transform: scaleX(0); } 60.5834%, 100% { transform: none; } }
+@keyframes seg-94 { 0%, 60.5834% { transform: scaleX(0); } 60.745%, 100% { transform: none; } }
+@keyframes seg-95 { 0%, 60.745% { transform: scaleX(0); } 60.9056%, 100% { transform: none; } }
+@keyframes seg-96 { 0%, 60.9056% { transform: scaleX(0); } 61.0655%, 100% { transform: none; } }
+@keyframes seg-97 { 0%, 61.0655% { transform: scaleX(0); } 61.2248%, 100% { transform: none; } }
+@keyframes seg-98 { 0%, 61.2248% { transform: scaleX(0); } 61.3837%, 100% { transform: none; } }
+@keyframes seg-99 { 0%, 61.3837% { transform: scaleX(0); } 61.5423%, 100% { transform: none; } }
+@keyframes seg-100 { 0%, 61.5423% { transform: scaleX(0); } 61.7009%, 100% { transform: none; } }
+@keyframes seg-101 { 0%, 61.7009% { transform: scaleX(0); } 61.8596%, 100% { transform: none; } }
+@keyframes seg-102 { 0%, 61.8596% { transform: scaleX(0); } 62.0184%, 100% { transform: none; } }
+@keyframes seg-103 { 0%, 62.0184% { transform: scaleX(0); } 62.1778%, 100% { transform: none; } }
+@keyframes seg-104 { 0%, 62.1778% { transform: scaleX(0); } 62.3376%, 100% { transform: none; } }
+@keyframes seg-105 { 0%, 62.3376% { transform: scaleX(0); } 62.4983%, 100% { transform: none; } }
+@keyframes seg-106 { 0%, 62.4983% { transform: scaleX(0); } 62.6599%, 100% { transform: none; } }
+@keyframes seg-107 { 0%, 62.6599% { transform: scaleX(0); } 62.8226%, 100% { transform: none; } }
+@keyframes seg-108 { 0%, 62.8226% { transform: scaleX(0); } 62.9866%, 100% { transform: none; } }
+@keyframes seg-109 { 0%, 62.9866% { transform: scaleX(0); } 63.1521%, 100% { transform: none; } }
+@keyframes seg-110 { 0%, 63.1521% { transform: scaleX(0); } 63.3193%, 100% { transform: none; } }
+@keyframes seg-111 { 0%, 63.3193% { transform: scaleX(0); } 63.4885%, 100% { transform: none; } }
+@keyframes seg-112 { 0%, 63.4885% { transform: scaleX(0); } 63.6598%, 100% { transform: none; } }
+@keyframes seg-113 { 0%, 63.6598% { transform: scaleX(0); } 63.8336%, 100% { transform: none; } }
+@keyframes seg-114 { 0%, 63.8336% { transform: scaleX(0); } 64.0101%, 100% { transform: none; } }
+@keyframes seg-115 { 0%, 64.0101% { transform: scaleX(0); } 64.1897%, 100% { transform: none; } }
+@keyframes seg-116 { 0%, 64.1897% { transform: scaleX(0); } 64.3726%, 100% { transform: none; } }
+@keyframes seg-117 { 0%, 64.3726% { transform: scaleX(0); } 64.5592%, 100% { transform: none; } }
+@keyframes seg-118 { 0%, 64.5592% { transform: scaleX(0); } 64.75%, 100% { transform: none; } }
+@keyframes seg-119 { 0%, 64.75% { transform: scaleX(0); } 64.9453%, 100% { transform: none; } }
+@keyframes seg-120 { 0%, 64.9453% { transform: scaleX(0); } 65.1458%, 100% { transform: none; } }
+@keyframes seg-121 { 0%, 65.1458% { transform: scaleX(0); } 65.352%, 100% { transform: none; } }
+@keyframes seg-122 { 0%, 65.352% { transform: scaleX(0); } 65.5645%, 100% { transform: none; } }
+@keyframes seg-123 { 0%, 65.5645% { transform: scaleX(0); } 65.7843%, 100% { transform: none; } }
+@keyframes seg-124 { 0%, 65.7843% { transform: scaleX(0); } 66.0121%, 100% { transform: none; } }
+@keyframes seg-125 { 0%, 66.0121% { transform: scaleX(0); } 66.2491%, 100% { transform: none; } }
+@keyframes seg-126 { 0%, 66.2491% { transform: scaleX(0); } 66.4966%, 100% { transform: none; } }
+@keyframes seg-127 { 0%, 66.4966% { transform: scaleX(0); } 66.7563%, 100% { transform: none; } }
+@keyframes seg-128 { 0%, 66.7563% { transform: scaleX(0); } 67.0303%, 100% { transform: none; } }
+@keyframes seg-129 { 0%, 67.0303% { transform: scaleX(0); } 67.3211%, 100% { transform: none; } }
+@keyframes seg-130 { 0%, 67.3211% { transform: scaleX(0); } 67.6324%, 100% { transform: none; } }
+@keyframes seg-131 { 0%, 67.6324% { transform: scaleX(0); } 67.9688%, 100% { transform: none; } }
+@keyframes seg-132 { 0%, 67.9688% { transform: scaleX(0); } 68.3374%, 100% { transform: none; } }
+@keyframes seg-133 { 0%, 68.3374% { transform: scaleX(0); } 68.7487%, 100% { transform: none; } }
+@keyframes seg-134 { 0%, 68.7487% { transform: scaleX(0); } 69.2207%, 100% { transform: none; } }
+@keyframes seg-135 { 0%, 69.2207% { transform: scaleX(0); } 69.7882%, 100% { transform: none; } }
+@keyframes seg-136 { 0%, 69.7882% { transform: scaleX(0); } 70.5416%, 100% { transform: none; } }
+@keyframes seg-137 { 0%, 70.5416% { transform: scaleX(0); } 72.4324%, 100% { transform: none; } }
+/* roteiro-hero:fim */
 
 /* Seções */
 .secao { padding: var(--e8) var(--lateral); }
@@ -461,6 +603,7 @@ section[id] { scroll-margin-top: calc(var(--altura-topo) + var(--caixa-margem));
 .liga__orbita.desenhando .orbita__no:nth-of-type(1) { animation-delay: 900ms; }
 .liga__orbita.desenhando .orbita__no:nth-of-type(2) { animation-delay: 1050ms; }
 .liga__orbita.desenhando .orbita__no:nth-of-type(3) { animation-delay: 1200ms; }
+@keyframes pop { from { opacity: 0; transform: scale(0); } }
 @keyframes circulo-abre { from { clip-path: circle(0% at 47.93% 46.14%); } to { clip-path: circle(44.97% at 47.93% 46.14%); } }
 @keyframes anel-assenta { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: none; } }
 
@@ -814,7 +957,7 @@ html.intro-ativa::before { content: ""; position: fixed; inset: 0; z-index: 900;
   *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
   .revela-armado .linha-conteudo { opacity: 1 !important; transform: none !important; }
   .liga__foto.armada picture { clip-path: circle(44.97% at 47.93% 46.14%) !important; }
-  .constelacao.armada .aneis-turma, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo, .constelacao.armada .rotas, .constelacao.armada .etiqueta--voce { opacity: 1 !important; }
+  .constelacao.armada .constelacao__fundo, .constelacao.armada .constelacao__simbolo, .constelacao.armada .pessoa__corpo, .constelacao.armada .etiqueta--voce { opacity: 1 !important; }
   .liga__foto.armada .liga__selo, .liga__foto.armada::before, .liga__orbita.armada .orbita--fina, .liga__orbita.armada .orbita__no { opacity: 1 !important; transform: none !important; }
   .marca-dagua.armada, .liga__orbita.armada .orbita, .servicos.armada .servicos__icone, .oferta.armada .oferta__icone { stroke-dashoffset: 0 !important; }
   .faq summary::after { transition: none; }

@@ -1,11 +1,11 @@
 {
   "name": "liga-fordoctor-lp",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "private": true,
   "description": "Landing page da Liga ForDoctor (fordoctor.com.br/liga-fordoctor/): fonte única, build da pré-visualização e, na Fase 3, do template WordPress.",
   "scripts": {
-    "build": "node build/gera-sprite.mjs && node build/gera-intro.mjs && node build/build.mjs",
-    "preview": "node build/gera-sprite.mjs && node build/gera-intro.mjs && node build/build.mjs && node build/serve.mjs",
+    "build": "node build/gera-sprite.mjs && node build/gera-roteiro.mjs && node build/gera-intro.mjs && node build/build.mjs",
+    "preview": "node build/gera-sprite.mjs && node build/gera-roteiro.mjs && node build/gera-intro.mjs && node build/build.mjs && node build/serve.mjs",
     "imagens": "bash build/imagens.sh"
   }
 }
